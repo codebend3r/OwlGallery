@@ -14,16 +14,33 @@ $.fn.crivasslider = function (options) {
   var settings = $.extend({
     // These are the defaults.
     cycleTime: 3000,
-    cycleTimer: null,
-    currentSlideNum: 0,
-    numberOfPics: 0,
-    fadeTime: 350,
-    $imageList: [],
+    animationTime: 350,
+    paginationElement: null,
+    animationType: Crivas.animationTypes.FADE,
     direction: Crivas.direction.FORWARD,
     child: null //will automatically find img tags
   }, options);
 
-  var $this = this;
+	var $this = this,
+	$imageList = [],
+	$paginationButtonList = [],
+	imgWidth = null,
+	imgHeight = null,
+	loopBack = false,
+	currentSlide,
+  prevSlide,
+  currentPaginationButton,
+  prevPaginationButton,
+  firstImage,
+  lastImage,
+  numberOfPics = 0,
+  cycleTimer = null,
+  currentID,
+  prevID,
+  currentSlideNum,
+  containerClassName = 'crivas-container',
+  imageClassName = 'crivas-image',
+  paginationClass = 'crivas-pagination-button';
 
   /**
    Get a new list of images and starts cycle again
@@ -35,59 +52,101 @@ $.fn.crivasslider = function (options) {
     console.log('CrivasGallery.initCycle');
 
     if (settings.direction !== Crivas.direction.FORWARD && settings.direction !== Crivas.direction.BACKWARD) {
-      throw Error("direction option is not set to 'forward' or 'backwards'. Defaulting to 'forward'");
+      throw Error("direction option is not set to valid option 'forward' or 'backwards'. Defaulting to 'forward'");
       settings.direction = Crivas.direction.FORWARD;
     }
 
-    $this.addClass('crivas-gallery-container');
+    if (settings.animationType !== Crivas.animationTypes.FADE && settings.animationType !== Crivas.animationTypes.SLIDE) {
+      throw Error("animationType option is not set to a valid option 'fade' or 'slide'. Defaulting to 'fade'");
+      settings.animationType = Crivas.animationTypes.FADE;
+    }
 
-    var kids;
+    $this.addClass(containerClassName);
+    $this.css({
+      overflow: 'hidden',
+      zIndex: 1
+		});
+
+    var kids, $paginationContainer, paginationButtonItem, id = 0;
 
     settings.child !== null ? kids = $(settings.child) : kids = $this.children('img');
+
+    $paginationContainer = $(settings.paginationElement);
+    paginationButtonItem = $paginationContainer.children('li');
+
+    // clear the list items
+    $paginationContainer.html('');
 
     kids.each(function () {
 
       var child = $(this);
 
+      imgWidth = Math.max(child.width(), imgWidth);
+      imgHeight = Math.max(child.height(), imgHeight);
+
       // if child is an img tag
       if (child.is('img')) {
-        child.addClass('crivas-gallery-image');
+
+        child.addClass(imageClassName);
         child.css({
-	        position: "absolute"
+	        position: 'absolute',
+	        zIndex: 0
         });
+
+        var paginationCopy = paginationButtonItem.clone();
+
+        paginationCopy.attr('buttonID', id);
+        paginationCopy.addClass(paginationClass);
+
+				//add a new list item on every loop
+        $paginationContainer.append(paginationCopy);
+
+        id += 1;
+
+      } else {
+
+        throw Error("Can not find img tags please use the child property to pass in a valid img selector.");
+
       }
 
     });
 
-    settings.$imageList = $('.crivas-gallery-image');
-    settings.numberOfPics = settings.$imageList.length - 1;
+    $imageList = $('.'+ imageClassName);
+    $paginationButtonList = $('.' + paginationClass);
+    $paginationButtonList.bind('click', paginationClick);
+    numberOfPics = $imageList.length - 1;
+    firstImage = $imageList[ 0 ];
+    lastImage = $imageList[ numberOfPics ];
 
     if (settings.direction == Crivas.direction.FORWARD) {
-      settings.currentSlideNum = 0;
-      showBottomImage(false);
-    } else {
-      settings.currentSlideNum = settings.numberOfPics + 1;
-      //showAll(false);
-    }
 
-    console.log('///////////// SETTINGS /////////////');
-    console.log('# OF PICS', settings.numberOfPics);
-    console.log('STARTING FROM PIC #', settings.currentSlideNum);
-    console.log('ALL IMAGES', settings.$imageList);
+      currentSlideNum = 0;
+
+      if (settings.animationType.FADE) {
+        showBottomImage(false);
+      } else {
+	      initSlides();
+      }
+
+    } else {
+
+      currentSlideNum = numberOfPics + 1;
+
+      if (settings.animationType.FADE) {
+        showTopImage(false);
+      } else {
+	      initSlides();
+      }
+
+    }
 
     // clear any intervals currently running
     killTimer();
 
     // start cycling through images
-    if (settings.numberOfPics > 0) {
-      settings.cycleTimer = setInterval(cycleImages, settings.cycleTime);
-    }
+	  startTimer();
 
   };
-
-  var currentSlide;
-
-  var prevSlide;
 
   /**
    Cycles through the next image in the array.
@@ -97,58 +156,159 @@ $.fn.crivasslider = function (options) {
    **/
   var cycleImages = function () {
 
-    console.log('CrivasGallery.cycleImages', settings.currentSlideNum);
+	  //console.log('CrivasGallery.cycleImages', currentSlideNum);
 
-    if (settings.direction == Crivas.direction.FORWARD) {
+	  if (settings.direction == Crivas.direction.FORWARD) {
 
-      //GOING FORWARD
+		  // going forward
+		  if (currentSlideNum >= numberOfPics) {
 
-      if (settings.currentSlideNum >= settings.numberOfPics) {
+			  currentSlideNum = 0;
 
-        settings.currentSlideNum = 0;
-        showBottomImage(true);
+			  // define prevSlide and currentSlide
+			  setCurrentSlide(currentSlideNum);
 
-      } else {
+			  if (settings.animationType.FADE) {
+				  showBottomImage(true);
+			  } else {
+				  resetImageSlides();
+			  }
 
-        // increment current slide #
-        settings.currentSlideNum += 1;
+		  } else {
 
-        // then select current slide from image list array
-        prevSlide = currentSlide;
-        currentSlide = settings.$imageList[ settings.currentSlideNum ];
-        if ( $(prevSlide).hasClass("current-slide") ) $(prevSlide).removeClass("current-slide");
-	      $(currentSlide).addClass("current-slide");
+			  // increment current slide #
+			  currentSlideNum += 1;
 
-        //if going forward fade in each image on top
-        $(currentSlide).fadeIn(settings.fadeTime);
+				// define prevSlide and currentSlide
+			  setCurrentSlide(currentSlideNum);
 
-      }
+			  if (settings.animationType.FADE) {
 
-    } else {
+				  // if going forward fade in each image on top
+				  $(currentSlide).fadeIn(settings.animationTime);
 
-      //GOING BACKWARDS
+			  } else {
 
-      if (settings.currentSlideNum <= 1) {
+				  slideForward();
 
-        settings.currentSlideNum = settings.numberOfPics + 1;
-        //killTimer();
-        showTopImage(true);
+			  }
 
-      } else {
+		  }
 
-        // decrement current slide #
-        settings.currentSlideNum -= 1;
+	  } else {
 
-        //console.log('currentSlideNum', settings.currentSlideNum);
+		  // going backwards
+		  if (currentSlideNum <= 1) {
 
-        // then select current slide from image list array
-        currentSlide = settings.$imageList[ settings.currentSlideNum ];
+			  currentSlideNum = numberOfPics + 1;
 
-        //if going backwards fade out each image to reveal the image under
-        $(currentSlide).fadeOut(settings.fadeTime);
+				// define prevSlide and currentSlide
+			  setCurrentSlide(currentSlideNum);
 
-      }
-    }
+			  if (settings.animationType.FADE) {
+				  showBottomImage(true);
+			  } else {
+				  resetImageSlides();
+			  }
+
+		  } else {
+
+			  // decrement current slide #
+			  currentSlideNum -= 1;
+
+				// define prevSlide and currentSlide
+			  setCurrentSlide(currentSlideNum);
+
+			  if (settings.animationType.FADE) {
+
+				  // if going backwards fade out each image to reveal the image under
+				  $(currentSlide).fadeOut(settings.animationTime);
+
+			  } else {
+
+				  slideBackward();
+
+			  }
+
+		  }
+
+	  }
+
+  };
+
+  var slideForward = function() {
+
+	  // move offscreen to the left
+	  if (loopBack) {
+
+		  // take the last image and move it offscreen, only happens once
+		  $(firstImage).show();
+		  $(firstImage).css({ left: 0 });
+		  $(firstImage).animate({
+			  left: 0 - imgWidth
+		  }, settings.animationTime, function () {
+			  $(firstImage).hide();
+		  });
+
+		  loopBack = false;
+
+	  } else {
+
+		  // when not looping back
+		  $(prevSlide).show();
+		  $(prevSlide).css({ left: 0 });
+		  $(prevSlide).animate({
+			  left: 0 - imgWidth
+		  }, settings.animationTime, function () {
+			  $(prevSlide).hide();
+		  });
+
+	  }
+
+	  // move the current slide in from the right
+	  $(currentSlide).show();
+	  $(currentSlide).css({ left: imgWidth });
+	  $(currentSlide).animate({
+		  left: 0
+	  }, settings.animationTime);
+
+  };
+
+  var slideBackward = function() {
+
+	  // move offscreen to the left
+	  if (loopBack) {
+
+		  // take the last image and move it offscreen, only happens once
+		  $(firstImage).show();
+		  $(firstImage).css({ left: 0 });
+		  $(firstImage).animate({
+			  left: 0 + imgWidth
+		  }, settings.animationTime, function () {
+			  $(firstImage).hide();
+		  });
+
+		  loopBack = false;
+
+	  } else {
+
+		  // when not looping back
+		  $(prevSlide).show();
+		  $(prevSlide).css({ left: 0 });
+		  $(prevSlide).animate({
+			  left: 0 + imgWidth
+		  }, settings.animationTime, function () {
+			  $(prevSlide).hide();
+		  });
+
+	  }
+
+	  // move the current slide in from the right
+	  $(currentSlide).show();
+	  $(currentSlide).css({ left: 0 - imgWidth });
+	  $(currentSlide).animate({
+		  left: 0
+	  }, settings.animationTime);
 
   };
 
@@ -157,14 +317,25 @@ $.fn.crivasslider = function (options) {
   ///////////////////////////////
 
   /**
-   Cycles through the whole image array and shows everything
+   Cycles through the whole image array and show and/or reposition every image
 
-   @method showAll
+   @method initSlides
    **/
-  var showAll = function () {
-    $.each(settings.$imageList, function () {
-      $(this).show();
-    });
+  var initSlides = function () {
+
+	  if (settings.animationType.FADE) {
+		  $.each($imageList, function () {
+			  $(this).show();
+		  });
+	  } else {
+		  $.each($imageList, function () {
+			  $(this).hide();
+			  $(this).css({left: imgWidth + 100});
+		  });
+		  $(firstImage).show();
+		  $(firstImage).css({left:0});
+	  }
+
   };
 
   /**
@@ -174,18 +345,16 @@ $.fn.crivasslider = function (options) {
    **/
   var showTopImage = function (fade) {
 
-    $.each(settings.$imageList, function () {
-      $(this).hide();
-    });
+	  $.each($imageList, function () {
+		  $(this).hide();
+	  });
 
-    var bottomImage = settings.$imageList[ 0 ];
-    var topImage = settings.$imageList[ settings.numberOfPics ];
-    $(bottomImage).show();
-    $(topImage).show();
+	  $(firstImage).show();
+	  $(lastImage).show();
 
-    if (fade) {
-      $(topImage).hide();
-      $(topImage).fadeIn(settings.fadeTime, showAll);
+	  if (fade) {
+		  $(lastImage).hide();
+		  $(lastImage).fadeIn(settings.animationTime, showAll);
     }
 
   };
@@ -193,24 +362,119 @@ $.fn.crivasslider = function (options) {
   /**
    Hide all images and fade out the top image
 
-   @method showTopImage
+   @method showBottomImage
    **/
   var showBottomImage = function (fade) {
 
-    $.each(settings.$imageList, function () {
-      $(this).hide();
-    });
+	  $.each($imageList, function () {
+		  $(this).hide();
+	  });
 
-    var bottomImage = settings.$imageList[ 0 ];
-    var topImage = settings.$imageList[ settings.numberOfPics ];
-    $(bottomImage).show();
+	  $(firstImage).show();
 
-    if (fade) {
-      $(topImage).show();
-      $(topImage).fadeOut(settings.fadeTime);
+	  if (fade) {
+		  $(lastImage).show();
+		  $(lastImage).fadeOut(settings.animationTime);
     }
 
   };
+
+	/**
+	 reset the image positions when animationType is set to 'slide'
+	 set loopBack to true
+	 @method resetImageSlides
+	 **/
+  var resetImageSlides = function() {
+
+	  $.each($imageList, function () {
+		  $(this).hide();
+		  $(this).css({left: imgWidth + 100});
+	  });
+
+	  $(lastImage).show();
+	  $(lastImage).css({ left: 0 });
+	  $(lastImage).animate({
+		  left: 0 - imgWidth
+	  }, settings.animationTime, function () {
+		  $(prevSlide).hide();
+	  });
+
+	  $(firstImage).show();
+	  $(firstImage).css({ left: imgWidth });
+	  $(firstImage).animate({
+		  left: 0
+	  }, settings.animationTime);
+
+	  loopBack = true;
+
+  };
+
+	/**
+	 adds the current class to the currently showing image slide and corresponding pagination button
+	 @method setCurrentSlide
+	 **/
+	var setCurrentSlide = function (i) {
+
+		if ( typeof(i) !== 'number' ) throw Error('variable i is not a number. Type of i is' + typeof(i));
+
+		currentSlideNum = Number(i);
+
+		// select current slide from list array
+		prevSlide = currentSlide || $imageList[ 0 ];
+		currentSlide = $imageList[ currentSlideNum ];
+
+		if ($(prevSlide).hasClass('current')) $(prevSlide).removeClass('current');
+		$(currentSlide).addClass('current');
+
+		// select current pagination button from list array
+		prevPaginationButton = currentPaginationButton || $paginationButtonList[ 0 ];
+		currentPaginationButton = $paginationButtonList[ currentSlideNum ];
+
+		if ($(prevPaginationButton).hasClass('current')) $(prevPaginationButton).removeClass('current');
+		$(currentPaginationButton).addClass('current');
+
+	};
+
+	/**
+	 Click event for pagination button click.
+	 Looks for buttonID then calls appropriate slide if same button is not clicked
+	 @method paginationClick
+	 **/
+  var paginationClick = function(e) {
+
+	  var $currentTarget = $(e.currentTarget);
+
+	  prevID = currentID || null;
+
+	  currentID = Number( $currentTarget.attr('buttonID') );
+
+		// if the same pagination button hasn't been clicked then change slide
+	  if ( currentID !== prevID ) goToSlide(currentID);
+
+  };
+
+	/**
+	 Takes in a param, stops the timer, set the current and previous slides and animatate towards next slide
+	 @param a number - determines which slide to go to.
+	 @method goToSlide
+	 **/
+	var goToSlide = function (i) {
+
+		killTimer();
+
+		currentSlideNum = i;
+
+		setCurrentSlide(currentSlideNum);
+
+		if (settings.direction == Crivas.direction.FORWARD) {
+			slideForward();
+		} else {
+			slideBackward();
+		}
+
+		startTimer();
+
+	};
 
   /**
    Stop the cycling timer
@@ -218,11 +482,22 @@ $.fn.crivasslider = function (options) {
    @method killSection
    **/
   var killTimer = function () {
-    clearInterval(settings.cycleTimer);
-    console.log('TIMER CLEARED');
+    clearInterval(cycleTimer);
   };
+
+	/**
+	 Starts the cycling timer
+
+	 @method killSection
+	 **/
+	var startTimer = function () {
+		if (numberOfPics > 0) {
+			cycleTimer = setInterval(cycleImages, settings.cycleTime);
+		}
+	};
 
   initCycle();
 
-  //return $this;
+  return $this;
+
 };
