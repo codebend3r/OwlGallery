@@ -53,8 +53,6 @@ $.fn.crivasslider = function (options) {
    **/
   var initCycle = function () {
 
-    console.log('CrivasGallery.initCycle');
-
     if (settings.direction !== Crivas.direction.FORWARD && settings.direction !== Crivas.direction.BACKWARD) {
       settings.direction = Crivas.direction.FORWARD;
       throw Error("direction option is not set to valid option 'forward' or 'backwards'. Defaulting to 'forward'");
@@ -145,7 +143,6 @@ $.fn.crivasslider = function (options) {
 
 	  // start cycling through images
 	  startTimer();
-	  //cycleImages();
 
   };
 
@@ -156,8 +153,6 @@ $.fn.crivasslider = function (options) {
    @method cycleImages
    **/
   var cycleImages = function () {
-
-	  //console.log('CrivasGallery.cycleImages', currentSlideNum);
 
 	  if (settings.direction == Crivas.direction.FORWARD) {
 
@@ -343,8 +338,6 @@ $.fn.crivasslider = function (options) {
    **/
   var initSlides = function () {
 
-    console.log('initSlides');
-
 	  if (settings.animationType == Crivas.animationTypes.FADE) {
 		  $.each($imageList, function () {
 			  $(this).show();
@@ -366,8 +359,6 @@ $.fn.crivasslider = function (options) {
    @method showTopImage
    **/
   var showTopImage = function (fade) {
-
-	  console.log('showTopImage', fade);
 
 	  $.each($imageList, function () {
 		  fade ? $(this).hide() : $(this).show();
@@ -397,8 +388,6 @@ $.fn.crivasslider = function (options) {
    **/
   var showBottomImage = function (fade) {
 
-    console.log('showBottomImage');
-
 	  $.each($imageList, function () {
 		  $(this).hide();
 		  $(this).css({left: 0});
@@ -420,8 +409,6 @@ $.fn.crivasslider = function (options) {
 	 @method resetImageSlides
 	 **/
 	var resetImageSlides = function () {
-
-		console.log('resetImageSlides');
 
 		if (settings.direction == Crivas.direction.FORWARD) {
 
@@ -481,8 +468,6 @@ $.fn.crivasslider = function (options) {
 		if ( typeof(i) !== 'number' ) throw Error('variable i is not a number. Type of i is ' + typeof(i));
 
 		currentSlideNum = Number(i);
-
-		console.log('setCurrentSlide.currentSlideNum', currentSlideNum);
 
 		// select current slide from list array
 		prevSlide = startSlide || currentSlide;

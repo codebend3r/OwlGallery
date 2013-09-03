@@ -1,0 +1,64 @@
+$primaryColour: #00A8C6;
+$secondaryColour: #40C0CB;
+$white: #FFFFFF;
+$tertiaryColour: #AEE239;
+$quadaryColour: #8FBE00;
+
+html {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.title-bar {
+  background-color: $primaryColour;
+  color: $white;
+  font-weight: bold;
+  width: 100%;
+  float: left;
+  clear: both;
+}
+
+h1 {
+  padding: 10px;
+}
+
+.main-container {
+  clear: both;
+  width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.slider-container{
+  float: left;
+  clear: both;
+  position: relative;
+  padding: 20px 0 0 0;
+}
+
+ul.modes {
+
+ color: $primaryColour;
+
+}
+
+ul.slides {
+
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+
+  .image-slide {
+
+  }
+
+}
