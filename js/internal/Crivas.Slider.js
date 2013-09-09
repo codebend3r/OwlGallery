@@ -1,12 +1,10 @@
-
-
 CS.initSlider = function () {
 
-	console.log('Crivas.initSlider');
+    console.log('Crivas.initSlider');
 
-	$('.slides').crivasslider({
-		child: '.image-slide'
-	});
+    $('.slides').crivasslider({
+        child: '.image-slide'
+    });
 
 };
 

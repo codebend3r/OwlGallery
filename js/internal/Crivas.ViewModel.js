@@ -1,10 +1,9 @@
+CS.ViewModel = function () {
 
-CS.ViewModel = function(){
+    var self = this;
 
-	var self = this;
+    self.imagesList = ko.observable(CS.imagesList.images);
 
-	self.imagesList = ko.observable(CS.imagesList.images);
-
-	return self;
+    return self;
 
 };

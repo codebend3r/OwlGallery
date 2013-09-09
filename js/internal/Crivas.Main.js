@@ -1,10 +1,10 @@
 var CS = {};
 
 
-CS.init = function() {
+CS.init = function () {
 
-	ko.applyBindings(CS.ViewModel());
+    ko.applyBindings(CS.ViewModel());
 
-	CS.initSlider();
+    CS.initSlider();
 
 };
