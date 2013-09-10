@@ -1,22 +1,35 @@
-var Crivas = {};
+/*!
+ * Owl Gallery
+ * crivas.net
+ *
+ * Copyright (c) Chester Rivas
+ */
 
-Crivas.animationTypes = {};
-Crivas.animationTypes.SLIDE = "slide";
-Crivas.animationTypes.FADE = "fade";
+/*
+ * Owl Accordion is a simple JQuery plugin to give a menu the accordion effect when clicked
+ *
+ * Authors        Chester Rivas
+ */
 
-Crivas.direction = {};
-Crivas.direction.FORWARD = "forward";
-Crivas.direction.BACKWARD = "backward";
+var Owl = {};
 
-$.fn.crivasslider = function (options) {
+Owl.animationTypes = {};
+Owl.animationTypes.SLIDE = "slide";
+Owl.animationTypes.FADE = "fade";
+
+Owl.direction = {};
+Owl.direction.FORWARD = "forward";
+Owl.direction.BACKWARD = "backward";
+
+$.fn.owlgallery = function (options) {
 
     var settings = $.extend({
         // These are the defaults.
         cycleTime: 3000,
         animationTime: 350,
         paginationElement: null,
-        animationType: Crivas.animationTypes.FADE,
-        direction: Crivas.direction.FORWARD,
+        animationType: Owl.animationTypes.FADE,
+        direction: Owl.direction.FORWARD,
         child: null //will automatically find img tags
     }, options);
 
@@ -40,10 +53,11 @@ $.fn.crivasslider = function (options) {
         prevID,
         currentSlideNum,
         fadeForward,
-        containerClassName = 'crivas-container',
-        imageClassName = 'crivas-image',
-        paginationClassName = 'crivas-pagination-button',
-        currentClassName = 'current';
+        containerClassName = 'owl-slide-container',
+        imageClassName = 'owl-image',
+        paginationClassName = 'owl-pagination-button',
+        currentClassName = 'current',
+        buttonIDPropertyName = 'buttonID';
 
     /**
      Get a new list of images and starts cycle again
@@ -52,13 +66,13 @@ $.fn.crivasslider = function (options) {
      **/
     var initCycle = function () {
 
-        if (settings.direction !== Crivas.direction.FORWARD && settings.direction !== Crivas.direction.BACKWARD) {
-            settings.direction = Crivas.direction.FORWARD;
+        if (settings.direction !== Owl.direction.FORWARD && settings.direction !== Owl.direction.BACKWARD) {
+            settings.direction = Owl.direction.FORWARD;
             throw Error("direction option is not set to valid option 'forward' or 'backwards'. Defaulting to 'forward'");
         }
 
-        if (settings.animationType !== Crivas.animationTypes.FADE && settings.animationType !== Crivas.animationTypes.SLIDE) {
-            settings.animationType = Crivas.animationTypes.FADE;
+        if (settings.animationType !== Owl.animationTypes.FADE && settings.animationType !== Owl.animationTypes.SLIDE) {
+            settings.animationType = Owl.animationTypes.FADE;
             throw Error("animationType option is not set to a valid option 'fade' or 'slide'. Defaulting to 'fade'");
         }
 
@@ -95,7 +109,7 @@ $.fn.crivasslider = function (options) {
 
                 var paginationCopy = paginationButtonItem.clone();
 
-                paginationCopy.attr('buttonID', id);
+                paginationCopy.attr(buttonIDPropertyName, id);
                 paginationCopy.addClass(paginationClassName);
 
                 //add a new list item on every loop
@@ -118,15 +132,15 @@ $.fn.crivasslider = function (options) {
         firstImage = $imageList[ 0 ];
         lastImage = $imageList[ numberOfPics ];
 
-        if (settings.direction == Crivas.direction.FORWARD) {
+        if (settings.direction == Owl.direction.FORWARD) {
 
             currentSlideNum = 0;
-            settings.animationType == Crivas.animationTypes.FADE ? showBottomImage(false) : initSlides();
+            settings.animationType == Owl.animationTypes.FADE ? showBottomImage(false) : initSlides();
 
         } else {
 
             currentSlideNum = numberOfPics;
-            settings.animationType == Crivas.animationTypes.FADE ? showTopImage(false) : initSlides();
+            settings.animationType == Owl.animationTypes.FADE ? showTopImage(false) : initSlides();
 
         }
 
@@ -153,7 +167,7 @@ $.fn.crivasslider = function (options) {
      **/
     var cycleImages = function () {
 
-        if (settings.direction == Crivas.direction.FORWARD) {
+        if (settings.direction == Owl.direction.FORWARD) {
 
             // going forward
             if (currentSlideNum >= numberOfPics) {
@@ -163,7 +177,7 @@ $.fn.crivasslider = function (options) {
                 // define prevSlide and currentSlide
                 setCurrentSlide(currentSlideNum);
 
-                settings.animationType == Crivas.animationTypes.FADE ? showBottomImage(true) : resetImageSlides();
+                settings.animationType == Owl.animationTypes.FADE ? showBottomImage(true) : resetImageSlides();
 
             } else {
 
@@ -173,7 +187,7 @@ $.fn.crivasslider = function (options) {
                 // define prevSlide and currentSlide
                 setCurrentSlide(currentSlideNum);
 
-                if (settings.animationType == Crivas.animationTypes.FADE) {
+                if (settings.animationType == Owl.animationTypes.FADE) {
 
                     // if going forward fade in each image on top
                     fadeForward = true;
@@ -198,7 +212,7 @@ $.fn.crivasslider = function (options) {
                 // define prevSlide and currentSlide
                 setCurrentSlide(currentSlideNum);
 
-                settings.animationType == Crivas.animationTypes.FADE ? showTopImage(true) : resetImageSlides();
+                settings.animationType == Owl.animationTypes.FADE ? showTopImage(true) : resetImageSlides();
 
             } else {
 
@@ -208,7 +222,7 @@ $.fn.crivasslider = function (options) {
                 // define prevSlide and currentSlide
                 setCurrentSlide(currentSlideNum);
 
-                if (settings.animationType == Crivas.animationTypes.FADE) {
+                if (settings.animationType == Owl.animationTypes.FADE) {
 
                     // if going backwards fade out each image to reveal the image under
                     fadeForward = false;
@@ -337,7 +351,7 @@ $.fn.crivasslider = function (options) {
      **/
     var initSlides = function () {
 
-        if (settings.animationType == Crivas.animationTypes.FADE) {
+        if (settings.animationType == Owl.animationTypes.FADE) {
             $.each($imageList, function () {
                 $(this).show();
             });
@@ -409,7 +423,7 @@ $.fn.crivasslider = function (options) {
      **/
     var resetImageSlides = function () {
 
-        if (settings.direction == Crivas.direction.FORWARD) {
+        if (settings.direction == Owl.direction.FORWARD) {
 
             $.each($imageList, function () {
                 $(this).hide();
@@ -519,15 +533,15 @@ $.fn.crivasslider = function (options) {
 
         setCurrentSlide(currentSlideNum);
 
-        if (settings.direction == Crivas.direction.FORWARD) {
-            if (settings.animationType == Crivas.animationTypes.FADE) {
+        if (settings.direction == Owl.direction.FORWARD) {
+            if (settings.animationType == Owl.animationTypes.FADE) {
                 fadeTo();
             } else {
                 slideForward();
             }
 
         } else {
-            if (settings.animationType == Crivas.animationTypes.FADE) {
+            if (settings.animationType == Owl.animationTypes.FADE) {
                 fadeTo();
             } else {
                 slideBackward();

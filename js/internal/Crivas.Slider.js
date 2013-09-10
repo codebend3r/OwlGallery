@@ -1,8 +1,8 @@
 CS.initSlider = function () {
 
-    console.log('Crivas.initSlider');
+    console.log('Init Owl Gallery');
 
-    $('.slides').crivasslider({
+    $('.slides').owlgallery({
         child: '.image-slide'
     });
 
