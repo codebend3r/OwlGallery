@@ -27,10 +27,14 @@ $.fn.owlgallery = function (options) {
         // These are the defaults.
         cycleTime: 3000,
         animationTime: 350,
+        galleryWidth: 640,
+        galleryHeight: 480,
         paginationElement: null,
         animationType: Owl.animationTypes.FADE,
         direction: Owl.direction.FORWARD,
-        child: null //will automatically find img tags
+        child: null, //will automatically find img and li tags
+        autoLoadTweener: false,
+        enableTweener: false
     }, options);
 
     var $this = this,
@@ -53,9 +57,11 @@ $.fn.owlgallery = function (options) {
         prevID,
         currentSlideNum,
         fadeForward,
+        easeType = 'Strong.easeOut',
         containerClassName = 'owl-slide-container',
         imageClassName = 'owl-image',
         paginationClassName = 'owl-pagination-button',
+        listClassName = 'owl-list-item',
         currentClassName = 'current',
         buttonIDPropertyName = 'buttonID';
 
@@ -79,10 +85,17 @@ $.fn.owlgallery = function (options) {
         $this.addClass(containerClassName);
         $this.css({
             overflow: 'hidden',
-            zIndex: 1
+            zIndex: 1,
+	        display: 'block',
+	        position: 'relative',
+	        width: settings.galleryWidth,
+	        height: settings.galleryHeight
         });
 
-        var kids, $paginationContainer, paginationButtonItem, id = 0;
+        var kids,
+	        $paginationContainer,
+	        paginationButtonItem,
+	        id = 0;
 
         settings.child !== null ? kids = $(settings.child) : kids = $this.children('img');
 
@@ -104,18 +117,39 @@ $.fn.owlgallery = function (options) {
 
                 child.addClass(imageClassName);
                 child.css({
-                    position: 'absolute'
+                    position: 'relative',
+                    display: 'inline-block',
                 });
 
-                var paginationCopy = paginationButtonItem.clone();
+                $imageList = $('.' + imageClassName);
 
-                paginationCopy.attr(buttonIDPropertyName, id);
-                paginationCopy.addClass(paginationClassName);
+            } else if (child.is('div')) {
 
-                //add a new list item on every loop
-                $paginationContainer.append(paginationCopy);
+	            child.addClass(listClassName);
+	            child.css({
+		            position: 'relative',
+                    display: 'inline-block',
+		            listStyle: 'none'
+	            });
 
-                id += 1;
+	            var deeperChild = child.find('img');
+	            deeperChild.addClass(imageClassName);
+
+                $imageList = $('.' + listClassName);
+
+            } else if (child.is('li')) {
+
+	            child.addClass(listClassName);
+	            child.css({
+                    position: 'absolute',
+                    display: 'inline-block',
+		            listStyle: 'none'
+	            });
+
+	            var deeperChild = child.find('img');
+	            deeperChild.addClass(imageClassName);
+
+                $imageList = $('.' + listClassName);
 
             } else {
 
@@ -123,9 +157,18 @@ $.fn.owlgallery = function (options) {
 
             }
 
+	        var paginationCopy = paginationButtonItem.clone();
+
+	        paginationCopy.attr(buttonIDPropertyName, id);
+	        paginationCopy.addClass(paginationClassName);
+
+	        //add a new list item on every loop
+	        $paginationContainer.append(paginationCopy);
+
+	        id += 1;
+
         });
 
-        $imageList = $('.' + imageClassName);
         $paginationButtonList = $('.' + paginationClassName);
         $paginationButtonList.bind('click', paginationClick);
         numberOfPics = $imageList.length - 1;
@@ -144,12 +187,14 @@ $.fn.owlgallery = function (options) {
 
         }
 
-        console.log('STARTING WITH SLIDE #', currentSlideNum);
-
         // set up the initial slide and pagination button
         startSlide = $imageList[ currentSlideNum ];
         startPagination = $paginationButtonList[ currentSlideNum ];
         $(startPagination).addClass(currentClassName);
+		
+		$.getScript( 'TweenMax.min.js', function() {
+			console.log('Tween Max Loaded');
+		});
 
         // clear any intervals currently running
         killTimer();
@@ -249,11 +294,19 @@ $.fn.owlgallery = function (options) {
             // take the last image and move it offscreen, only happens once
             $(firstImage).show();
             $(firstImage).css({ left: 0 });
-            $(firstImage).animate({
-                left: 0 - imgWidth
-            }, settings.animationTime, function () {
-                $(firstImage).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(firstImage), settings.animationTime/1000, {
+			        left: 0 - imgWidth, ease:easeType, onComplete:function(){
+				        $(firstImage).hide();
+			        }
+		        });
+	        } else {
+	            $(firstImage).animate({
+	                left: 0 - imgWidth
+	            }, settings.animationTime, function () {
+	                $(firstImage).hide();
+	            });
+	        }
 
             loopBack = false;
 
@@ -262,20 +315,34 @@ $.fn.owlgallery = function (options) {
             // when not looping back
             $(prevSlide).show();
             $(prevSlide).css({ left: 0 });
-            $(prevSlide).animate({
-                left: 0 - imgWidth
-            }, settings.animationTime, function () {
-                $(prevSlide).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(prevSlide), settings.animationTime/1000, {
+			        left: 0 - imgWidth, ease:easeType, onComplete:function(){
+				        //$(prevSlide).hide();
+			        }
+		        });
+	        } else {
+	            $(prevSlide).animate({
+	                left: 0 - imgWidth
+	            }, settings.animationTime, function () {
+	                $(prevSlide).hide();
+	            });
+	        }
 
         }
 
         // move the current slide in from the right
         $(currentSlide).show();
         $(currentSlide).css({ left: imgWidth });
-        $(currentSlide).animate({
-            left: 0
-        }, settings.animationTime);
+	    if (settings.enableTweener) {
+		    TweenLite.to($(currentSlide), settings.animationTime/1000, {
+			    left: 0, ease:easeType
+		    });
+	    } else {
+	        $(currentSlide).animate({
+	            left: 0
+	        }, settings.animationTime);
+	    }
 
     };
 
@@ -287,11 +354,19 @@ $.fn.owlgallery = function (options) {
             // take the last image and move it offscreen, only happens once
             $(firstImage).show();
             $(firstImage).css({ left: 0 });
-            $(firstImage).animate({
-                left: 0 + imgWidth
-            }, settings.animationTime, function () {
-                $(firstImage).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(firstImage), settings.animationTime/1000, {
+			        left: 0 + imgWidth, ease:easeType, onComplete:function(){
+				        $(firstImage).hide();
+			        }
+		        });
+	        } else {
+	            $(firstImage).animate({
+	                left: 0 + imgWidth
+	            }, settings.animationTime, function () {
+	                $(firstImage).hide();
+	            });
+	        }
 
             loopBack = false;
 
@@ -300,20 +375,34 @@ $.fn.owlgallery = function (options) {
             // when not looping back
             $(prevSlide).show();
             $(prevSlide).css({ left: 0 });
-            $(prevSlide).animate({
-                left: 0 + imgWidth
-            }, settings.animationTime, function () {
-                $(prevSlide).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(prevSlide), settings.animationTime/1000, {
+			        left: 0 + imgWidth, ease:easeType, onComplete:function(){
+				        $(prevSlide).hide();
+			        }
+		        });
+	        } else {
+	            $(prevSlide).animate({
+	                left: 0 + imgWidth
+	            }, settings.animationTime, function () {
+	                $(prevSlide).hide();
+	            });
+	        }
 
         }
 
         // move the current slide in from the right
         $(currentSlide).show();
         $(currentSlide).css({ left: 0 - imgWidth });
-        $(currentSlide).animate({
-            left: 0
-        }, settings.animationTime);
+	    if (settings.enableTweener) {
+		    TweenLite.to($(currentSlide), settings.animationTime/1000, {
+			    left: 0, ease:easeType
+		    });
+	    } else {
+	        $(currentSlide).animate({
+	            left: 0
+	        }, settings.animationTime);
+	    }
 
     };
 
@@ -409,8 +498,14 @@ $.fn.owlgallery = function (options) {
         $(firstImage).show();
 
         if (fade) {
-            $(lastImage).show();
-            $(lastImage).fadeOut(settings.animationTime);
+	        if (settings.enableTweener) {
+		        TweenLite.to($(lastImage), settings.animationTime/1000, {
+			        autoAlpha: 0, ease:easeType
+		        });
+	        } else {
+		        $(lastImage).show();
+		        $(lastImage).fadeOut(settings.animationTime);
+	        }
         }
 
     };
@@ -432,17 +527,31 @@ $.fn.owlgallery = function (options) {
 
             $(lastImage).show();
             $(lastImage).css({ left: 0 });
-            $(lastImage).animate({
-                left: 0 - imgWidth
-            }, settings.animationTime, function () {
-                $(lastImage).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(lastImage), settings.animationTime/1000, {
+			        left: 0 - imgWidth, ease:easeType, onComplete:function(){
+						$(lastImage).hide();
+			        }
+		        });
+	        } else {
+		        $(lastImage).animate({
+			        left: 0 - imgWidth
+		        }, settings.animationTime, function () {
+			        $(lastImage).hide();
+		        });
+	        }
 
             $(firstImage).show();
             $(firstImage).css({ left: imgWidth });
-            $(firstImage).animate({
-                left: 0
-            }, settings.animationTime);
+	        if (settings.enableTweener) {
+		        TweenLite.to($(firstImage), settings.animationTime/1000, {
+			        left: 0, ease:easeType
+		        });
+	        } else {
+	            $(firstImage).animate({
+	                left: 0
+	            }, settings.animationTime);
+	        }
 
         } else {
 
@@ -453,17 +562,31 @@ $.fn.owlgallery = function (options) {
 
             $(lastImage).show();
             $(lastImage).css({ left: 0 });
-            $(lastImage).animate({
-                left: imgWidth
-            }, settings.animationTime, function () {
-                $(lastImage).hide();
-            });
+	        if (settings.enableTweener) {
+		        TweenLite.to($(lastImage), settings.animationTime/1000, {
+			        left: 0 - imgWidth, ease:easeType, onComplete:function(){
+				        $(lastImage).hide();
+			        }
+		        });
+	        } else {
+	            $(lastImage).animate({
+	                left: imgWidth
+	            }, settings.animationTime, function () {
+	                $(lastImage).hide();
+	            });
+	        }
 
             $(firstImage).show();
             $(firstImage).css({ left: 0 - imgWidth });
-            $(firstImage).animate({
-                left: 0
-            }, settings.animationTime);
+	        if (settings.enableTweener) {
+		        TweenLite.to($(firstImage), settings.animationTime/1000, {
+			        left: 0, ease:easeType
+		        });
+	        } else {
+	            $(firstImage).animate({
+	                left: 0
+	            }, settings.animationTime);
+	        }
 
         }
 
@@ -508,11 +631,8 @@ $.fn.owlgallery = function (options) {
     var paginationClick = function (e) {
 
         var $currentTarget = $(e.currentTarget);
-
         prevID = currentID || null;
-
         currentID = Number($currentTarget.attr('buttonID'));
-
         prevID > currentID ? fadeForward = false : fadeForward = true;
 
         // if the same pagination button hasn't been clicked then change slide
