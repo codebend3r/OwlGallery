@@ -1,11 +1,4 @@
-# Output Files
 bin
-
 *.iml
-
-# IDE system files (RubyMine)
 .idea
-
-# SASS Cache - generated when runing sass --watch
 .sass-cache
-
