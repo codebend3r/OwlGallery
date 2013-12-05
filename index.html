@@ -30,6 +30,18 @@
         </ul>
     </div>
 
+    <div class='documentation'>
+        <h2>Documentation</h2>
+        <div class='options' data-bind='foreach: optionsList'>
+            <dl>
+                <div class='key-name'><dt>Property Name: </dt><dd data-bind='text: key'></dd></div>
+                <div class='default-value'><dt>Default Value: </dt><dd data-bind='text: defaultValue'></dd></div>
+                <div class='var-type'><dt>Type: </dt><dd data-bind='text: type'></dd></div>
+                <div class='description'><dt>Defintion: </dt><dd data-bind='text: description'></dd></div>
+            </dl>
+        </div>
+    </div>
+
 </div>
 
 
@@ -39,6 +51,7 @@
 
 <script src="js/internal/Crivas.Main.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Slider.js" type="text/javascript"></script>
+<script src="js/internal/Crivas.Documentation.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.ImageData.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.ViewModel.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Init.js" type="text/javascript"></script>

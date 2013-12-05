@@ -36,10 +36,28 @@ h1 {
 }
 
 .slider-container {
-  float: left;
-  clear: both;
-  position: relative;
-  padding: 20px 0 0 0;
+  position: static;
+}
+
+.documentation {
+  position: static;
+
+  dl {
+
+    font-size: 14px;
+    margin: 0 0 20px 0;
+
+    dt {
+      display: inline;
+      font-weight: bold;
+    }
+
+    dd {
+      display: inline;
+      margin: 0;
+    }
+
+  }
 }
 
 ul.modes {

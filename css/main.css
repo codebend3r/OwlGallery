@@ -1,10 +1,12 @@
 html {
   font-family: 'Open Sans', Helvetica, sans-serif;
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 body {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+}
 
 .title-bar {
   background-color: #00a8c6;
@@ -12,29 +14,49 @@ body {
   font-weight: bold;
   width: 100%;
   float: left;
-  clear: both; }
+  clear: both;
+}
 
 h1 {
-  padding: 10px; }
+  padding: 10px;
+}
 
 .main-container {
   clear: both;
   width: 1000px;
   height: 100%;
   margin: 0 auto;
-  padding: 20px; }
+  padding: 20px;
+}
 
 .slider-container {
-  float: left;
-  clear: both;
-  position: relative;
-  padding: 20px 0 0 0; }
+  position: static;
+}
+
+.documentation {
+  position: static;
+}
+.documentation dl {
+  font-size: 14px;
+  margin: 0 0 20px 0;
+}
+.documentation dl dt {
+  display: inline;
+  font-weight: bold;
+}
+.documentation dl dd {
+  display: inline;
+  margin: 0;
+}
 
 ul.modes {
-  color: #00a8c6; }
+  color: #00a8c6;
+}
 
 ul.slides {
   margin: 0;
-  padding: 0; }
-  ul.slides li {
-    list-style: none; }
+  padding: 0;
+}
+ul.slides li {
+  list-style: none;
+}
