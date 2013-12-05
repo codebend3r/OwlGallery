@@ -25,9 +25,20 @@ module.exports = function(grunt) {
                     ext: '.css'
                 }]
             }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 9001,
+                    base: '.',
+                    keepalive: true,
+                    livereload: true
+                }
+            }
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
 
