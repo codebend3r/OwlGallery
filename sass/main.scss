@@ -47,9 +47,15 @@ h1 {
     font-size: 14px;
     margin: 0 0 20px 0;
 
+    .var-type {
+      font-style: italic;
+      color: darkslategrey;
+    }
+
     dt {
       display: inline;
       font-weight: bold;
+      color: $primaryColour;
     }
 
     dd {

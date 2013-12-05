@@ -40,9 +40,14 @@ h1 {
   font-size: 14px;
   margin: 0 0 20px 0;
 }
+.documentation dl .var-type {
+  font-style: italic;
+  color: darkslategrey;
+}
 .documentation dl dt {
   display: inline;
   font-weight: bold;
+  color: #00a8c6;
 }
 .documentation dl dd {
   display: inline;
