@@ -1,4 +1,5 @@
-CrivasSlider
+OwlSlider
 ============
+v 1.3
 
-A simple jquery slider with your own style
+A simple JQuery slide/carousel/gallery width built in responsive design and swipe detection for mobile devices
