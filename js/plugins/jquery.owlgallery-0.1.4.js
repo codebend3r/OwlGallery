@@ -36,7 +36,6 @@ $.fn.owlgallery = function (options) {
         child: null, //will automatically find img and li tags
         responsiveMode: Owl.responsivemode.NEVERRESIZE,
         enableTweener: false,
-        autoLoadTweener: false,
         enableTouchEvents: false,
         autoPlay: true
     }, options);
@@ -207,28 +206,19 @@ $.fn.owlgallery = function (options) {
         // clear any intervals currently running
         killTimer();
 
+        // start cycling through images
+        if (settings.autoPlay) {
+            startTimer();
+        } else {
+            setCurrentSlide(currentSlideNum);
+        }
+
         if (settings.enableTweener) {
-            if (settings.autoLoadTweener) {
-                $.ajax({
-                    url: 'js/plugins/Tweenmax.min.js',
-                    dataType: "script",
-                    success: function() {
-                        console.log('TweenMax Loaded');
-                        TweenLite.to($this, 1, {
-                            autoAlpha: 1, ease: easeType
-                        });
-                        initialize();
-                    }
-                });
-            } else {
-                TweenLite.to($this, 1, {
-                    autoAlpha: 1, ease: easeType
-                });
-                initialize();
-            }
+            TweenLite.to($this, 1, {
+                autoAlpha: 1, ease: easeType
+            });
         } else {
             $this.animate({opacity: 1}, {duration: 1000});
-            initialize();
         }
 
         // if responsive mode doesn't equal to neverresize then add event listener for window resize
@@ -238,21 +228,10 @@ $.fn.owlgallery = function (options) {
                 minWidth: '100%',
                 minHeight: '100%'
             });
+
             onWindowResize();
         }
 
-    };
-
-    /**
-     * Start cycling through images
-     * @method initialize
-     */
-    var initialize = function() {
-        if (settings.autoPlay) {
-            startTimer();
-        } else {
-            setCurrentSlide(currentSlideNum);
-        }
     };
 
     var onWindowResize = function() {
@@ -594,8 +573,8 @@ $.fn.owlgallery = function (options) {
     };
 
     /*
-     FADE ANIMATION METHODS
-     */
+    FADE ANIMATION METHODS
+    */
 
     /**
      Fade to a specific slide
