@@ -8,6 +8,15 @@ body {
   margin: 0;
 }
 
+h1 {
+  padding: 10px;
+}
+
+pre {
+  background-color: #dbdbdb;
+  border: 1px solid #454545;
+}
+
 .title-bar {
   background-color: #00a8c6;
   color: white;
@@ -15,10 +24,6 @@ body {
   width: 100%;
   float: left;
   clear: both;
-}
-
-h1 {
-  padding: 10px;
 }
 
 .main-container {
@@ -40,13 +45,17 @@ h1 {
   font-size: 14px;
   margin: 0 0 20px 0;
 }
+.documentation dl .key-name {
+  font-weight: bold;
+  color: #00a8c6;
+  font-size: 16px;
+}
 .documentation dl .var-type {
   font-style: italic;
   color: darkslategrey;
 }
 .documentation dl dt {
   display: inline;
-  font-weight: bold;
   color: #00a8c6;
 }
 .documentation dl dd {

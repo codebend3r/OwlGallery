@@ -16,12 +16,14 @@
 
 <div class='main-container'>
 
+	<!--
     <ul class='modes'>
         <li>Default Settings</li>
         <li>Slide Forward and Backwards</li>
         <li>With Pagination</li>
         <li>Fade Forward and Backwards</li>
     </ul>
+    -->
 
     <div class='slider-container'>
         <ul class='slides' data-bind='foreach: imagesList'>
@@ -33,9 +35,19 @@
 
     <div class='documentation'>
         <h2>Documentation</h2>
+
+	    <pre>
+	$('.slides').owlgallery({
+		child: 'li',
+		galleryWidth: 1000,
+		galleryHeight: 563,
+		enableTweener: true
+	});
+	    </pre>
+
         <div class='options' data-bind='foreach: optionsList'>
             <dl>
-                <div class='key-name'><dt>Property Name: </dt><dd data-bind='text: key'></dd></div>
+                <div class='key-name'><dd data-bind='text: key'></dd></div>
                 <div class='default-value'><dt>Default Value: </dt><dd data-bind='text: defaultValue'></dd></div>
                 <div class='var-type'><dt>Type: </dt><dd data-bind='text: type'></dd></div>
                 <div class='description'><dt>Defintion: </dt><dd data-bind='text: description'></dd></div>
@@ -47,8 +59,9 @@
 
 
 <script src="js/plugins/jquery-1.9.1.js" type="text/javascript"></script>
-<script src="js/plugins/jquery.owlgallery-0.1.4.js" type="text/javascript"></script>
-<script src="js/plugins/knockout-2.2.1.js" type="text/javascript"></script>
+<script src="js/plugins/jquery.owlgallery-0.1.5.js" type="text/javascript"></script>
+<script src="js/vendor/knockout-2.2.1.js" type="text/javascript"></script>
+<script src="js/vendor/TweenMax.min.js" type="text/javascript"></script>
 
 <script src="js/internal/Crivas.Main.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Slider.js" type="text/javascript"></script>
@@ -56,7 +69,7 @@
 <script src="js/internal/Crivas.ImageData.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.ViewModel.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Init.js" type="text/javascript"></script>
-<script src="http://localhost:35729/livereload.js"></script>
+<!--<script src="http://localhost:8000/livereload.js"></script>-->
 
 </body>
 </html>

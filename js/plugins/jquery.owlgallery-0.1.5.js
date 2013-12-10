@@ -43,6 +43,7 @@ $.fn.owlgallery = function (options) {
         responsiveMode: Owl.responsivemode.NEVERRESIZE,
         enableTweener: false,
         enableTouchEvents: false,
+	    autoLoadTweener: false,
         autoPlay: true
     }, options);
 
@@ -224,9 +225,16 @@ $.fn.owlgallery = function (options) {
         }
 
         if (settings.enableTweener) {
-            TweenLite.to($this, 1, {
-                autoAlpha: 1, ease: easeType
-            });
+	        if (settings.autoLoadTweener) {
+		        console.log('settings.autoLoadTweener');
+		        $.getScript( "js/vendor/TweenMax.min.js", function( data ) {
+			        //console.log( data ); // Data returned
+			        console.log( "Load was performed." );
+			        TweenLite.to($this, 1, {
+				        autoAlpha: 1, ease: easeType
+			        });
+		        });
+	        }
         } else {
             $this.animate({opacity: 1}, {duration: 1000});
         }

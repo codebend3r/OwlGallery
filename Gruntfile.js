@@ -5,10 +5,11 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             css: {
-                files: '**/*.scss',
+                files: [ '**/*.scss', 'index.html' ],
                 tasks: ['sass'],
                 options: {
-                    livereload: true
+                    livereload: 8000,
+	                atBegin: true
                 }
             }
         },
@@ -17,21 +18,17 @@ module.exports = function(grunt) {
                 options: {
                     style: 'expanded'
                 },
-                files: [{
-                    expand: true,
-                    cwd: 'sass',
-                    src: ['**/*.scss'],
-                    dest: 'css',
-                    ext: '.css'
-                }]
+	            files: {
+		            'css/main.css': 'sass/main.scss'
+	            }
             }
         },
         connect: {
             server: {
                 options: {
-                    port: 9001,
+                    port: 8000,
                     base: '.',
-                    keepalive: true,
+                    keepalive: false,
                     livereload: true
                 }
             }
@@ -43,7 +40,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
 
     // Default task(s).
-    grunt.registerTask('watchsass', ['watch']);
-    grunt.registerTask('default', ['sass']);
+    grunt.registerTask('watchsass', ['connect', 'watch']);
+    grunt.registerTask('default', ['connect', 'watch']);
 
 };

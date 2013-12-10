@@ -14,6 +14,15 @@ body {
   margin: 0;
 }
 
+h1 {
+  padding: 10px;
+}
+
+pre {
+  background-color: #dbdbdb;
+  border: 1px solid #454545;
+}
+
 .title-bar {
   background-color: $primaryColour;
   color: $white;
@@ -21,10 +30,6 @@ body {
   width: 100%;
   float: left;
   clear: both;
-}
-
-h1 {
-  padding: 10px;
 }
 
 .main-container {
@@ -47,6 +52,12 @@ h1 {
     font-size: 14px;
     margin: 0 0 20px 0;
 
+    .key-name {
+      font-weight: bold;
+      color: $primaryColour;
+      font-size: 16px;
+    }
+
     .var-type {
       font-style: italic;
       color: darkslategrey;
@@ -54,7 +65,6 @@ h1 {
 
     dt {
       display: inline;
-      font-weight: bold;
       color: $primaryColour;
     }
 
