@@ -3,13 +3,19 @@
  * crivas.net
  *
  * Author: Chester Rivas
- * Version: 1.4
+ * Version: 1.5
  */
 var Owl = {};
 
 Owl.animationTypes = {};
 Owl.animationTypes.SLIDE = "slide";
 Owl.animationTypes.FADE = "fade";
+
+Owl.event = {};
+Owl.event.SLIDECHANGED = "slidechanged";
+Owl.event.SLIDENEXTCLICKED = "slidenextclicked";
+Owl.event.SLIDEPREVCLICKED = "slideprevclicked";
+Owl.event.PAGINATIONCLICKED = "paginationclicked";
 
 Owl.direction = {};
 Owl.direction.FORWARD = "forward";
@@ -113,7 +119,11 @@ $.fn.owlgallery = function (options) {
             paginationCopy,
             id = 0;
 
-        settings.child !== null ? kids = $(settings.child) : kids = $this.children('img');
+        settings.child !== null ? kids = $this.find(settings.child) : kids = $this.children('img');
+
+	    if (!settings.child) {
+		    throw Error("child is undefined, therefore plugin can not find slide elements. Make sure an img, li or child div exist.");
+	    }
 
         $paginationContainer = $(settings.paginationElement);
         paginationButtonItem = $paginationContainer.children('li');
@@ -122,8 +132,6 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.html('');
 
         //setupPagination();
-
-        setupNavigation();
 
         kids.each(function () {
 
@@ -141,7 +149,7 @@ $.fn.owlgallery = function (options) {
                     display: 'inline-block'
                 });
 
-                $galleryListItems = $('.' + imageClassName).not('.not-gallery-image');;
+                $galleryListItems = $this.find('.' + imageClassName).not('.not-gallery-image');;
 
             } else if (child.is('div')) {
 
@@ -155,7 +163,7 @@ $.fn.owlgallery = function (options) {
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
 
-                $galleryListItems = $('.' + listClassName);
+                $galleryListItems = $this.find('.' + listClassName);
 
             } else if (child.is('li')) {
 
@@ -169,15 +177,13 @@ $.fn.owlgallery = function (options) {
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
 
-                $galleryListItems = $('.' + listClassName).not('.not-gallery-image');
+                $galleryListItems = $this.find('.' + listClassName).not('.not-gallery-image');
 
             } else {
 
                 throw Error("Can not find img tags please use the child property to pass in a valid img selector.");
 
             }
-
-            $galleryImages = $('.' + imageClassName);
 
             paginationCopy = paginationButtonItem.clone();
             paginationCopy.attr(buttonIDPropertyName, id);
@@ -190,7 +196,11 @@ $.fn.owlgallery = function (options) {
 
         });
 
-        $paginationButtonList = $('.' + paginationClassName);
+	    $galleryImages = $('.' + imageClassName);
+
+	    setupNavigationListeners();
+
+        $paginationButtonList = $this.find('.' + paginationClassName);
         $paginationButtonList.bind('click', paginationClick);
         numberOfPics = $galleryListItems.length - 1;
         firstImage = $galleryListItems[ 0 ];
@@ -228,11 +238,89 @@ $.fn.owlgallery = function (options) {
                 minWidth: '100%',
                 minHeight: '100%'
             });
-
             onWindowResize();
         }
 
     };
+
+	/**
+	 Cycles through the next image in the array.
+	 If it's the last image in array it will reset back to the first one.
+
+	 @method cycleImages
+	 **/
+	var cycleImages = function () {
+
+		if (settings.direction == Owl.direction.FORWARD) {
+
+			// going forward
+			if (currentSlideNum >= numberOfPics) {
+
+				currentSlideNum = 0;
+
+				// define prevSlide and currentSlide
+				setCurrentSlide(currentSlideNum);
+
+				if (settings.animationType == Owl.animationTypes.FADE) {
+					showBottomImage(true);
+				} else {
+					resetImageSlides();
+				}
+
+			} else {
+
+				// increment current slide #
+				currentSlideNum += 1;
+				// define prevSlide and currentSlide
+				setCurrentSlide(currentSlideNum);
+
+				if (settings.animationType == Owl.animationTypes.FADE) {
+					// if going forward fade in each image on top
+					fadeTo();
+				} else {
+					// animate the next slide
+					slideForward();
+				}
+
+			}
+
+		} else {
+
+			// going backwards
+			if (currentSlideNum <= 0) {
+
+				currentSlideNum = numberOfPics;
+				// define prevSlide and currentSlide
+				setCurrentSlide(currentSlideNum);
+
+				if (settings.animationType == Owl.animationTypes.FADE) {
+					showTopImage(true);
+				} else {
+					resetImageSlides();
+				}
+
+			} else {
+
+				// decrement current slide #
+				currentSlideNum -= 1;
+				// define prevSlide and currentSlide
+				setCurrentSlide(currentSlideNum);
+
+				if (settings.animationType == Owl.animationTypes.FADE) {
+					// if going backwards fade out each image to reveal the image under
+					fadeTo();
+				} else {
+					// animate the next slide
+					slideBackward();
+				}
+
+			}
+
+		}
+
+		$this.trigger(Owl.event.SLIDECHANGED, currentSlideNum);
+
+	};
 
     var onWindowResize = function() {
 
@@ -261,21 +349,32 @@ $.fn.owlgallery = function (options) {
 
     };
 
+	/**
+	 Positions all images based on animationType. Called when cycle reaches the beginning and end.
+
+	 @method repositionImages
+	 **/
     var repositionImages = function() {
 
         if (settings.animationType == Owl.animationTypes.FADE) {
-            $galleryListItems.each(function (i) {
+            $galleryListItems.each(function () {
                 $(this).css({left: 0});
             });
         } else {
+	        console.log('currentSlideNum', currentSlideNum);
             $galleryListItems.each(function (i) {
-                $(this).css({left: Math.ceil(currentImageWidth * i)});
+                $(this).css({left: Math.ceil(currentImageWidth * i) - (currentSlideNum * currentImageWidth)});
             });
         }
 
     };
 
-    var setupNavigation = function() {
+	/**
+	 Sets up click event listeners for navigation elements if defined and touch swipeleft/swiperight if touch is enabled
+
+	 @method setupNavigationListeners
+	 **/
+    var setupNavigationListeners = function() {
 
         var $navigationElement = $(settings.navElement),
             navigationButtons = $navigationElement.children('li'),
@@ -307,7 +406,11 @@ $.fn.owlgallery = function (options) {
 
     };
 
+	/**
+	 Wires up the initial animation setup based on animationType and direction
 
+	 @method setAnimationDefaults
+	 **/
     var setAnimationDefaults = function () {
         if (settings.direction == Owl.direction.FORWARD) {
             currentSlideNum = 0;
@@ -316,85 +419,6 @@ $.fn.owlgallery = function (options) {
             currentSlideNum = numberOfPics;
             settings.animationType == Owl.animationTypes.FADE ? showTopImage(false) : initSlides();
         }
-    };
-
-    /**
-     Cycles through the next image in the array.
-     If it's the last image in array it will reset back to the first one.
-
-     @method cycleImages
-     **/
-    var cycleImages = function () {
-
-        if (settings.direction == Owl.direction.FORWARD) {
-
-            // going forward
-            if (currentSlideNum >= numberOfPics) {
-
-                currentSlideNum = 0;
-
-                // define prevSlide and currentSlide
-                setCurrentSlide(currentSlideNum);
-
-                if (settings.animationType == Owl.animationTypes.FADE) {
-                    console.log('RESET TO BOTTOM IMAGE');
-                    showBottomImage(true);
-                } else {
-                    resetImageSlides();
-                }
-
-            } else {
-
-                // increment current slide #
-                currentSlideNum += 1;
-                // define prevSlide and currentSlide
-                setCurrentSlide(currentSlideNum);
-
-                if (settings.animationType == Owl.animationTypes.FADE) {
-                    // if going forward fade in each image on top
-                    console.log('FADE TO');
-                    fadeTo();
-                } else {
-                    // animate the next slide
-                    slideForward();
-                }
-
-            }
-
-        } else {
-
-            // going backwards
-            if (currentSlideNum <= 0) {
-
-                currentSlideNum = numberOfPics;
-                // define prevSlide and currentSlide
-                setCurrentSlide(currentSlideNum);
-
-                if (settings.animationType == Owl.animationTypes.FADE) {
-                    showTopImage(true);
-                } else {
-                    resetImageSlides();
-                }
-
-            } else {
-
-                // decrement current slide #
-                currentSlideNum -= 1;
-                // define prevSlide and currentSlide
-                setCurrentSlide(currentSlideNum);
-
-                if (settings.animationType == Owl.animationTypes.FADE) {
-                    // if going backwards fade out each image to reveal the image under
-                    fadeTo();
-                } else {
-                    // animate the next slide
-                    slideBackward();
-                }
-
-            }
-
-        }
-
     };
 
     /*
@@ -506,8 +530,6 @@ $.fn.owlgallery = function (options) {
      **/
     var resetImageSlides = function () {
 
-        console.log('resetImageSlides');
-
         if (!animating) {
 
             animating = true;
@@ -563,6 +585,11 @@ $.fn.owlgallery = function (options) {
 
     };
 
+	/**
+	 Cancels the current timeout and restarts it again
+
+	 @method cancelTimer
+	 **/
     var cancelTimer = function(){
 
         clearTimeout(animationTimer);
@@ -582,8 +609,6 @@ $.fn.owlgallery = function (options) {
      @method fadeTo
      **/
     var fadeTo = function () {
-
-        console.log('fadeTo');
 
         if (!animating) {
 
@@ -642,8 +667,6 @@ $.fn.owlgallery = function (options) {
      @method showTopImage
      **/
     var showTopImage = function (fade) {
-
-        console.log('showTopImage');
 
         if (!animating) {
 
@@ -713,8 +736,6 @@ $.fn.owlgallery = function (options) {
      @method showBottomImage
      **/
     var showBottomImage = function (fade) {
-
-        console.log('showBottomImage fade = ', fade);
 
         if (!animating) {
 
@@ -821,6 +842,23 @@ $.fn.owlgallery = function (options) {
 
     };
 
+	/**
+	 Click event for navigation button click.
+	 Decrments currentSlideNum
+
+	 @method navigationDecrementClick
+	 **/
+	var navigationDecrementClick = function (e) {
+
+		if (!animating) {
+			$this.trigger(Owl.event.SLIDEPREVCLICKED, currentSlideNum);
+			settings.direction = Owl.direction.BACKWARD;
+			cycleImages();
+			settings.direction = originalDirection;
+		}
+
+	};
+
     /**
      Click event for navigation button click.
      Increments currentSlideNum
@@ -830,6 +868,7 @@ $.fn.owlgallery = function (options) {
     var navigationIncrementClick = function (e) {
 
         if (!animating) {
+	        $this.trigger(Owl.event.SLIDENEXTCLICKED, currentSlideNum);
             settings.direction = Owl.direction.FORWARD;
             cycleImages();
             settings.direction = originalDirection;
@@ -838,31 +877,17 @@ $.fn.owlgallery = function (options) {
     };
 
     /**
-     Click event for navigation button click.
-     Decrments currentSlideNum
-
-     @method navigationDecrementClick
-     **/
-    var navigationDecrementClick = function (e) {
-
-        if (!animating) {
-            settings.direction = Owl.direction.BACKWARD;
-            cycleImages();
-            settings.direction = originalDirection;
-        }
-
-    };
-
-    /**
-     Takes in a param, stops the timer, set the current and previous slides and animatate towards next slide
-     @param a number - determines which slide to go to.
+     Takes in a param, stops the timer, set the current and previous slides and animates towards next slide
+     @param i number value of current slide
+     @param p number - previous slide if needed
      @method goToSlide
      **/
     var goToSlide = function (i, p) {
 
-        if (!animating) {
+	    $this.trigger(Owl.event.SLIDECHANGED, currentSlideNum);
+	    $this.trigger(Owl.event.PAGINATIONCLICKED, currentSlideNum);
 
-            console.log('goToSlide i = ' + i + ', p = ' + p);
+        if (!animating) {
 
             killTimer();
             currentSlideNum = i;
@@ -870,7 +895,9 @@ $.fn.owlgallery = function (options) {
 
             if (settings.direction == Owl.direction.FORWARD) {
                 if (settings.animationType == Owl.animationTypes.FADE) {
+
                     fadeTo();
+
                 } else {
 
                     $galleryListItems.each(function (i) {
@@ -892,19 +919,25 @@ $.fn.owlgallery = function (options) {
                     var leftPosC = parseInt($(currentSlide).css('left'), 10);
                     if (settings.enableTweener) {
                         TweenLite.to($(currentSlide), settings.animationTime / 1000, {
-                            left: leftPosC + currentImageWidth, ease: easeType
+                            left: leftPosC + currentImageWidth, ease: easeType, onComplete:function() {
+		                        repositionImages();
+	                        }
                         });
                     } else {
                         $(currentSlide).animate({
                             left: leftPosC - currentImageWidth
-                        }, settings.animationTime);
+                        }, settings.animationTime, function() {
+	                        repositionImages();
+                        });
                     }
 
                 }
 
             } else {
                 if (settings.animationType == Owl.animationTypes.FADE) {
+
                     fadeTo();
+
                 } else {
 
                     $galleryListItems.each(function (i) {
@@ -926,12 +959,16 @@ $.fn.owlgallery = function (options) {
                     var leftPosC = parseInt($(currentSlide).css('left'), 10);
                     if (settings.enableTweener) {
                         TweenLite.to($(currentSlide), settings.animationTime / 1000, {
-                            left: leftPosC - currentImageWidth, ease: easeType
+                            left: leftPosC - currentImageWidth, ease: easeType, onComplete:function() {
+		                        repositionImages();
+	                        }
                         });
                     } else {
                         $(currentSlide).animate({
                             left: leftPosC - currentImageWidth
-                        }, settings.animationTime);
+                        }, settings.animationTime, function() {
+	                        repositionImages();
+                        });
                     }
 
                 }
@@ -940,7 +977,6 @@ $.fn.owlgallery = function (options) {
             startTimer();
 
         }
-
 
         cancelTimer();
 
