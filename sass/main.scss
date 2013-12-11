@@ -1,35 +1,55 @@
-$primaryColour: #00A8C6;
+$primaryColour: #c7cac6;
 $secondaryColour: #40C0CB;
 $white: #FFFFFF;
 $tertiaryColour: #AEE239;
 $quadaryColour: #8FBE00;
+$darkGrey: #515450;
+$maxWidth: 1000px;
 
 html {
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 12px;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  padding: 0;
+  padding: 0 0 50px 0;
   margin: 0;
 }
 
 h1 {
-  padding: 10px;
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+
+h2 {
+  padding: 0;
+  margin: 0;
+  display: inline;
 }
 
 pre {
   background-color: #dbdbdb;
-  border: 1px solid #454545;
+  border: 1px solid #ddd;
+  color: #515450;
+  padding: 10px;
+  margin: 0 0 20px 0;
 }
 
-.title-bar {
-  background-color: $primaryColour;
-  color: $white;
+.title-bar-bg {
+  background-color: $white;
+  border-bottom: 1px solid $primaryColour;
+  color: $darkGrey;
   font-weight: bold;
   width: 100%;
   float: left;
   clear: both;
+  .title-bar {
+    max-width: $maxWidth;
+    margin: 0 auto;
+  }
 }
 
 .main-container {
@@ -42,6 +62,29 @@ pre {
 
 .slider-container {
   position: static;
+  font-style: none;
+}
+
+.github {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  margin: 0;
+  a, span {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin: 0;
+  }
+}
+
+var {
+  font-family: monospace;
+  font-style: normal;
+  font-weight: normal;
+  color: #515450;
 }
 
 .documentation {
@@ -95,4 +138,24 @@ ul.slides {
 
   }
 
+}
+
+table {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  th {
+    border: 1px solid #ddd;
+    border-spacing: 1px;
+    border-collapse: collapse;
+    padding: 15px 7px;
+    background-color: lightgrey;
+  }
+  td {
+    border: 1px solid #ddd;
+    border-spacing: 1px;
+    border-collapse: collapse;
+    padding: 5px 7px;
+  }
 }
