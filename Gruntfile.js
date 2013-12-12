@@ -62,10 +62,22 @@ module.exports = function(grunt) {
 			    ]
 		    }
 	    },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'css/main.css': 'sass/main.scss',
+                    'css/owlgallery.css': 'sass/owlgallery.scss'
+                }
+            }
+        },
 	    concat: {
 		    options: {
 			    // define a string to put between each file in the concatenated output
-			    separator: '\n\n\n/* ====================== */\n\n\n'
+                stripBanners: true,
+			    separator: '\n\n/* ====================== */\n\n'
 		    },
 		    jsconcat: {
 			    // the files to concatenate
@@ -97,7 +109,7 @@ module.exports = function(grunt) {
 	    uglify: {
 		    options: {
 			    // the banner is inserted at the top of the output
-			    banner: '\n\n\n/* ====================== */\n\n\n'
+                stripBanners: true
 		    },
 		    dist: {
 			    files: {
@@ -107,21 +119,11 @@ module.exports = function(grunt) {
 			    }
 		    }
 	    },
-        sass: {
-            dist: {
-                options: {
-                    style: 'expanded'
-                },
-	            files: {
-		            'css/main.css': 'sass/main.scss',
-		            'css/owlgallery.css': 'sass/owlgallery.scss'
-	            }
-            }
-        },
 	    cssmin: {
 		    compress: {
 			    options: {
-				    report: 'min'
+				    report: 'min',
+                    stripBanners: true
 			    },
 			    files: {
 				    'css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css': [
@@ -134,7 +136,7 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     port: 8000,
-                    base: 'bin',
+                    base: '<%= pkg.outputFolder %>',
                     keepalive: false,
                     livereload: true
                 }
@@ -142,7 +144,7 @@ module.exports = function(grunt) {
 	        prod: {
 		        options: {
 			        port: 8000,
-			        base: 'bin',
+                    base: '<%= pkg.outputFolder %>',
 			        keepalive: false,
 			        livereload: true
 		        }
@@ -150,7 +152,7 @@ module.exports = function(grunt) {
 	        release: {
 		        options: {
 			        port: 8000,
-			        base: 'bin',
+                    base: '<%= pkg.outputFolder %>',
 			        keepalive: false,
 			        livereload: true
 		        }
@@ -199,7 +201,18 @@ module.exports = function(grunt) {
 				    }
 			    }
 		    }
-	    }
+	    },
+        'ftp-deploy': {
+            build: {
+                auth: {
+                    host: 's141590.gridserver.com',
+                    port: 21,
+                    authKey: 'key1'
+                },
+                src: 'www',
+                dest: '/domains/crivas.net/html/git/owlgallery'
+            }
+        }
     });
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -212,14 +225,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-preprocess');
 	grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-ftp-deploy');
 
     // Default task(s).
 	grunt.registerTask('watchdev', [ 'connect:dev', 'watch:dev' ]);
 	grunt.registerTask('watchprod', [ 'connect:prod', 'watch:prod' ]);
 	grunt.registerTask('watchrelease', [ 'connect:release', 'watch:release' ]);
 	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean', 'copy:dev', 'preprocess:dev' ]);
-	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:prod', 'preprocess:prod' ]);
-	grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'clean', 'copy:release', 'preprocess:release' ]);
+	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'clean', 'copy:prod', 'preprocess:prod' ]);
+	grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:release', 'preprocess:release' ]);
+	grunt.registerTask('deploy', [ 'ftp-deploy' ]);
     grunt.registerTask('default', ['dev']);
 
 };

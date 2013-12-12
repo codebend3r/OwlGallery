@@ -39,7 +39,7 @@
     <div class='container'>
 
 	    <h4>Example #1</h4>
-	    <p>Unordered list with list items</p>
+	    <p>Unordered list container with list items containing img tags.</p>
         <ul class='gallery-container-1' data-bind='foreach: imagesList'>
             <li class='slides'>
                 <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
@@ -101,7 +101,7 @@ $('ul.gallery-container-1').owlgallery({
 	    <hr>
 
 	    <h4>Example #2</h4>
-		<p>Div within divs.</p>
+		<p>Div container with a list of divs containing an img tags.</p>
 	    <div class='gallery-container-2' data-bind='foreach: imagesList'>
 		    <div class='slides'>
 			    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
@@ -111,43 +111,41 @@ $('ul.gallery-container-1').owlgallery({
 	    <h4>HTML</h4>
 	    <pre>
 		    <code>
-&ltul class='gallery-container-1'&gt
-	&ltli class='slides'&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/1.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/2.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/3.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/4.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/5.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/6.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/7.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/9.jpg'/&gt
-		&lt/div&gt
-		&ltdiv class='slides'&gt
-		    &ltimg class='image-slide' width='1000' height='563' src='images/10.jpg'/&gt
-		&lt/div&gt
-	&lt/li&gt
-&lt/ul&gt
+&ltdiv class='gallery-container-2'&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/1.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/2.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/3.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/4.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/5.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/6.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/7.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/9.jpg'/&gt
+    &lt/div&gt
+    &ltdiv class='slides'&gt
+        &ltimg class='image-slide' width='1000' height='563' src='images/10.jpg'/&gt
+    &lt/div&gt
+&lt/div&gt
 		    </code>
 	    </pre>
 
@@ -168,7 +166,7 @@ $('div.gallery-container-2').owlgallery({
 	    <hr>
 
 	    <h4>Example #3</h4>
-	    <p>Img tags within divs.</p>
+	    <p>Div container with a list of img tags.</p>
 	    <div class='gallery-container-3' data-bind='foreach: imagesList'>
 		    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
 	    </div>
@@ -177,20 +175,20 @@ $('div.gallery-container-2').owlgallery({
 
 	    <pre>
 		    <code>
-&ltul class='gallery-container-3'&gt
-	&ltli class='slides'&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/1.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/2.jpg/'&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/3.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/4.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/5.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/6.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/7.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/9.jpg'/&gt
-		&ltimg class='image-slide' width='1000' height='563' src='images/10.jpg'/&gt
-	&lt/li&gt
-&lt/ul&gt
+
+&ltdiv class='gallery-container-3'&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/1.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/2.jpg/'&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/3.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/4.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/5.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/6.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/7.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/8.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/9.jpg'/&gt
+    &ltimg class='image-slide' width='1000' height='563' src='images/10.jpg'/&gt
+&lt/div&gt
+
 		    </code>
 	    </pre>
 

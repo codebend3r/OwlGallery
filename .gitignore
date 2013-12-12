@@ -2,4 +2,6 @@ bin
 *.iml
 .idea
 .sass-cache
+.ftppass
 bin
+www
