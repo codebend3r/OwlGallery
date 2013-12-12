@@ -5,7 +5,7 @@
     <title>Owl Gallery</title>
 
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Nixie+One|Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -32,62 +32,98 @@
     </ul>
     -->
 
-    <div class='slider-container'>
-        <ul class='slides' data-bind='foreach: imagesList'>
-            <li>
+    <div class='container'>
+        <ul class='gallery-container-1' data-bind='foreach: imagesList'>
+            <li class='slides'>
                 <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
             </li>
         </ul>
+
+	    <div class='gallery-container-2' data-bind='foreach: imagesList'>
+		    <div class='slides'>
+			    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
+		    </div>
+	    </div>
+
+	    <div class='gallery-container-3' data-bind='foreach: imagesList'>
+		    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
+	    </div>
+
     </div>
 
     <div class='documentation'>
+        <h2>Documentation</h2>
 
+	    <pre>
+	$('ul.gallery-container-1').owlgallery({
+		child: 'li.slides',
+		galleryWidth: 1000,
+		galleryHeight: 563,
+		enableTweener: true
+	});
+	    </pre>
         <h3>Documentation</h3>
 
-        <h4>Sample Code</h4>
+	    <pre>
+	$('ul.gallery-container-2').owlgallery({
+		child: 'li.slides',
+		galleryWidth: 1000,
+		galleryHeight: 563,
+		enableTweener: true
+	});
+	    </pre>
 
-	    <pre>$('.slides').owlgallery({
-    child: 'li'
-});</pre>
+	    <pre>
+	$('ul.gallery-container-3').owlgallery({
+		child: 'li.slides',
+		galleryWidth: 1000,
+		galleryHeight: 563,
+		enableTweener: true
+	});
+	    </pre>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Description</th>
-                    <th>Default</th>
-                    <th>Type</th>
-                    <th>Required</th>
-                </tr>
-            </thead>
-            <tbody data-bind='foreach: optionsList'>
-                <tr>
-                    <td data-bind='html: key'></td>
-                    <td data-bind='html: description'></td>
-                    <td data-bind='html: type'></td>
-                    <td data-bind='html: defaultValue'></td>
-                    <td>FALSE</td>
-                </tr>
-            </tbody>
-        </table>
+	    <table>
+		    <thead>
+		    <tr>
+			    <th>Property</th>
+			    <th>Description</th>
+			    <th>Default</th>
+			    <th>Type</th>
+			    <th>Required</th>
+		    </tr>
+		    </thead>
+		    <tbody data-bind='foreach: optionsList'>
+		    <tr>
+			    <td data-bind='html: key'></td>
+			    <td data-bind='html: description'></td>
+			    <td data-bind='html: type'></td>
+			    <td data-bind='html: defaultValue'></td>
+			    <td>FALSE</td>
+		    </tr>
+		    </tbody>
+	    </table>
 
     </div>
 
 </div>
 
-
+<!-- @if NODE_ENV == 'DEVELOPMENT' -->
 <script src="js/plugins/jquery-1.9.1.js" type="text/javascript"></script>
 <script src="js/plugins/jquery.owlgallery-0.1.5.js" type="text/javascript"></script>
-<script src="js/plugins/jquery.owlswipe-0.1.js" type="text/javascript"></script>
 <script src="js/vendor/knockout-2.2.1.js" type="text/javascript"></script>
 <script src="js/vendor/TweenMax.min.js" type="text/javascript"></script>
-
 <script src="js/internal/Crivas.Main.js" type="text/javascript"></script>
-<script src="js/internal/Crivas.Slider.js" type="text/javascript"></script>
+<script src="js/internal/Crivas.Gallery.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Documentation.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.ImageData.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.ViewModel.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Init.js" type="text/javascript"></script>
+<!-- @endif -->
+<!-- @if NODE_ENV == 'PRODUCTION' -->
+<script src="js/<!-- @echo name -->-<!-- @echo version -->.min.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<!-- @endif -->
+
 
 </body>
 </html>
