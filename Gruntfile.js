@@ -5,8 +5,24 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 	    watch: {
 		    dev: {
-			    files: [ 'sass/**/*.scss', 'js/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['dev'],
+			    options: {
+				    livereload: 8000,
+				    atBegin: true
+			    }
+		    },
+		    prod: {
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
+			    tasks: ['prod'],
+			    options: {
+				    livereload: 8000,
+				    atBegin: true
+			    }
+		    },
+		    release: {
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
+			    tasks: ['release'],
 			    options: {
 				    livereload: 8000,
 				    atBegin: true
@@ -34,6 +50,16 @@ module.exports = function(grunt) {
 				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.js'},
 				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css'}
 			    ]
+		    },
+		    release: {
+			    files: [
+				    {src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html'},
+				    {src: ['images/**'], dest: '<%= pkg.outputFolder %>/'},
+				    {src: ['css/'], dest: '<%= pkg.outputFolder %>/css'},
+				    {src: ['js/'], dest: '<%= pkg.outputFolder %>/js'},
+				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.min.js'},
+				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css'}
+			    ]
 		    }
 	    },
 	    concat: {
@@ -44,8 +70,9 @@ module.exports = function(grunt) {
 		    jsconcat: {
 			    // the files to concatenate
 			    src: [
-				    'js/vendor/jquery-1.9.1.js',,
-				    'js/vendor/jquery.owlgallery-0.1.5.js',
+				    'js/plugins/jquery-1.9.1.js',
+				    'js/plugins/jquery.owlgallery-0.1.5.js',
+				    'js/plugins/jquery.owlswipe-0.1.js',
 				    'js/vendor/knockout-2.2.1.js',
 				    'js/vendor/TweenMax.min.js',
 				    'js/internal/Crivas.Main.js',
@@ -60,7 +87,9 @@ module.exports = function(grunt) {
 		    },
 		    cssconcat: {
 			    src: [
-				    'css/release/main.css'
+				    'css/reset.css',
+				    'css/main.css',
+				    'css/owlgallery.css'
 			    ],
 			    dest: 'css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'
 		    }
@@ -73,16 +102,7 @@ module.exports = function(grunt) {
 		    dist: {
 			    files: {
 				    'js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.js': [
-					    'js/vendor/jquery-1.9.1.js',,
-					    'js/vendor/jquery.owlgallery-0.1.5.js',
-					    'js/vendor/knockout-2.2.1.js',
-					    'js/vendor/TweenMax.min.js',
-					    'js/internal/Crivas.Main.js',
-					    'js/internal/Crivas.Gallery.js',
-					    'js/internal/Crivas.Documentation.js',
-					    'js/internal/Crivas.ImageData.js',
-					    'js/internal/Crivas.ViewModel.js',
-					    'js/internal/Crivas.Init.js'
+					    'js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'
 				    ]
 			    }
 		    }
@@ -93,33 +113,58 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
 	            files: {
-		            'css/main.css': 'sass/main.scss'
+		            'css/main.css': 'sass/main.scss',
+		            'css/owlgallery.css': 'sass/owlgallery.scss'
 	            }
             }
         },
 	    cssmin: {
 		    compress: {
+			    options: {
+				    report: 'min'
+			    },
 			    files: {
-				    "css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css": ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css']
+				    'css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css': [
+					    'css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'
+				    ]
 			    }
 		    }
 	    },
         connect: {
-            server: {
+            dev: {
                 options: {
                     port: 8000,
-                    base: '.',
+                    base: 'bin',
                     keepalive: false,
                     livereload: true
                 }
-            }
+            },
+	        prod: {
+		        options: {
+			        port: 8000,
+			        base: 'bin',
+			        keepalive: false,
+			        livereload: true
+		        }
+	        },
+	        release: {
+		        options: {
+			        port: 8000,
+			        base: 'bin',
+			        keepalive: false,
+			        livereload: true
+		        }
+	        }
         },
 	    env: {
 		    dev: {
-			    NODE_ENV: 'DEVELOPMENT'
+			    NODE_ENV: 'DEV'
 		    },
 		    prod: {
-			    NODE_ENV: 'PRODUCTION'
+			    NODE_ENV: 'PROD'
+		    },
+		    release: {
+			    NODE_ENV: 'RELEASE'
 		    }
 	    },
 	    preprocess: {
@@ -135,6 +180,16 @@ module.exports = function(grunt) {
 			    }
 		    },
 		    prod: {
+			    src: 'index.html',
+			    dest: '<%= pkg.outputFolder %>/index.html',
+			    options: {
+				    context: {
+					    name: '<%= pkg.outputName %>',
+					    version: '<%= pkg.version %>'
+				    }
+			    }
+		    },
+		    release: {
 			    src: 'index.html',
 			    dest: '<%= pkg.outputFolder %>/index.html',
 			    options: {
@@ -159,9 +214,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-env');
 
     // Default task(s).
-	grunt.registerTask('watchdev', [ 'watch:dev' ]);
-	grunt.registerTask('dev', [ 'env:dev', 'sass', 'preprocess:dev', 'clean', 'copy:dev' ]);
-	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'preprocess:prod', 'clean', 'copy:prod' ]);
+	grunt.registerTask('watchdev', [ 'connect:dev', 'watch:dev' ]);
+	grunt.registerTask('watchprod', [ 'connect:prod', 'watch:prod' ]);
+	grunt.registerTask('watchrelease', [ 'connect:release', 'watch:release' ]);
+	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean', 'copy:dev', 'preprocess:dev' ]);
+	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:prod', 'preprocess:prod' ]);
+	grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'clean', 'copy:release', 'preprocess:release' ]);
     grunt.registerTask('default', ['dev']);
 
 };

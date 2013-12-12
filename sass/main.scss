@@ -7,7 +7,7 @@ $darkGrey: #515450;
 $maxWidth: 1000px;
 
 html {
-  font-family: 'Open Sans', Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   -webkit-text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
@@ -19,15 +19,32 @@ body {
 }
 
 h1 {
-  padding: 0;
+  font-size: 26px;
+  padding: 5px 0;
   margin: 0;
   display: inline;
 }
 
 h2 {
+  font-size: 18px;
   padding: 0;
   margin: 0;
   display: inline;
+}
+
+h3 {
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+h4 {
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+p {
+  font-size: 12px;
+  margin: 0 0 10px 0;
 }
 
 pre {
@@ -38,6 +55,11 @@ pre {
   margin: 0 0 20px 0;
 }
 
+code {
+  margin: 0;
+  padding: 0;
+}
+
 .title-bar-bg {
   background-color: $white;
   border-bottom: 1px solid $primaryColour;
@@ -46,6 +68,7 @@ pre {
   width: 100%;
   float: left;
   clear: both;
+  padding: 20px 0;
   .title-bar {
     max-width: $maxWidth;
     margin: 0 auto;
@@ -57,7 +80,7 @@ pre {
   width: 1000px;
   height: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0;
 }
 
 .container {
@@ -67,16 +90,23 @@ pre {
 
 .github {
   display: block;
-  height: 50px;
-  line-height: 50px;
+  width: 90px;
+  height: 32px;
+  line-height: 32px;
   vertical-align: middle;
+  background-image: url('../images/logos/github.png');
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  background-position: center right;
   margin: 0;
+  opacity: .7;
+  cursor: pointer;
   a, span {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    vertical-align: middle;
-    margin: 0;
+    color: #3c3c3c;
+  }
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -120,9 +150,7 @@ var {
 }
 
 ul.modes {
-
   color: $primaryColour;
-
 }
 
 ul.slides {

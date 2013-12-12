@@ -129,7 +129,7 @@ $.fn.owlgallery = function (options) {
 
         settings.child !== null ? kids = $this.find(settings.child) : kids = $this.children('img');
 
-        if (!settings.child) {
+        if (!settings.child || settings.child.length == 0) {
             throw Error("child is undefined, therefore plugin can not find slide elements. Make sure an img, li or child div exist.");
         }
 
@@ -153,7 +153,7 @@ $.fn.owlgallery = function (options) {
 
                 child.addClass(imageClassName).not('.not-gallery-image');
                 child.css({
-                    position: 'relative',
+                    position: 'absolute',
                     display: 'inline-block'
                 });
 
@@ -163,7 +163,7 @@ $.fn.owlgallery = function (options) {
 
                 child.addClass(listClassName);
                 child.css({
-                    position: 'relative',
+                    position: 'absolute',
                     display: 'inline-block',
                     listStyle: 'none'
                 });

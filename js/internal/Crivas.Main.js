@@ -5,6 +5,6 @@ CS.init = function () {
 
     ko.applyBindings(CS.ViewModel());
 
-    CS.initSlider();
+    CS.initGallery();
 
 };
