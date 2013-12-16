@@ -1,10 +1,4 @@
-$primaryColour: #c7cac6;
-$secondaryColour: #40C0CB;
-$white: #FFFFFF;
-$tertiaryColour: #AEE239;
-$quadaryColour: #8FBE00;
-$darkGrey: #515450;
-$maxWidth: 1000px;
+@import "variables";
 
 html {
   font-family: Arial, Helvetica, sans-serif;
@@ -45,6 +39,9 @@ h4 {
 p {
   font-size: 12px;
   margin: 0 0 10px 0;
+  @media #{$smallBreakpoint} {
+    font-size: 16px;
+  }
 }
 
 pre {
@@ -58,6 +55,7 @@ pre {
 code {
   margin: 0;
   padding: 0;
+  white-space: pre-wrap;
 }
 
 .title-bar-bg {
@@ -72,6 +70,10 @@ code {
   .title-bar {
     max-width: $maxWidth;
     margin: 0 auto;
+    @media #{$largeBreakpoint} {
+      width: 94%;
+      padding: 0 3%;
+    }
   }
 }
 
@@ -81,7 +83,12 @@ code {
   height: 100%;
   margin: 0 auto;
   padding: 0;
+  @media #{$largeBreakpoint} {
+    width: 94%;
+    padding: 0 3%;
+  }
 }
+
 
 .container {
   position: static;
@@ -115,9 +122,14 @@ var {
   font-style: normal;
   font-weight: normal;
   color: #515450;
+  font-size: 11px;
+  @media #{$smallBreakpoint} {
+    font-size: 15px;
+  }
 }
 
 .documentation {
+
   position: static;
 
   dl {
@@ -169,7 +181,6 @@ ul.slides {
 }
 
 table {
-  width: 100%;
   border: 1px solid #ddd;
   border-spacing: 1px;
   border-collapse: collapse;
@@ -179,11 +190,25 @@ table {
     border-collapse: collapse;
     padding: 15px 7px;
     background-color: lightgrey;
+    @media #{$smallBreakpoint} {
+      &:nth-child(3)	{ display: none; }
+    }
+    @media #{$mediumBreakpoint} {
+      &:nth-child(4)	{ display: none; }
+      &:nth-child(5)	{ display: none; }
+    }
   }
   td {
     border: 1px solid #ddd;
     border-spacing: 1px;
     border-collapse: collapse;
     padding: 5px 7px;
+    @media #{$smallBreakpoint} {
+      &:nth-child(3)	{ display: none; }
+    }
+    @media #{$mediumBreakpoint} {
+      &:nth-child(4)	{ display: none; }
+      &:nth-child(5)	{ display: none; }
+    }
   }
 }

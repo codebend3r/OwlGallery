@@ -122,6 +122,11 @@ p {
   font-size: 12px;
   margin: 0 0 10px 0;
 }
+@media all and (max-width: 500px) {
+  p {
+    font-size: 16px;
+  }
+}
 
 pre {
   background-color: #dbdbdb;
@@ -134,6 +139,7 @@ pre {
 code {
   margin: 0;
   padding: 0;
+  white-space: pre-wrap;
 }
 
 .title-bar-bg {
@@ -150,6 +156,12 @@ code {
   max-width: 1000px;
   margin: 0 auto;
 }
+@media all and (max-width: 1000px) {
+  .title-bar-bg .title-bar {
+    width: 94%;
+    padding: 0 3%;
+  }
+}
 
 .main-container {
   clear: both;
@@ -157,6 +169,12 @@ code {
   height: 100%;
   margin: 0 auto;
   padding: 0;
+}
+@media all and (max-width: 1000px) {
+  .main-container {
+    width: 94%;
+    padding: 0 3%;
+  }
 }
 
 .container {
@@ -191,6 +209,12 @@ var {
   font-style: normal;
   font-weight: normal;
   color: #515450;
+  font-size: 11px;
+}
+@media all and (max-width: 500px) {
+  var {
+    font-size: 15px;
+  }
 }
 
 .documentation {
@@ -231,7 +255,6 @@ ul.slides li {
 }
 
 table {
-  width: 100%;
   border: 1px solid #ddd;
   border-spacing: 1px;
   border-collapse: collapse;
@@ -243,11 +266,37 @@ table th {
   padding: 15px 7px;
   background-color: lightgrey;
 }
+@media all and (max-width: 500px) {
+  table th:nth-child(3) {
+    display: none;
+  }
+}
+@media all and (max-width: 768px) {
+  table th:nth-child(4) {
+    display: none;
+  }
+  table th:nth-child(5) {
+    display: none;
+  }
+}
 table td {
   border: 1px solid #ddd;
   border-spacing: 1px;
   border-collapse: collapse;
   padding: 5px 7px;
+}
+@media all and (max-width: 500px) {
+  table td:nth-child(3) {
+    display: none;
+  }
+}
+@media all and (max-width: 768px) {
+  table td:nth-child(4) {
+    display: none;
+  }
+  table td:nth-child(5) {
+    display: none;
+  }
 }
 
 

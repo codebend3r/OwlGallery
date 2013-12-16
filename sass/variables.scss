@@ -1,0 +1,15 @@
+$smallSize: 500px;
+$mediumSize: 768px;
+$largeSize: 1000px;
+
+$smallBreakpoint: "all and (max-width: " + $smallSize + ")";
+$mediumBreakpoint: "all and (max-width: " + $mediumSize + ")";
+$largeBreakpoint: "all and (max-width: " + $largeSize + ")";
+
+$primaryColour: #c7cac6;
+$secondaryColour: #40C0CB;
+$white: #FFFFFF;
+$tertiaryColour: #AEE239;
+$quadaryColour: #8FBE00;
+$darkGrey: #515450;
+$maxWidth: 1000px;

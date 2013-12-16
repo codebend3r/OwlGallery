@@ -10826,7 +10826,8 @@ CS.initGallery = function () {
         child: 'li.slides',
         galleryWidth: 1000,
         galleryHeight: 563,
-        enableTweener: true
+        enableTweener: true,
+        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
     });
 
 	$('div.gallery-container-2').owlgallery({
@@ -10835,7 +10836,8 @@ CS.initGallery = function () {
 		animationTime: 1000,
 		galleryWidth: 1000,
 		galleryHeight: 563,
-		enableTweener: true
+		enableTweener: true,
+        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 	$('div.gallery-container-3').owlgallery({
@@ -10844,7 +10846,8 @@ CS.initGallery = function () {
 		animationTime: 1000,
 		galleryWidth: 1000,
 		galleryHeight: 563,
-		enableTweener: true
+		enableTweener: true,
+        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 
