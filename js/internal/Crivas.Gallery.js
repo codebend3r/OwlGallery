@@ -5,7 +5,7 @@ CS.initGallery = function () {
         galleryWidth: 1000,
         galleryHeight: 563,
         enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
     });
 
 	$('div.gallery-container-2').owlgallery({
@@ -15,7 +15,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 	$('div.gallery-container-3').owlgallery({
@@ -25,7 +25,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 

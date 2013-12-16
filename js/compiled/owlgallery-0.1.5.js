@@ -9932,6 +9932,15 @@ $.fn.owlgallery = function (options) {
 
     };
 
+    var calculateParentPadding = function() {
+        var totalPadding = 0;
+        $.each($this.parents(), function() {
+            totalPadding += parseInt( $(this).css('padding-left'), 10 );
+            totalPadding += parseInt( $(this).css('padding-right'), 10 );
+        });
+        return totalPadding;
+    }
+
     var onWindowResize = function() {
 
         if (settings.responsiveMode == Owl.responsivemode.ALWAYSRESIZE) {
@@ -9943,10 +9952,10 @@ $.fn.owlgallery = function (options) {
         } else if (settings.responsiveMode == Owl.responsivemode.ONLYRESIZEWHENSMALLER) {
             if ($(window).width() <= settings.galleryWidth ) {
                 $this.css({
-                    width: $(window).width(),
+                    width: $(window).width() - calculateParentPadding(),
                     height: $(window).width() * aspectRatio
                 });
-                currentImageWidth = $(window).width();
+                currentImageWidth = $(window).width() - calculateParentPadding();
             } else {
                 $this.css({
                     width: settings.galleryWidth,
@@ -10827,7 +10836,7 @@ CS.initGallery = function () {
         galleryWidth: 1000,
         galleryHeight: 563,
         enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
     });
 
 	$('div.gallery-container-2').owlgallery({
@@ -10837,7 +10846,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 	$('div.gallery-container-3').owlgallery({
@@ -10847,7 +10856,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsivemode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
 	});
 
 

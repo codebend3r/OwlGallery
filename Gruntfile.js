@@ -146,7 +146,7 @@ module.exports = function(grunt) {
 			        port: 8000,
                     base: '<%= pkg.outputFolder %>',
 			        keepalive: false,
-			        livereload: true
+			        livereload: false
 		        }
 	        },
 	        release: {
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
 			        port: 8000,
                     base: '<%= pkg.outputFolder %>',
 			        keepalive: false,
-			        livereload: true
+			        livereload: false
 		        }
 	        }
         },
@@ -201,6 +201,7 @@ module.exports = function(grunt) {
 				    }
 			    }
 		    }
+
 	    },
         'ftp-deploy': {
             build: {
