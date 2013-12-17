@@ -38,7 +38,8 @@ module.exports = function(grunt) {
 				    {src: ['css/**'], dest: '<%= pkg.outputFolder %>/'},
 				    {src: ['js/internal/**'], dest: '<%= pkg.outputFolder %>/'},
 				    {src: ['js/plugins/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['js/vendor/**'], dest: '<%= pkg.outputFolder %>/'}
+				    {src: ['js/vendor/**'], dest: '<%= pkg.outputFolder %>/'},
+				    {src: ['js/compiled/**'], dest: '<%= pkg.outputFolder %>/'}
 			    ]
 		    },
 		    prod: {
@@ -48,6 +49,8 @@ module.exports = function(grunt) {
 				    {src: ['css/'], dest: '<%= pkg.outputFolder %>/css'},
 				    {src: ['js/'], dest: '<%= pkg.outputFolder %>/js'},
 				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.js'},
+                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'},
+                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
 				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css'}
 			    ]
 		    },
@@ -58,8 +61,10 @@ module.exports = function(grunt) {
 				    {src: ['css/'], dest: '<%= pkg.outputFolder %>/css'},
 				    {src: ['js/'], dest: '<%= pkg.outputFolder %>/js'},
 				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.min.js'},
-				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css'}
-			    ]
+                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'},
+                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
+                    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css'}
+                ]
 		    }
 	    },
         sass: {
@@ -77,13 +82,12 @@ module.exports = function(grunt) {
 		    options: {
 			    // define a string to put between each file in the concatenated output
                 stripBanners: true,
-			    separator: '\n\n/* ====================== */\n\n'
+			    separator: '\n\n/* \'use strict\' */\n\n'
 		    },
 		    jsconcat: {
-			    // the files to concatenate
 			    src: [
 				    'js/plugins/jquery-1.9.1.js',
-				    'js/plugins/jquery.owlgallery-0.1.5.js',
+                    'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
 				    'js/plugins/jquery.owlswipe-0.1.js',
 				    'js/vendor/knockout-2.2.1.js',
 				    'js/vendor/TweenMax.min.js',
@@ -94,9 +98,14 @@ module.exports = function(grunt) {
 				    'js/internal/Crivas.ViewModel.js',
 				    'js/internal/Crivas.Init.js'
 			    ],
-			    // the location of the resulting JS file
 			    dest: 'js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'
 		    },
+            pluginconcat: {
+                src: [
+                    'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
+                ],
+                dest: 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
+            },
 		    cssconcat: {
 			    src: [
 				    'css/reset.css',
@@ -117,7 +126,14 @@ module.exports = function(grunt) {
 					    'js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'
 				    ]
 			    }
-		    }
+		    },
+            plugin: {
+                files: {
+                    'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js': [
+                        'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
+                    ]
+                }
+            }
 	    },
 	    cssmin: {
 		    compress: {
@@ -177,7 +193,9 @@ module.exports = function(grunt) {
 			    options: {
 				    context: {
 					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>'
+					    version: '<%= pkg.version %>',
+                        pluginName: '<%= pkg.pluginName %>',
+                        pluginVersion: '<%= pkg.pluginVersion %>'
 				    }
 			    }
 		    },
@@ -187,7 +205,9 @@ module.exports = function(grunt) {
 			    options: {
 				    context: {
 					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>'
+					    version: '<%= pkg.version %>',
+                        pluginName: '<%= pkg.pluginName %>',
+                        pluginVersion: '<%= pkg.pluginVersion %>'
 				    }
 			    }
 		    },
@@ -197,7 +217,9 @@ module.exports = function(grunt) {
 			    options: {
 				    context: {
 					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>'
+					    version: '<%= pkg.version %>',
+                        pluginName: '<%= pkg.pluginName %>',
+                        pluginVersion: '<%= pkg.pluginVersion %>'
 				    }
 			    }
 		    }

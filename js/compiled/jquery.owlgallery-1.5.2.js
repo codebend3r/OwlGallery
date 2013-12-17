@@ -1,10 +1,3 @@
-/*
- * Owl Gallery
- * crivas.net
- *
- * Author: Chester Rivas
- * Version: 1.5.1
- */
 var Owl = {};
 
 Owl.animationTypes = {};
