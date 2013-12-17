@@ -15,10 +15,10 @@ Owl.direction = {};
 Owl.direction.FORWARD = "forward";
 Owl.direction.BACKWARD = "backward";
 
-Owl.responsivemode = {};
-Owl.responsivemode.ALWAYSRESIZE = "alwaysresize";
-Owl.responsivemode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
-Owl.responsivemode.NEVERRESIZE = "neverresize";
+Owl.responsiveMode = {};
+Owl.responsiveMode.ALWAYSRESIZE = "alwaysresize";
+Owl.responsiveMode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
+Owl.responsiveMode.NEVERRESIZE = "neverresize";
 */
 
     options: [
@@ -123,6 +123,29 @@ Owl.responsivemode.NEVERRESIZE = "neverresize";
         }
 
 
-    ]
+    ],
+	
+	events: [
+		{
+			eventName: 'slidechanged',
+			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'slidenextclicked',
+			description: 'Dispatched when the next button is clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'slideprevclicked',
+			description: 'Dispatched when the previous button is clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'paginationclicked',
+			description: 'Dispatched when one of the pagination elements are clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		}
+	]
 
 };
