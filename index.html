@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>Owl Gallery</title>
+    <title><!-- @echo title --></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=.5, maximum-scale=1, user-scalable=no"/>
 
@@ -24,10 +24,10 @@
 
 <div class='title-bar-bg'>
     <div class='title-bar'>
-        <h1>Owl Gallery</h1>
-        <h2>v1.5.1</h2>
+        <h1><!-- @echo title --></h1>
+        <h2>v<!-- @echo pluginVersion --></h2>
         <div class='github'>
-            <a href='https://github.com/crivas/OwlGallery' target='_blank'>
+            <a href='https://github.com/crivas/<!-- @echo title -->' target='_blank'>
                 <img src='images/logos/github.png' width='32' height='32'/>
                 <span>GitHub</span>
             </a>
@@ -38,11 +38,11 @@
 <div class='main-container'>
 
     <div class='download'>
-        <a href='js/compiled/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js'>Download (Uncompressed) 10KB</a>
+        <a href='js/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js'>Download (Uncompressed) 33KB</a>
     </div>
 
     <div class='download'>
-        <a href='js/compiled/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.min.js'>Download (Minified) 33KB</a>
+        <a href='js/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.min.js'>Download (Minified) 10KB</a>
     </div>
 
     <div class='container'>
@@ -59,38 +59,21 @@
 	    <pre>
 		    <code>
 &ltul class='gallery-container-1'&gt
-	&ltli class='slides'&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/1.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/2.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/3.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/4.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/5.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/6.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/7.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/8.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/9.jpg'/&gt
-	    &lt/li&gt
-	    &ltli class='slides'&gt
-		    &ltimg class='image-slide' src='images/10.jpg'/&gt
-	    &lt/li&gt
-	&lt/li&gt
+    &ltli class='slides'&gt
+        &ltimg class='image-slide' src='images/1.jpg'/&gt
+    &lt/li&gt
+    &ltli class='slides'&gt
+        &ltimg class='image-slide' src='images/2.jpg'/&gt
+    &lt/li&gt
+    &ltli class='slides'&gt
+        &ltimg class='image-slide' src='images/3.jpg'/&gt
+    &lt/li&gt
+    &ltli class='slides'&gt
+        &ltimg class='image-slide' src='images/4.jpg'/&gt
+    &lt/li&gt
+    &ltli class='slides'&gt
+        &ltimg class='image-slide' src='images/5.jpg'/&gt
+    &lt/li&gt
 &lt/ul&gt
 		    </code>
 	    </pre>
@@ -99,10 +82,10 @@
 	    <pre>
 		    <code>
 $('ul.gallery-container-1').owlgallery({
-	child: 'li.slides',
-	galleryWidth: 1000,
-	galleryHeight: 563,
-	enableTweener: true
+    child: 'li.slides',
+    galleryWidth: 1000,
+    galleryHeight: 563,
+    enableTweener: true
 });
 		    </code>
 	    </pre>
@@ -135,24 +118,6 @@ $('ul.gallery-container-1').owlgallery({
     &lt/div&gt
     &ltdiv class='slides'&gt
         &ltimg class='image-slide' src='images/5.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/6.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/7.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/8.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/8.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/9.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/10.jpg'/&gt
     &lt/div&gt
 &lt/div&gt
 		    </code>
@@ -191,11 +156,6 @@ $('div.gallery-container-2').owlgallery({
     &ltimg class='image-slide' src='images/3.jpg'/&gt
     &ltimg class='image-slide' src='images/4.jpg'/&gt
     &ltimg class='image-slide' src='images/5.jpg'/&gt
-    &ltimg class='image-slide' src='images/6.jpg'/&gt
-    &ltimg class='image-slide' src='images/7.jpg'/&gt
-    &ltimg class='image-slide' src='images/8.jpg'/&gt
-    &ltimg class='image-slide' src='images/9.jpg'/&gt
-    &ltimg class='image-slide' src='images/10.jpg'/&gt
 &lt/div&gt
 
 		    </code>

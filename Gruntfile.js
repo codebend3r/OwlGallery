@@ -187,41 +187,26 @@ module.exports = function(grunt) {
 	    },
 	    preprocess: {
 
+            options: {
+                context: {
+                    title: '<%= pkg.name %>',
+                    name: '<%= pkg.outputName %>',
+                    version: '<%= pkg.version %>',
+                    pluginName: '<%= pkg.pluginName %>',
+                    pluginVersion: '<%= pkg.pluginVersion %>'
+                }
+            },
 		    dev: {
 			    src: 'index.html',
-			    dest: '<%= pkg.outputFolder %>/index.html',
-			    options: {
-				    context: {
-					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>',
-                        pluginName: '<%= pkg.pluginName %>',
-                        pluginVersion: '<%= pkg.pluginVersion %>'
-				    }
-			    }
+			    dest: '<%= pkg.outputFolder %>/index.html'
 		    },
 		    prod: {
 			    src: 'index.html',
-			    dest: '<%= pkg.outputFolder %>/index.html',
-			    options: {
-				    context: {
-					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>',
-                        pluginName: '<%= pkg.pluginName %>',
-                        pluginVersion: '<%= pkg.pluginVersion %>'
-				    }
-			    }
+			    dest: '<%= pkg.outputFolder %>/index.html'
 		    },
 		    release: {
 			    src: 'index.html',
-			    dest: '<%= pkg.outputFolder %>/index.html',
-			    options: {
-				    context: {
-					    name: '<%= pkg.outputName %>',
-					    version: '<%= pkg.version %>',
-                        pluginName: '<%= pkg.pluginName %>',
-                        pluginVersion: '<%= pkg.pluginVersion %>'
-				    }
-			    }
+			    dest: '<%= pkg.outputFolder %>/index.html'
 		    }
 
 	    },
