@@ -234,8 +234,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('watchrelease', [ 'connect:release', 'watch:release' ]);
 	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean', 'copy:dev', 'preprocess:dev' ]);
 	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'clean', 'copy:prod', 'preprocess:prod' ]);
-	grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:release', 'preprocess:release' ]);
-	grunt.registerTask('deploy', [ 'ftp-deploy' ]);
+    grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:release', 'preprocess:release' ]);
+    grunt.registerTask('deploy', [ 'ftp-deploy' ]);
+    grunt.registerTask('launch', [ 'release', 'deploy' ]);
     grunt.registerTask('default', ['dev']);
 
 };

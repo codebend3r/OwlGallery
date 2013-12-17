@@ -289,10 +289,36 @@ ul.slides li {
   list-style: none;
 }
 
+.small-doc {
+  display: none;
+}
+@media all and (max-width: 500px) {
+  .small-doc {
+    display: block;
+  }
+  .small-doc li {
+    list-style: none;
+    margin: 0 0 30px 0;
+  }
+  .small-doc li .key {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .small-doc li .description {
+    font-weight: normal;
+    font-size: 12px;
+  }
+}
+
 table {
   border: 1px solid #ddd;
   border-spacing: 1px;
   border-collapse: collapse;
+}
+@media all and (max-width: 500px) {
+  table {
+    display: none;
+  }
 }
 table th {
   border: 1px solid #ddd;
