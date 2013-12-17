@@ -1,7 +1,7 @@
 OwlSlider
 ============
-v 1.5
+v 1.5.2
 
-A simple JQuery slider/carousel/gallery with built in responsive design and swipe detection for mobile devices.
+JQuery Plugin - slider/carousel/gallery with built in responsive design and swipe detection for mobile devices.
 
 Documentation: http://crivas.net/git/owlgallery/
