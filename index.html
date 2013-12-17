@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<link rel="stylesheet" type="text/css" href="css/owlgallery.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans|The+Girl+Next+Door|Roboto' rel='stylesheet' type='text/css' >
 	<!-- @endif -->
 	<!-- @if NODE_ENV == 'PROD' -->
 	<link rel="stylesheet" type="text/css" href="css/<!-- @echo name -->-<!-- @echo version -->.css"/>
@@ -28,6 +28,7 @@
         <h2>v1.5</h2>
         <div class='github'>
             <a href='https://github.com/crivas/OwlGallery' target='_blank'>
+                <img src='images/logos/github.png' width='32' height='32'/>
                 <span>GitHub</span>
             </a>
         </div>
@@ -215,6 +216,7 @@ $('div.gallery-container-3').owlgallery({
 
         <h3>Plugin Options</h3>
 
+        <!--
 	    <table>
 		    <thead>
                 <tr>
@@ -231,16 +233,18 @@ $('div.gallery-container-3').owlgallery({
                     <td data-bind='html: description'></td>
                     <td data-bind='html: type'></td>
                     <td data-bind='html: defaultValue'></td>
-                    <td>FALSE</td>
+                    <td data-bind='html: required'></td>
                 </tr>
 		    </tbody>
 	    </table>
+	    -->
 
         <ul class='small-doc' data-bind='foreach: optionsList'>
             <li>
-                <p class='key' data-bind='html: key'></p>
+                <p><span class='key' data-bind='html: key'></span> -- default value: <span class='default-value' data-bind='html: defaultValue'></span> -- type: <span class='type' data-bind='html: type'></span></p>
                 <p class='description' data-bind='html: description'></p>
             </li>
+            <hr>
         </ul>
 
     </div>

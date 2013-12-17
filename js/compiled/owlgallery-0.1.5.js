@@ -9615,10 +9615,10 @@ Owl.direction = {};
 Owl.direction.FORWARD = "forward";
 Owl.direction.BACKWARD = "backward";
 
-Owl.responsivemode = {};
-Owl.responsivemode.ALWAYSRESIZE = "alwaysresize";
-Owl.responsivemode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
-Owl.responsivemode.NEVERRESIZE = "neverresize";
+Owl.responsiveMode = {};
+Owl.responsiveMode.ALWAYSRESIZE = "alwaysresize";
+Owl.responsiveMode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
+Owl.responsiveMode.NEVERRESIZE = "neverresize";
 
 $.fn.owlgallery = function (options) {
 
@@ -9634,7 +9634,7 @@ $.fn.owlgallery = function (options) {
         animationType: Owl.animationTypes.SLIDE,
         direction: Owl.direction.FORWARD,
         child: null, //will automatically find img and li tags
-        responsiveMode: Owl.responsivemode.NEVERRESIZE,
+        responsiveMode: Owl.responsiveMode.NEVERRESIZE,
         enableTweener: false,
         enableTouchEvents: false,
         autoLoadTweener: false,
@@ -9842,7 +9842,7 @@ $.fn.owlgallery = function (options) {
         }
 
         // if responsive mode doesn't equal to neverresize then add event listener for window resize
-        if (settings.responsiveMode !== Owl.responsivemode.NEVERRESIZE) {
+        if (settings.responsiveMode !== Owl.responsiveMode.NEVERRESIZE) {
             $(window).on('resize', onWindowResize);
             $galleryImages.css({
                 minWidth: '100%',
@@ -9935,21 +9935,28 @@ $.fn.owlgallery = function (options) {
     var calculateParentPadding = function() {
         var totalPadding = 0;
         $.each($this.parents(), function() {
+            totalPadding += parseInt( $(this).css('border-left-width'), 10 );
+	        //console.log('border-left-width', totalPadding);
+            totalPadding += parseInt( $(this).css('border-right-width'), 10 );
+	        //console.log('border-right-width', totalPadding);
             totalPadding += parseInt( $(this).css('padding-left'), 10 );
+	        //console.log('padding-left', totalPadding);
             totalPadding += parseInt( $(this).css('padding-right'), 10 );
+	        //console.log('padding-right', totalPadding);
+	        //console.log('===========================');
         });
         return totalPadding;
     }
 
     var onWindowResize = function() {
 
-        if (settings.responsiveMode == Owl.responsivemode.ALWAYSRESIZE) {
+        if (settings.responsiveMode == Owl.responsiveMode.ALWAYSRESIZE) {
             $this.css({
-                width: $(window).width(),
+                width: $(window).width() - calculateParentPadding(),
                 height: $(window).width() * aspectRatio
             });
-            currentImageWidth = $(window).width();
-        } else if (settings.responsiveMode == Owl.responsivemode.ONLYRESIZEWHENSMALLER) {
+            currentImageWidth = $(window).width() - calculateParentPadding();
+        } else if (settings.responsiveMode == Owl.responsiveMode.ONLYRESIZEWHENSMALLER) {
             if ($(window).width() <= settings.galleryWidth ) {
                 $this.css({
                     width: $(window).width() - calculateParentPadding(),
@@ -10836,7 +10843,7 @@ CS.initGallery = function () {
         galleryWidth: 1000,
         galleryHeight: 563,
         enableTweener: true,
-        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
     });
 
 	$('div.gallery-container-2').owlgallery({
@@ -10846,7 +10853,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 	});
 
 	$('div.gallery-container-3').owlgallery({
@@ -10856,7 +10863,7 @@ CS.initGallery = function () {
 		galleryWidth: 1000,
 		galleryHeight: 563,
 		enableTweener: true,
-        responsiveMode: Owl.responsivemode.ONLYRESIZEWHENSMALLER
+        responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 	});
 
 
@@ -10867,27 +10874,6 @@ CS.initGallery = function () {
 /* ====================== */
 
 CS.documentation = {
-
-/*
-Owl.animationTypes = {};
-Owl.animationTypes.SLIDE = "slide";
-Owl.animationTypes.FADE = "fade";
-
-Owl.event = {};
-Owl.event.SLIDECHANGED = "slidechanged";
-Owl.event.SLIDENEXTCLICKED = "slidenextclicked";
-Owl.event.SLIDEPREVCLICKED = "slideprevclicked";
-Owl.event.PAGINATIONCLICKED = "paginationclicked";
-
-Owl.direction = {};
-Owl.direction.FORWARD = "forward";
-Owl.direction.BACKWARD = "backward";
-
-Owl.responsivemode = {};
-Owl.responsivemode.ALWAYSRESIZE = "alwaysresize";
-Owl.responsivemode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
-Owl.responsivemode.NEVERRESIZE = "neverresize";
-*/
 
     options: [
         {
@@ -10991,7 +10977,30 @@ Owl.responsivemode.NEVERRESIZE = "neverresize";
         }
 
 
-    ]
+    ],
+	
+	events: [
+		{
+			eventName: 'slidechanged',
+			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'slidenextclicked',
+			description: 'Dispatched when the next button is clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'slideprevclicked',
+			description: 'Dispatched when the previous button is clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		},
+		{
+			eventName: 'paginationclicked',
+			description: 'Dispatched when one of the pagination elements are clicked.',
+			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+		}
+	]
 
 };
 
@@ -11021,7 +11030,16 @@ CS.ViewModel = function () {
     var self = this;
 
     self.imagesList = ko.observable(CS.imagesList.images);
-    self.optionsList = ko.observable(CS.documentation.options);
+    //self.optionsList = ko.observable(CS.documentation.options);
+    self.optionsList = ko.observableArray(ko.utils.arrayMap(CS.documentation.options, function (i) {
+        return {
+            key: '<b>' + i.key + '</b>',
+            defaultValue: i.defaultValue,
+            type: i.type,
+            description: i.description,
+            required: i.required ? '<span class="true">true</span>' : '<span class="false">false</span>'
+        };
+    }));
 
     return self;
 

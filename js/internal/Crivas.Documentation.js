@@ -1,26 +1,5 @@
 CS.documentation = {
 
-/*
-Owl.animationTypes = {};
-Owl.animationTypes.SLIDE = "slide";
-Owl.animationTypes.FADE = "fade";
-
-Owl.event = {};
-Owl.event.SLIDECHANGED = "slidechanged";
-Owl.event.SLIDENEXTCLICKED = "slidenextclicked";
-Owl.event.SLIDEPREVCLICKED = "slideprevclicked";
-Owl.event.PAGINATIONCLICKED = "paginationclicked";
-
-Owl.direction = {};
-Owl.direction.FORWARD = "forward";
-Owl.direction.BACKWARD = "backward";
-
-Owl.responsiveMode = {};
-Owl.responsiveMode.ALWAYSRESIZE = "alwaysresize";
-Owl.responsiveMode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
-Owl.responsiveMode.NEVERRESIZE = "neverresize";
-*/
-
     options: [
         {
             key: 'child',
