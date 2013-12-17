@@ -8,16 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<link rel="stylesheet" type="text/css" href="css/owlgallery.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans|The+Girl+Next+Door|Roboto' rel='stylesheet' type='text/css' >
 	<!-- @endif -->
 	<!-- @if NODE_ENV == 'PROD' -->
 	<link rel="stylesheet" type="text/css" href="css/<!-- @echo name -->-<!-- @echo version -->.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<!-- @endif -->
 	<!-- @if NODE_ENV == 'RELEASE' -->
 	<link rel="stylesheet" type="text/css" href="css/<!-- @echo name -->-<!-- @echo version -->.min.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<!-- @endif -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' >
 
 </head>
 <body>
@@ -215,29 +213,6 @@ $('div.gallery-container-3').owlgallery({
     <div class='documentation'>
 
         <h3>Plugin Options</h3>
-
-        <!--
-	    <table>
-		    <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Description</th>
-                    <th>Default</th>
-                    <th>Type</th>
-                    <th>Required</th>
-                </tr>
-		    </thead>
-		    <tbody data-bind='foreach: optionsList'>
-                <tr>
-                    <td data-bind='html: key'></td>
-                    <td data-bind='html: description'></td>
-                    <td data-bind='html: type'></td>
-                    <td data-bind='html: defaultValue'></td>
-                    <td data-bind='html: required'></td>
-                </tr>
-		    </tbody>
-	    </table>
-	    -->
 
         <ul class='small-doc' data-bind='foreach: optionsList'>
             <li>

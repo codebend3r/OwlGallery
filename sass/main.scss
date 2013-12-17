@@ -36,7 +36,7 @@ h2 {
 
 h3 {
   font-size: 16px;
-  padding: 10px 0;
+  padding: 20px 0;
   color: $tertiaryColour;
   @media #{$retinaBreakpoint} {
     font-size: 38px;
@@ -59,7 +59,7 @@ p, a {
     font-size: $retinaFontSize;
   }
   &.legal {
-    font-size: 9px;
+    font-size: 10px;
     margin: 50px 0;
     text-align: center;
   }
