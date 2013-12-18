@@ -420,14 +420,14 @@ $.fn.owlgallery = function (options) {
 
         if (settings.enableTouchEvents) {
 
-            $this.mobileswipe({
+            $this.owlmobileswipe({
                 event: 'swipeleft',
                 callback: function(e) {
                     navigationIncrementClick(e);
                 }
             });
 
-            $this.mobileswipe({
+            $this.owlmobileswipe({
                 event: 'swiperight',
                 callback: function(e) {
                     navigationDecrementClick(e);
