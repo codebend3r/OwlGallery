@@ -69,9 +69,12 @@ $.fn.owlgallery = function (options) {
         easeType = 'Strong.easeOut',
         containerClassName = 'owl-slide-container',
         imageClassName = 'owl-image',
+        paginationContainerClassName = 'owl-pagination-container',
         paginationClassName = 'owl-pagination-button',
         listClassName = 'owl-list-item',
         navClassName = 'owl-nav',
+        navClassNameLeft = 'owl-nav-left',
+        navClassNameRight = 'owl-nav-right',
         currentClassName = 'current',
         buttonIDPropertyName = 'buttonID';
 
@@ -116,8 +119,8 @@ $.fn.owlgallery = function (options) {
 
         var kids,
             $paginationContainer,
-            paginationButtonItem,
-            paginationCopy,
+            $paginationButtonItem,
+            $paginationCopy,
             id = 0;
 
         settings.child !== null ? kids = $this.find(settings.child) : kids = $this.children('img');
@@ -126,11 +129,10 @@ $.fn.owlgallery = function (options) {
             throw Error("child is undefined, therefore plugin can not find slide elements. Make sure an img, li or child div exist.");
         }
 
-        $paginationContainer = $(settings.paginationElement);
-        paginationButtonItem = $paginationContainer.children('li');
-
-        // clear the list items
-        $paginationContainer.html('');
+        $paginationContainer = $this.find(settings.paginationElement);
+        $paginationContainer.addClass(paginationContainerClassName);
+        $paginationButtonItem = $paginationContainer.children(); //saved pagination element
+        $paginationContainer.html(''); // clear the list items
 
         //setupPagination();
 
@@ -186,12 +188,10 @@ $.fn.owlgallery = function (options) {
 
             }
 
-            paginationCopy = paginationButtonItem.clone();
-            paginationCopy.attr(buttonIDPropertyName, id);
-            paginationCopy.addClass(paginationClassName);
-
-            //add a new list item on every loop
-            $paginationContainer.append(paginationCopy);
+            $paginationCopy = $paginationButtonItem.clone();
+            $paginationCopy.attr(buttonIDPropertyName, id);
+            $paginationCopy.addClass(paginationClassName);
+            $paginationContainer.append($paginationCopy); //add a new list item on every loop
 
             id += 1;
 
@@ -401,14 +401,15 @@ $.fn.owlgallery = function (options) {
     var setupNavigationListeners = function() {
 
         var $navigationElement = $(settings.navElement),
-            navigationButtons = $navigationElement.children('li'),
+            navigationButtons = $navigationElement.children(),
             $navLeft = $(navigationButtons[0]),
             $navRight = $(navigationButtons[1]);
 
+	    $navigationElement.addClass(navClassName);
         $navLeft.on('click', navigationDecrementClick);
-        $navLeft.addClass(navClassName);
+        $navLeft.addClass(navClassNameLeft);
         $navRight.on('click', navigationIncrementClick);
-        $navRight.addClass(navClassName);
+        $navRight.addClass(navClassNameRight);
 
         if (settings.enableTouchEvents) {
 

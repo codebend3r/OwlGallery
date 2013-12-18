@@ -41,14 +41,27 @@ CS.documentation = {
             key: 'paginationElement',
             defaultValue: 'null',
             type: 'String | Selector',
-            description: 'A JQuery selector string which contains ONE iteration of the pagination element. The plugin will automatically create the number of elements according to the number of slides.',
+            description: 'A JQuery selector string which contains ONE iteration of the pagination element. The plugin will automatically create the number of elements according to the number of slides.' +
+            'Example: <br/>' +
+            '<pre>' +
+            '&ltdiv class=\'pagination\'&gt<br/>' +
+            '&nbsp&ltdiv class=\'sprite dot-empty\'&gt&lt/div&gt<br/>' +
+            '&lt/div&gt<br/>' +
+            '</pre>',
             required: false
         },
         {
             key: 'navElement',
             defaultValue: 'null',
             type: 'String | Selector',
-            description: 'A JQuery selector string which contains two elements that will move forward and backwards through the gallery when clicked.',
+            description: 'A JQuery selector string which contains two elements that will move forward and backwards through the gallery when clicked (a previous and next button).<br/><br/>' +
+			'Example: <br/>' +
+			'<pre>' +
+			'&ltdiv class=\'nav\'&gt<br/>' +
+	        '&nbsp&ltdiv class=\'sprite arrow-left\'&gt&lt/div&gt<br/>' +
+	        '&nbsp&ltdiv class=\'sprite arrow-right\'&gt&lt/div&gt<br/>' +
+			'&lt/div&gt<br/>' +
+	        '</pre>',
             required: false
         },
         {
@@ -69,7 +82,7 @@ CS.documentation = {
             key: 'responsiveMode',
             defaultValue: 'neverresize',
             type: 'String | Predefined',
-            description: 'Whether the gallery to resizes on window resize event. If set to <var>neverresize</var> it ignores <var>galleryWidth</var> and <var>galleryHeight</var>. Accepts one of 3 predefined of strings: <br/><br/>alwaysresize | onlyresizewhensmaller | neverresize <br/><br/>OR<br/><br/> Owl.responsivemode.ALWAYSRESIZE | Owl.responsivemode.ONLYRESIZEWHENSMALLER | Owl.responsivemode.NEVERRESIZE',
+            description: 'Whether to resize gallery according to window width on window resize event. By default set to <var>neverresize</var>. If set to <var>neverresize</var> it will ignore the values <var>galleryWidth</var> and <var>galleryHeight</var>. Accepts one of 3 predefined of strings: <br/><br/>alwaysresize | onlyresizewhensmaller | neverresize <br/><br/>OR<br/><br/> Owl.responsivemode.ALWAYSRESIZE | Owl.responsivemode.ONLYRESIZEWHENSMALLER | Owl.responsivemode.NEVERRESIZE',
             required: false
         },
         {
@@ -108,22 +121,22 @@ CS.documentation = {
 		{
 			eventName: 'slidechanged',
 			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
-			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+			target: 'current slide number'
 		},
 		{
 			eventName: 'slidenextclicked',
 			description: 'Dispatched when the next button is clicked.',
-			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+			target: 'current slide number'
 		},
 		{
 			eventName: 'slideprevclicked',
 			description: 'Dispatched when the previous button is clicked.',
-			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+			target: 'current slide number'
 		},
 		{
 			eventName: 'paginationclicked',
 			description: 'Dispatched when one of the pagination elements are clicked.',
-			target: 'Event returns an instance of the event and one parameter, containing the current slide number.'
+			target: 'current slide number'
 		}
 	]
 

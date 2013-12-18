@@ -1,0 +1,18 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:159e777678f5f88d8bcc7472add6e9d2:dafc8d804ee9c2f4904b229a4e175e43:b70c713ea7fb13202a7c402eeeb063f3$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(spritesheet.png);}
+
+.arrow_left {width:21px; height:42px; background-position: -2px -46px}
+.arrow_right {width:21px; height:42px; background-position: -2px -2px}
+.dot-empty {width:8px; height:10px; background-position: -12px -90px}
+.dot-filled {width:8px; height:10px; background-position: -2px -90px}

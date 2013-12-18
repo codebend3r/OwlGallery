@@ -5,6 +5,7 @@
     <title><!-- @echo title --></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=.5, maximum-scale=1, user-scalable=no"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 	<!-- @if NODE_ENV == 'DEV' -->
 	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
@@ -56,38 +57,36 @@
         </ul>
 
 	    <h4>HTML</h4>
-	    <pre>
-		    <code>
+
+	    <pre class="brush: js;">
 &ltul class='gallery-container-1'&gt
-    &ltli class='slides'&gt
-        &ltimg class='image-slide' src='images/1.jpg'/&gt
-    &lt/li&gt
-    &ltli class='slides'&gt
-        &ltimg class='image-slide' src='images/2.jpg'/&gt
-    &lt/li&gt
-    &ltli class='slides'&gt
-        &ltimg class='image-slide' src='images/3.jpg'/&gt
-    &lt/li&gt
-    &ltli class='slides'&gt
-        &ltimg class='image-slide' src='images/4.jpg'/&gt
-    &lt/li&gt
-    &ltli class='slides'&gt
-        &ltimg class='image-slide' src='images/5.jpg'/&gt
-    &lt/li&gt
+	&ltli class='slides'&gt
+		&ltimg class='image-slide' src='images/1.jpg'/&gt
+	&lt/li&gt
+	&ltli class='slides'&gt
+		&ltimg class='image-slide' src='images/2.jpg'/&gt
+	&lt/li&gt
+	&ltli class='slides'&gt
+		&ltimg class='image-slide' src='images/3.jpg'/&gt
+	&lt/li&gt
+	&ltli class='slides'&gt
+		&ltimg class='image-slide' src='images/4.jpg'/&gt
+	&lt/li&gt
+	&ltli class='slides'&gt
+		&ltimg class='image-slide' src='images/5.jpg'/&gt
+	&lt/li&gt
 &lt/ul&gt
-		    </code>
 	    </pre>
 
 	    <h4>JS</h4>
-	    <pre>
-		    <code>
+
+	    <pre class="brush: js;">
 $('ul.gallery-container-1').owlgallery({
-    child: 'li.slides',
-    galleryWidth: 1000,
-    galleryHeight: 563,
-    enableTweener: true
+	child: 'li.slides',
+	galleryWidth: 1000,
+	galleryHeight: 563,
+	enableTweener: true
 });
-		    </code>
 	    </pre>
 
 	    <hr>
@@ -101,31 +100,30 @@ $('ul.gallery-container-1').owlgallery({
 	    </div>
 
 	    <h4>HTML</h4>
-	    <pre>
-		    <code>
+
+	    <pre class="brush: js;">
 &ltdiv class='gallery-container-2'&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/1.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/2.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/3.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/4.jpg'/&gt
-    &lt/div&gt
-    &ltdiv class='slides'&gt
-        &ltimg class='image-slide' src='images/5.jpg'/&gt
-    &lt/div&gt
+	&ltdiv class='slides'&gt
+		&ltimg class='image-slide' src='images/1.jpg'/&gt
+	&lt/div&gt
+	&ltdiv class='slides'&gt
+		&ltimg class='image-slide' src='images/2.jpg'/&gt
+	&lt/div&gt
+	&ltdiv class='slides'&gt
+		&ltimg class='image-slide' src='images/3.jpg'/&gt
+	&lt/div&gt
+	&ltdiv class='slides'&gt
+		&ltimg class='image-slide' src='images/4.jpg'/&gt
+	&lt/div&gt
+	&ltdiv class='slides'&gt
+		&ltimg class='image-slide' src='images/5.jpg'/&gt
+	&lt/div&gt
 &lt/div&gt
-		    </code>
 	    </pre>
 
 	    <h4>JS</h4>
-	    <pre>
-		    <code>
+
+	    <pre class="brush: js;">
 $('div.gallery-container-2').owlgallery({
 	child: 'div.slides',
 	cycleTime: 3000,
@@ -134,46 +132,60 @@ $('div.gallery-container-2').owlgallery({
 	galleryHeight: 563,
 	enableTweener: true
 });
-		    </code>
 	    </pre>
 
 	    <hr>
 
 	    <h4>Example #3</h4>
-	    <p>Div container with a list of img tags.</p>
-	    <div class='gallery-container-3' data-bind='foreach: imagesList'>
-		    <img class='image-slide' data-bind='attr:{src:$data}'>
+	    <p>Div container with a list of img tags. Pagination and nav controls.</p>
+	    <div class='gallery-container-3'>
+		    <div class='image-container' data-bind='foreach: imagesList'>
+			    <img class='image-slide' data-bind='attr:{src:$data}'>
+		    </div>
+		    <div class='nav'>
+			    <div class='sprite arrow-left'></div>
+			    <div class='sprite arrow-right'></div>
+		    </div>
+		    <div class='pagination'>
+			    <div class='sprite dot-empty'></div>
+		    </div>
 	    </div>
 
 	    <h4>HTML</h4>
 
-	    <pre>
-		    <code>
-
+	    <pre class="brush: js;">
 &ltdiv class='gallery-container-3'&gt
-    &ltimg class='image-slide' src='images/1.jpg'/&gt
-    &ltimg class='image-slide' src='images/2.jpg/'&gt
-    &ltimg class='image-slide' src='images/3.jpg'/&gt
-    &ltimg class='image-slide' src='images/4.jpg'/&gt
-    &ltimg class='image-slide' src='images/5.jpg'/&gt
+	&ltdiv class='image-container' &gt
+		&ltimg class='image-slide' src='images/1.jpg'/&gt
+		&ltimg class='image-slide' src='images/2.jpg/'&gt
+		&ltimg class='image-slide' src='images/3.jpg'/&gt
+		&ltimg class='image-slide' src='images/4.jpg'/&gt
+		&ltimg class='image-slide' src='images/5.jpg'/&gt
+	&lt/div&gt
+	&ltdiv class='nav'&gt
+		&ltdiv class='sprite arrow-left'&gt&lt/div&gt
+		&ltdiv class='sprite arrow-right'&gt&lt/div&gt
+	&lt/div&gt
+	&ltdiv class='pagination'&gt
+		&ltdiv class='sprite dot-empty'&gt&lt/div&gt
+	&lt/div&gt
 &lt/div&gt
-
-		    </code>
 	    </pre>
 
 	    <h4>JS</h4>
 
-	    <pre>
-		    <code>
+	    <pre class="brush: js;">
 $('div.gallery-container-3').owlgallery({
 	child: 'img.image-slide',
 	cycleTime: 4500,
 	animationTime: 1000,
 	galleryWidth: 1000,
 	galleryHeight: 563,
-	enableTweener: true
+	enableTweener: true,
+	responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
+	paginationElement: '.pagination',
+	navElement: '.nav'
 });
-		    </code>
 	    </pre>
 
     </div>
@@ -186,11 +198,24 @@ $('div.gallery-container-3').owlgallery({
 
         <ul class='small-doc' data-bind='foreach: optionsList'>
             <li>
-                <p><span class='key' data-bind='html: key'></span> -- default value: <span class='default-value' data-bind='html: defaultValue'></span> -- type: <span class='type' data-bind='html: type'></span></p>
+                <p><span class='key' data-bind='html: key'></span></p>
+	            <p><span class='val'>default value: </span><span class='default-value' data-bind='html: defaultValue'></span></p>
+	            <p><span class='val'>type: </span><span class='type' data-bind='html: type'></span></p>
                 <p class='description' data-bind='html: description'></p>
             </li>
             <hr>
         </ul>
+
+	    <h3>Events</h3>
+
+	    <ul class='small-doc' data-bind='foreach: eventsList'>
+		    <li>
+			    <p><span class='key' data-bind='html: eventName'></span></p>
+			    <p><span class='val'>event params: </span><span class='type' data-bind='html: target'></span></p>
+			    <p class='description' data-bind='html: description'></p>
+		    </li>
+		    <hr>
+	    </ul>
 
     </div>
 
@@ -200,6 +225,7 @@ $('div.gallery-container-3').owlgallery({
 
 <!-- @if NODE_ENV == 'DEV' -->
 <script src="js/plugins/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="js/plugins/jquery.imagesloaded.js" type="text/javascript"></script>
 <script src="js/plugins/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js" type="text/javascript"></script>
 <script src="js/vendor/knockout-2.2.1.js" type="text/javascript"></script>
 <script src="js/vendor/TweenMax.min.js" type="text/javascript"></script>

@@ -87,6 +87,7 @@ module.exports = function(grunt) {
 		    jsconcat: {
 			    src: [
 				    'js/plugins/jquery-1.9.1.js',
+				    'js/plugins/jquery.imagesloaded.js',
                     'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
 				    'js/plugins/jquery.owlswipe-0.1.js',
 				    'js/vendor/knockout-2.2.1.js',
@@ -186,7 +187,6 @@ module.exports = function(grunt) {
 		    }
 	    },
 	    preprocess: {
-
             options: {
                 context: {
                     title: '<%= pkg.name %>',
@@ -208,7 +208,6 @@ module.exports = function(grunt) {
 			    src: 'index.html',
 			    dest: '<%= pkg.outputFolder %>/index.html'
 		    }
-
 	    },
         'ftp-deploy': {
             build: {
