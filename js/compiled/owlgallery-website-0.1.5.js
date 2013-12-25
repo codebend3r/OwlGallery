@@ -9654,23 +9654,23 @@ $.fn.imagesLoaded = function( callback ){
 
 /* 'use strict' */
 
-var Owl = {};
+var Owl = Owl || {};
 
 Owl.animationTypes = {};
 Owl.animationTypes.SLIDE = "slide";
 Owl.animationTypes.FADE = "fade";
 
-Owl.event = {};
+Owl.event = Owl.event || {};
 Owl.event.SLIDECHANGED = "slidechanged";
 Owl.event.SLIDENEXTCLICKED = "slidenextclicked";
 Owl.event.SLIDEPREVCLICKED = "slideprevclicked";
 Owl.event.PAGINATIONCLICKED = "paginationclicked";
 
-Owl.direction = {};
+Owl.direction = Owl.direction || {};
 Owl.direction.FORWARD = "forward";
 Owl.direction.BACKWARD = "backward";
 
-Owl.responsiveMode = {};
+Owl.responsiveMode = Owl.responsiveMode || {};
 Owl.responsiveMode.ALWAYSRESIZE = "alwaysresize";
 Owl.responsiveMode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
 Owl.responsiveMode.NEVERRESIZE = "neverresize";
@@ -9789,9 +9789,7 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.addClass(paginationContainerClassName);
         $paginationButtonItem = $paginationContainer.children(); //saved pagination element
         $paginationContainer.html(''); // clear the list items
-
-        //setupPagination();
-
+		
         kids.each(function () {
 
             var child = $(this);
@@ -9991,14 +9989,9 @@ $.fn.owlgallery = function (options) {
         var totalPadding = 0;
         $.each($this.parents(), function() {
             totalPadding += parseInt( $(this).css('border-left-width'), 10 );
-	        //console.log('border-left-width', totalPadding);
             totalPadding += parseInt( $(this).css('border-right-width'), 10 );
-	        //console.log('border-right-width', totalPadding);
             totalPadding += parseInt( $(this).css('padding-left'), 10 );
-	        //console.log('padding-left', totalPadding);
-            totalPadding += parseInt( $(this).css('padding-right'), 10 );
-	        //console.log('padding-right', totalPadding);
-	        //console.log('===========================');
+            totalPadding += parseInt( $(this).css('padding-right'), 10 );;
         });
         return totalPadding;
     }
@@ -10069,14 +10062,14 @@ $.fn.owlgallery = function (options) {
 
         if (settings.enableTouchEvents) {
 
-            $this.mobileswipe({
+            $this.owlmobileswipe({
                 event: 'swipeleft',
                 callback: function(e) {
                     navigationIncrementClick(e);
                 }
             });
 
-            $this.mobileswipe({
+            $this.owlmobileswipe({
                 event: 'swiperight',
                 callback: function(e) {
                     navigationDecrementClick(e);
@@ -10690,83 +10683,6 @@ $.fn.owlgallery = function (options) {
     initCycle();
 
     return $this;
-
-};
-
-/* 'use strict' */
-
-$.fn.mobileswipe = function (options) {
-
-    var settings = $.extend({
-        // These are the defaults.
-        event: '',
-        callback: null
-    }, options);
-
-    var $this = this,
-        touchStart = {x:0, y:0},
-        touchEnd = {x:0, y:0},
-        diffAbs = {x:0, y:0},
-        diff = {x:0, y:0},
-        threshold = 50,
-        touchXExceeded = false,
-        touchYExceeded = false,
-        dispatchEvent = false,
-        callStackCounter = 0;
-
-    var initDetection = function() {
-        // bind passed in event to callback
-        $this.on(settings.event, settings.callback);
-        $this.on('touchstart', onTouchStart);
-    };
-
-    var onTouchStart = function(e) {
-        touchStart.x = touchEnd.x = e.originalEvent.touches[0].pageX;
-        touchStart.y = touchEnd.y = e.originalEvent.touches[0].pageY;
-        touchXExceeded = false;
-        touchYExceeded = false;
-        dispatchEvent = false;
-        $this.on('touchend', onTouchEnd);
-        $this.on('touchmove', onTouchMove);
-    };
-
-    var onTouchMove = function(e) {
-        touchEnd.x = e.originalEvent.touches[0].pageX;
-        touchEnd.y = e.originalEvent.touches[0].pageY;
-        diff.x = touchStart.x - touchEnd.x;
-        diff.y = touchStart.y - touchEnd.y;
-        diffAbs.x = Math.abs(touchStart.x - touchEnd.x);
-        diffAbs.y = Math.abs(touchStart.y - touchEnd.y);
-        if (touchXExceeded == false && diffAbs.y < 10 && diffAbs.x > threshold) {
-            touchXExceeded = true;
-            callStackCounter += 1;
-            if (diff.x > 0) {
-                if (settings.event == 'swipeleft') {
-                    //console.log('LEFT', settings.event);
-                    dispatchEvent = true;
-                    e.preventDefault();
-                    //console.log('TRIGGER', settings.event);
-                    $this.trigger(settings.event);
-                }
-            } else if (diff.x < 0) {
-                if (settings.event == 'swiperight') {
-                    //console.log('RIGHT', settings.event);
-                    dispatchEvent = true;
-                    e.preventDefault();
-                    //console.log('TRIGGER', settings.event);
-                    $this.trigger(settings.event);
-                }
-            }
-        }
-    };
-
-    var onTouchEnd = function(e) {
-        //console.log('TOUCH ENDED');
-        $this.off('touchmove touchend');
-    };
-
-    initDetection();
-
 
 };
 
