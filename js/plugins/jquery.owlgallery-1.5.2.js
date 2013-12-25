@@ -5,23 +5,23 @@
  * Author: Chester Rivas
  * Version: 1.5.2
  */
-var Owl = {};
+var Owl = Owl || {};
 
 Owl.animationTypes = {};
 Owl.animationTypes.SLIDE = "slide";
 Owl.animationTypes.FADE = "fade";
 
-Owl.event = {};
+Owl.event = Owl.event || {};
 Owl.event.SLIDECHANGED = "slidechanged";
 Owl.event.SLIDENEXTCLICKED = "slidenextclicked";
 Owl.event.SLIDEPREVCLICKED = "slideprevclicked";
 Owl.event.PAGINATIONCLICKED = "paginationclicked";
 
-Owl.direction = {};
+Owl.direction = Owl.direction || {};
 Owl.direction.FORWARD = "forward";
 Owl.direction.BACKWARD = "backward";
 
-Owl.responsiveMode = {};
+Owl.responsiveMode = Owl.responsiveMode || {};
 Owl.responsiveMode.ALWAYSRESIZE = "alwaysresize";
 Owl.responsiveMode.ONLYRESIZEWHENSMALLER = "onlyresizewhensmaller";
 Owl.responsiveMode.NEVERRESIZE = "neverresize";
@@ -140,9 +140,7 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.addClass(paginationContainerClassName);
         $paginationButtonItem = $paginationContainer.children(); //saved pagination element
         $paginationContainer.html(''); // clear the list items
-
-        //setupPagination();
-
+		
         kids.each(function () {
 
             var child = $(this);
@@ -342,14 +340,9 @@ $.fn.owlgallery = function (options) {
         var totalPadding = 0;
         $.each($this.parents(), function() {
             totalPadding += parseInt( $(this).css('border-left-width'), 10 );
-	        //console.log('border-left-width', totalPadding);
             totalPadding += parseInt( $(this).css('border-right-width'), 10 );
-	        //console.log('border-right-width', totalPadding);
             totalPadding += parseInt( $(this).css('padding-left'), 10 );
-	        //console.log('padding-left', totalPadding);
-            totalPadding += parseInt( $(this).css('padding-right'), 10 );
-	        //console.log('padding-right', totalPadding);
-	        //console.log('===========================');
+            totalPadding += parseInt( $(this).css('padding-right'), 10 );;
         });
         return totalPadding;
     }
