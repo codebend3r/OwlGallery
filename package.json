@@ -1,10 +1,12 @@
 {
-  "name": "OwlGallery",
+  "title": "Owl Gallery",
+  "name": "owlgallery",
   "version": "0.1.5",
   "outputFolder": "www",
   "outputName": "owlgallery-website",
   "pluginName": "jquery.owlgallery",
   "pluginVersion": "1.5.2",
+  "port": "8000",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.6.3",

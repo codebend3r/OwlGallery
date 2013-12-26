@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['dev'],
 			    options: {
-				    livereload: 8000,
+				    livereload: '<%= pkg.port %>',
 				    atBegin: true
 			    }
 		    },
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['prod'],
 			    options: {
-				    livereload: 8000,
+				    livereload: '<%= pkg.port %>',
 				    atBegin: true
 			    }
 		    },
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['release'],
 			    options: {
-				    livereload: 8000,
+				    livereload: '<%= pkg.port %>',
 				    atBegin: true
 			    }
 		    }
@@ -152,48 +152,53 @@ module.exports = function(grunt) {
         connect: {
             dev: {
                 options: {
-                    port: 8000,
+                    port: '<%= pkg.port %>',
                     base: '<%= pkg.outputFolder %>',
-                    keepalive: false,
-                    livereload: true
+                    livereload: '<%= pkg.port %>'
                 }
             },
 	        prod: {
 		        options: {
-			        port: 8000,
+			        port: '<%= pkg.port %>',
                     base: '<%= pkg.outputFolder %>',
-			        keepalive: false,
-			        livereload: false
+			        livereload: '<%= pkg.port %>'
 		        }
 	        },
 	        release: {
 		        options: {
-			        port: 8000,
+			        port: '<%= pkg.port %>',
                     base: '<%= pkg.outputFolder %>',
-			        keepalive: false,
-			        livereload: false
+			        livereload: '<%= pkg.port %>'
 		        }
 	        }
         },
 	    env: {
+	    	options : {
+		    	LIVE_RELOAD: false
+		    },
 		    dev: {
-			    NODE_ENV: 'DEV'
+			    NODE_ENV: 'DEV',
 		    },
 		    prod: {
 			    NODE_ENV: 'PROD'
 		    },
 		    release: {
 			    NODE_ENV: 'RELEASE'
+		    },
+		    watching: {
+		    	LIVE_RELOAD: true
 		    }
 	    },
 	    preprocess: {
             options: {
                 context: {
-                    title: '<%= pkg.name %>',
-                    name: '<%= pkg.outputName %>',
+                    name: '<%= pkg.name %>',
+                    title: '<%= pkg.title %>',
+                    outputName: '<%= pkg.outputName %>',
                     version: '<%= pkg.version %>',
                     pluginName: '<%= pkg.pluginName %>',
-                    pluginVersion: '<%= pkg.pluginVersion %>'
+                    pluginVersion: '<%= pkg.pluginVersion %>',
+                    port: '<%= pkg.port %>'
                 }
             },
 		    dev: {
@@ -217,7 +222,7 @@ module.exports = function(grunt) {
                     authKey: 'key1'
                 },
                 src: 'www',
-                dest: '/domains/crivas.net/html/git/owlgallery'
+                dest: '/domains/crivas.net/html/git/<%= pkg.name %>'
             }
         }
     });
@@ -235,9 +240,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ftp-deploy');
 
     // Default task(s).
-	grunt.registerTask('watchdev', [ 'connect:dev', 'watch:dev' ]);
-	grunt.registerTask('watchprod', [ 'connect:prod', 'watch:prod' ]);
-	grunt.registerTask('watchrelease', [ 'connect:release', 'watch:release' ]);
+	grunt.registerTask('watchdev', [ 'connect:dev', 'env:watching', 'watch:dev' ]);
+	grunt.registerTask('watchprod', [ 'connect:prod', 'env:watching', 'watch:prod' ]);
+	grunt.registerTask('watchrelease', [ 'connect:release', 'env:watching', 'watch:release' ]);
 	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean', 'copy:dev', 'preprocess:dev' ]);
 	grunt.registerTask('prod', [ 'env:prod', 'sass', 'concat', 'clean', 'copy:prod', 'preprocess:prod' ]);
     grunt.registerTask('release', [ 'env:release', 'sass', 'concat', 'uglify', 'cssmin', 'clean', 'copy:release', 'preprocess:release' ]);

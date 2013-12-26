@@ -10817,6 +10817,7 @@ CS.initGallery = function () {
 			galleryWidth: 1000,
 			galleryHeight: 563,
 			enableTweener: true,
+			animationType: Owl.animationTypes.SLIDE,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 		});
 
@@ -10827,6 +10828,7 @@ CS.initGallery = function () {
 			galleryWidth: 1000,
 			galleryHeight: 563,
 			enableTweener: true,
+			animationType: Owl.animationTypes.FADE,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 		});
 
@@ -11004,12 +11006,7 @@ CS.imagesList = {
         'images/2.jpg',
         'images/3.jpg',
         'images/4.jpg',
-        'images/5.jpg',
-        'images/6.jpg',
-        'images/7.jpg',
-        'images/8.jpg',
-        'images/9.jpg',
-        'images/10.jpg'
+        'images/5.jpg'
     ]
 
 };

@@ -7,6 +7,7 @@ CS.initGallery = function () {
 			galleryWidth: 1000,
 			galleryHeight: 563,
 			enableTweener: true,
+			animationType: Owl.animationTypes.SLIDE,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 		});
 
@@ -17,6 +18,7 @@ CS.initGallery = function () {
 			galleryWidth: 1000,
 			galleryHeight: 563,
 			enableTweener: true,
+			animationType: Owl.animationTypes.FADE,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
 		});
 
