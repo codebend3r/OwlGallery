@@ -1,5 +1,7 @@
 bin
+*.js/compiled
 *.log
+*.zip
 *.iml
 .idea
 .sass-cache

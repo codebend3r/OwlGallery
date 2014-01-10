@@ -24,7 +24,7 @@ Owl.event.TOUCH_STOP = 'touch_stop';
 Owl.event.NO_MOVEMENT = 'no_swipe';
 Owl.event.NO_SWIPE = 'no_swipe';
 
-$.fn.owlmobileswipe = function (options) {
+$.fn.owlswipe = function (options) {
 
 	var settings = $.extend({
 		// These are the defaults.

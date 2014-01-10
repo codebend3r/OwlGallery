@@ -1,7 +1,7 @@
 {
   "title": "OwlGallery",
   "name": "owlgallery",
-  "version": "0.1.5",
+  "version": "0.2",
   "outputFolder": "www",
   "outputName": "owlgallery-website",
   "pluginName": "jquery.owlgallery",

@@ -344,7 +344,7 @@ $.fn.owlgallery = function (options) {
             totalPadding += parseInt( $(this).css('border-left-width'), 10 );
             totalPadding += parseInt( $(this).css('border-right-width'), 10 );
             totalPadding += parseInt( $(this).css('padding-left'), 10 );
-            totalPadding += parseInt( $(this).css('padding-right'), 10 );;
+            totalPadding += parseInt( $(this).css('padding-right'), 10 );
         });
         return totalPadding;
     }
@@ -414,19 +414,14 @@ $.fn.owlgallery = function (options) {
         $navRight.addClass(navClassNameRight);
 
         if (settings.enableTouchEvents) {
-
-            $this.owlmobileswipe({
-                event: 'swipeleft',
-                callback: function(e) {
-                    navigationIncrementClick(e);
-                }
-            });
-
-            $this.owlmobileswipe({
-                event: 'swiperight',
-                callback: function(e) {
-                    navigationDecrementClick(e);
-                }
+		
+			$this.owlswipe({
+                swipeLeft: function(d) {
+					navigationIncrementClick(e);
+				},
+				swipeRight: function(d) {
+					navigationDecrementClick(e);
+				}
             });
 
         }
