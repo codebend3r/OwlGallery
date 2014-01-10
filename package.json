@@ -1,11 +1,11 @@
 {
-  "title": "Owl Gallery",
+  "title": "OwlGallery",
   "name": "owlgallery",
   "version": "0.1.5",
   "outputFolder": "www",
   "outputName": "owlgallery-website",
   "pluginName": "jquery.owlgallery",
-  "pluginVersion": "1.5.2",
+  "pluginVersion": "1.6",
   "port": "8000",
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -20,6 +20,7 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-preprocess": "~3.0.1",
-    "grunt-ftp-deploy": "~0.1.1"
+    "grunt-ftp-deploy": "~0.1.1",
+    "grunt-contrib-compress": "~0.5.3"
   }
 }

@@ -91,7 +91,6 @@ module.exports = function(grunt) {
                     'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
 				    'js/plugins/jquery.owlswipe-0.1.js',
 				    'js/vendor/knockout-2.2.1.js',
-				    'js/vendor/TweenMax.min.js',
 				    'js/internal/Crivas.Main.js',
 				    'js/internal/Crivas.Gallery.js',
 				    'js/internal/Crivas.Documentation.js',
@@ -111,7 +110,7 @@ module.exports = function(grunt) {
 			    src: [
 				    'css/reset.css',
 				    'css/main.css',
-				    'css/owlgallery.css'
+				    'css/<%= pkg.name %>.css'
 			    ],
 			    dest: 'css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'
 		    }
@@ -177,7 +176,7 @@ module.exports = function(grunt) {
 		    	LIVE_RELOAD: false
 		    },
 		    dev: {
-			    NODE_ENV: 'DEV',
+			    NODE_ENV: 'DEV'
 		    },
 		    prod: {
 			    NODE_ENV: 'PROD'
@@ -224,6 +223,24 @@ module.exports = function(grunt) {
                 src: 'www',
                 dest: '/domains/crivas.net/html/git/<%= pkg.name %>'
             }
+        },
+        compress: {
+            main: {
+                options: {
+                    archive: 'package.zip'
+                },
+                files: [
+                    {
+                        src: [
+                            'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
+                            'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js',
+                            'js/vendor/TweenMax.min.js',
+                            'sass/<%= pkg.name %>.scss',
+                            'css/<%= pkg.name %>.css'
+                        ]
+                    }
+                ]
+            }
         }
     });
 
@@ -236,6 +253,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-preprocess');
+    grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-ftp-deploy');
 
