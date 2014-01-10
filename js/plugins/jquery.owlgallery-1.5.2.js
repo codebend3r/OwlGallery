@@ -1,10 +1,12 @@
-/*
- * Owl Gallery
- * crivas.net
- *
- * Author: Chester Rivas
- * Version: 1.5.2
+/*!
+ * pluginName: OwlGallery
+ * author: Chester Rivas
+ * website: crivas.net
+ * description: image gallery jquery plugin, supports responsive design
+ * version: 1.5.2
+ * Copyright (c) 2014 Crivas Inc.
  */
+ 
 var Owl = Owl || {};
 
 Owl.animationTypes = {};
