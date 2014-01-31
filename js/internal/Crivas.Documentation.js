@@ -121,22 +121,30 @@ CS.documentation = {
 		{
 			eventName: 'slidechanged',
 			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
-			target: 'current slide number'
+			target: [
+				'current slide number'
+			]
 		},
 		{
 			eventName: 'slidenextclicked',
 			description: 'Dispatched when the next button is clicked.',
-			target: 'current slide number'
+			target: [
+				'current slide number'
+			]
 		},
 		{
 			eventName: 'slideprevclicked',
 			description: 'Dispatched when the previous button is clicked.',
-			target: 'current slide number'
+			target: [
+				'current slide number'
+			]
 		},
 		{
 			eventName: 'paginationclicked',
 			description: 'Dispatched when one of the pagination elements are clicked.',
-			target: 'current slide number'
+			target: [
+				'current slide number'
+			]
 		}
 	]
 
