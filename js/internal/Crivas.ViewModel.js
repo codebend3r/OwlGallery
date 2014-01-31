@@ -16,8 +16,9 @@ CS.ViewModel = function () {
 	self.eventsList = ko.observableArray(ko.utils.arrayMap(CS.documentation.events, function (i) {
 		return {
 			eventName: i.eventName,
+            constant: i.constant,
 			description: i.description,
-			target: i.target
+            params: i.params
 		};
 	}));
 

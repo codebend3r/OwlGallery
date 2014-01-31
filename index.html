@@ -207,13 +207,16 @@ $('div.gallery-container-3').owlgallery({
             <hr>
         </ul>
 
-	    <h3>Events</h3>
+	    <h3 data-bind='visible: eventsList().length > 0'>Events</h3>
 
-	    <ul class='small-doc' data-bind='foreach: eventsList'>
+	    <ul class='small-doc' data-bind='foreach: eventsList, visible: eventsList().length > 0'>
 		    <li>
-			    <p><span class='key' data-bind='html: eventName'></span></p>
-			    <p><span class='val'>event params: </span><span class='type' data-bind='html: target'></span></p>
-			    <p class='description' data-bind='html: description'></p>
+                <p><span class='key' data-bind='html: eventName'></span> -- <span class='key' data-bind='html: constant'></span></p>
+                <p>params</p>
+                <p data-bind='foreach: params'>
+                    <span class='type' data-bind='html: name'></span>: <span class='type' data-bind='html: value'></span>
+                </p>
+                <p class='description' data-bind='html: description'></p>
 		    </li>
 		    <hr>
 	    </ul>

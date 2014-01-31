@@ -93,10 +93,24 @@ CS.documentation = {
             required: false
         },
         {
+            key: 'autoLoadTweener',
+            defaultValue: 'false',
+            type: 'Boolean',
+            description: 'COMING SOON: if you want you automatically load the TweenMax/TweenLite library rather than including the script in your HTML page.',
+            required: false
+        },
+        {
             key: 'enableTouchEvents',
             defaultValue: 'false',
             type: 'Boolean',
-            description: 'Enables touch events for swipe left and swipe right. No support for swiping up or down. External library required. ',
+            description: 'Enables touch events for swipe left and swipe right. External <a href="http://crivas.net/git/owlswipe/">OwlSwipe Plugin required.</a>',
+            required: false
+        },
+        {
+            key: 'autoLoadOwlSwipe',
+            defaultValue: 'false',
+            type: 'Boolean',
+            description: 'COMING SOON: if you want you automatically load the OwlSwipe plugin rather than including the script in your HTML page. This option is only availble if <var>enableTouchEvents</var> is set to true.',
             required: false
         },
         {
@@ -120,31 +134,39 @@ CS.documentation = {
 	events: [
 		{
 			eventName: 'slidechanged',
+            constant: 'Owl.event.SLIDECHANGED',
 			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
-			target: [
-				'current slide number'
-			]
+            params: [{
+                name: 'currentSlideNum',
+                value: 'current slide number'
+            }]
 		},
 		{
 			eventName: 'slidenextclicked',
-			description: 'Dispatched when the next button is clicked.',
-			target: [
-				'current slide number'
-			]
-		},
-		{
+            constant: 'Owl.event.SLIDENEXTCLICKED',
+			description: 'Dispatched when the next button is clicked or a swipe action occurs.',
+            params: [{
+                name: 'currentSlideNum',
+                value: 'current slide number'
+            }]
+        },
+        {
 			eventName: 'slideprevclicked',
-			description: 'Dispatched when the previous button is clicked.',
-			target: [
-				'current slide number'
-			]
+            constant: 'Owl.event.SLIDEPREVCLICKED',
+			description: 'Dispatched when the previous button is clicked or swipe action occurs.',
+            params: [{
+                name: 'currentSlideNum',
+                value: 'current slide number'
+            }]
 		},
 		{
 			eventName: 'paginationclicked',
+            constant: 'Owl.event.SLIDENEXTCLICKED',
 			description: 'Dispatched when one of the pagination elements are clicked.',
-			target: [
-				'current slide number'
-			]
+            params: [{
+                name: 'currentSlideNum',
+                value: 'current slide number'
+            }]
 		}
 	]
 

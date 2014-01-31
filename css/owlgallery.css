@@ -9,6 +9,7 @@ navClassName = 'owl-nav',
   overflow: hidden;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 .owl-slide-container li {
   list-style: none;
