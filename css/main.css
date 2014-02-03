@@ -17,7 +17,7 @@ h1 {
   display: inline;
   color: #3e74ff;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   h1 {
     font-size: 52px;
   }
@@ -30,7 +30,7 @@ h2 {
   display: inline;
   color: #ff413c;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   h2 {
     font-size: 46px;
   }
@@ -41,7 +41,7 @@ h3 {
   padding: 20px 0;
   color: #ff413c;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   h3 {
     font-size: 38px;
   }
@@ -52,7 +52,7 @@ h4 {
   padding: 10px 0;
   color: #ff413c;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   h4 {
     font-size: 34px;
   }
@@ -62,7 +62,7 @@ p, a {
   font-size: 12px;
   margin: 0 0 10px 0;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   p, a {
     font-size: 32px;
   }
@@ -72,7 +72,7 @@ p.legal, a.legal {
   margin: 50px 0;
   text-align: center;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   p.legal, a.legal {
     font-size: 26px;
   }
@@ -86,7 +86,7 @@ pre {
   padding: 10px;
   margin: 0 0 20px 0;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   pre {
     font-size: 30px;
   }
@@ -100,7 +100,7 @@ code {
   color: #30332f;
   padding: 10px;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   code {
     font-size: 30px;
   }
@@ -113,7 +113,7 @@ var {
   color: #30332f;
   padding: 0;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   var {
     font-size: 30px;
   }
@@ -214,7 +214,7 @@ ul.slides li {
 .download a:hover, .download a:selected {
   color: #ff413c;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   .download a {
     font-size: 32px;
   }
@@ -242,7 +242,7 @@ ul.slides li {
   color: #7f7f7f;
   margin: 20px 0;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   .small-doc li {
     font-size: 30px;
   }
@@ -252,7 +252,7 @@ ul.slides li {
   font-size: 14px;
   color: #3e74ff;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   .small-doc li .key {
     font-size: 30px;
   }
@@ -264,7 +264,7 @@ ul.slides li {
   font-weight: normal;
   font-size: 12px;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   .small-doc li .description {
     font-size: 30px;
   }
@@ -273,7 +273,7 @@ ul.slides li {
   font-weight: bold;
   color: #ff413c;
 }
-@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   .small-doc li .default-value, .small-doc li .type {
     font-size: 30px;
   }

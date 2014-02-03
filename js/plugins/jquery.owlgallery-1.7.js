@@ -354,14 +354,14 @@ $.fn.owlgallery = function (options) {
 
         if (settings.responsiveMode == Owl.responsiveMode.ALWAYSRESIZE) {
             $this.css({
-                width: $(window).width() - calculateParentPadding(),
+                width: $(window).width() - $this.calculateParentPadding(),
                 height: $(window).width() * aspectRatio
             });
             currentImageWidth = $(window).width() - $this.calculateParentPadding();
         } else if (settings.responsiveMode == Owl.responsiveMode.ONLYRESIZEWHENSMALLER) {
             if ($(window).width() <= settings.galleryWidth ) {
                 $this.css({
-                    width: $(window).width() - calculateParentPadding(),
+                    width: $(window).width() - $this.calculateParentPadding(),
                     height: $(window).width() * aspectRatio
                 });
                 currentImageWidth = $(window).width() - $this.calculateParentPadding();

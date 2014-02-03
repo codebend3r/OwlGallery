@@ -93,6 +93,7 @@ module.exports = function(grunt) {
 				    'js/plugins/jquery.imagesloaded.js',
                     'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
 				    'js/plugins/jquery.owlswipe-0.1.js',
+				    'js/vendor/TweenMax.min.js',
 				    'js/vendor/knockout-2.2.1.js',
 				    'js/internal/Crivas.Main.js',
 				    'js/internal/Crivas.Gallery.js',
