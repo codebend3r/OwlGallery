@@ -29,10 +29,7 @@ module.exports = function(grunt) {
 			    }
 		    }
 	    },
-	    clean: {
-            task1: [ '<%= pkg.outputFolder %>' ],
-            task2: [ 'js/compiled', 'css/compiled' ]
-        },
+	    clean: [ '<%= pkg.outputFolder %>', 'js/compiled', 'css/compiled' ],
 	    copy: {
 		    dev: {
 			    files: [
