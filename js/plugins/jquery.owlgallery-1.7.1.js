@@ -37,7 +37,7 @@ $.fn.owlgallery = function (options) {
         galleryWidth: 640,
         galleryHeight: 480,
         //maxImagesPerSlide: 1, //TODO: implement customizable images per slide, currently only shows one
-        //showThumbnails: false, //TODO: implement thumbnails
+        showThumbnails: false, //TODO: implement thumbnails
         paginationElement: null,
         navElement: null,
         animationType: Owl.animationTypes.SLIDE,
@@ -114,12 +114,13 @@ $.fn.owlgallery = function (options) {
 
         $this.addClass(containerClassName);
         $this.css({
-            overflow: 'hidden',
+            overflowX: 'hidden',
+            overflowY: 'visible',
             zIndex: 1,
             display: 'block',
             position: 'relative',
             width: settings.galleryWidth,
-            height: settings.galleryHeight
+            height: settings.showThumbnails ? settings.galleryHeight + 100 : settings.galleryHeight
         });
 
         if (settings.hideUntilReady) {
@@ -144,8 +145,19 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.addClass(paginationContainerClassName);
         $paginationButtonItem = $paginationContainer.children(); //saved pagination element
         $paginationContainer.html(''); // clear the list items
+
+        if (settings.showThumbnails) {
+            $this.append("<ul class='owl-thumnails'></ul>");
+            var imgList = [];
+        }
+
+        if ($this.find('> ul').not('owl-thumbnails').length > 0) {
+            $this.find('> ul').not('owl-thumbnails').css({
+                height: settings.galleryHeight
+            });
+        }
 		
-        kids.each(function () {
+        kids.each(function (i) {
 
             var child = $(this);
 
@@ -161,7 +173,8 @@ $.fn.owlgallery = function (options) {
                     display: 'inline-block'
                 });
 
-                $galleryListItems = $this.find('.' + imageClassName).not('.not-gallery-image');;
+                $galleryListItems = $this.find('.' + imageClassName).not('.not-gallery-image');
+                imgList.push(child);
 
             } else if (child.is('div')) {
 
@@ -174,6 +187,7 @@ $.fn.owlgallery = function (options) {
 
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
+                imgList.push(deeperChild);
 
                 $galleryListItems = $this.find('.' + listClassName);
 
@@ -188,6 +202,7 @@ $.fn.owlgallery = function (options) {
 
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
+                imgList.push(deeperChild);
 
                 $galleryListItems = $this.find('.' + listClassName).not('.not-gallery-image');
 
@@ -207,6 +222,11 @@ $.fn.owlgallery = function (options) {
         });
 
         $galleryImages = $('.' + imageClassName);
+
+        $.each(imgList, function(key, value){
+            var imgSrc = $(imgList[key]).attr('src');
+            $('.owl-thumnails').append("<li><img class='thumbnail' " + buttonIDPropertyName + "='" + id + "' width='auto' height='50' src='" + imgSrc + "'></li>");
+        });
 
         $this.setupNavigationListeners();
 
@@ -496,7 +516,7 @@ $.fn.owlgallery = function (options) {
 
             if (loopBack) {
                 loopBack = false;
-                initSlides();
+                $this.initSlides();
             }
 
             $.each($galleryListItems, function () {
@@ -875,7 +895,7 @@ $.fn.owlgallery = function (options) {
         }
 
         // if the same pagination button hasn't been clicked then change slide
-        if (currentID !== prevID) goToSlide(currentID, prevID);
+        if (currentID !== prevID) $this.goToSlide(currentID, prevID);
         settings.direction = originalDirection;
 
     };

@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 	    watch: {
 		    dev: {
-			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
 			    tasks: ['dev'],
 			    options: {
 				    livereload: '<%= pkg.port %>',
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			    }
 		    },
 		    prod: {
-			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
 			    tasks: ['prod'],
 			    options: {
 				    livereload: '<%= pkg.port %>',
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 			    }
 		    },
 		    release: {
-			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/compiled/**/*.js', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
 			    tasks: ['release'],
 			    options: {
 				    livereload: '<%= pkg.port %>',

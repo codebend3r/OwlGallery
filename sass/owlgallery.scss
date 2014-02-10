@@ -1,16 +1,10 @@
 @import "variables";
 
-/*
-containerClassName = 'owl-slide-container',
-imageClassName = 'owl-image',
-paginationClassName = 'owl-pagination-button',
-listClassName = 'owl-list-item',
-navClassName = 'owl-nav',
-*/
 
 .owl-slide-container {
 
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   margin: 0;
   padding: 0;
   position: relative;
@@ -85,6 +79,19 @@ navClassName = 'owl-nav',
 
   }
 
+}
+
+.owl-thumnails {
+  display: block;
+  position: absolute;
+  top: 563px;
+  width: 100%;
+  height: 50px;
+  background-color: #e0e0e0;
+  li {
+    list-style: none;
+    display: inline-block;
+  }
 }
 
 .sprite {
