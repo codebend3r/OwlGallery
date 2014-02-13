@@ -61,8 +61,7 @@
   right: 10px;
   cursor: pointer;
 }
-
-.owl-thumnails {
+.owl-slide-container .owl-thumbnails {
   display: block;
   position: absolute;
   top: 563px;
@@ -70,33 +69,32 @@
   height: 50px;
   background-color: #e0e0e0;
 }
-.owl-thumnails li {
+.owl-slide-container .owl-thumbnails li {
   list-style: none;
   display: inline-block;
 }
-
-.sprite {
+.owl-slide-container .sprite {
   display: inline-block;
   overflow: hidden;
   background-repeat: no-repeat;
   background-image: url(../images/controls/spritesheet.png);
 }
-.sprite.arrow-left {
+.owl-slide-container .sprite.arrow-left {
   width: 21px;
   height: 42px;
   background-position: -2px -46px;
 }
-.sprite.arrow-right {
+.owl-slide-container .sprite.arrow-right {
   width: 21px;
   height: 42px;
   background-position: -2px -2px;
 }
-.sprite.dot-empty {
+.owl-slide-container .sprite.dot-empty {
   width: 8px;
   height: 10px;
   background-position: -12px -90px;
 }
-.sprite.dot-filled {
+.owl-slide-container .sprite.dot-filled {
   width: 8px;
   height: 10px;
   background-position: -2px -90px;

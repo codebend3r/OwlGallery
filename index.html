@@ -48,18 +48,10 @@
 
     <div class='container'>
 
-        <div class='gallery-container-4'>
-            <ul data-bind='foreach: imagesList'>
-                <li class='slides'>
-                    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
-                </li>
-            </ul>
-        </div>
-
         <!--
 
-	    <h4>Example #1</h4>
-	    <p>Unordered list container with list items containing img tags.</p>
+        <h4>Example #1</h4>
+	    <p>Unordered list container with list items containing img tags with default settings.</p>
         <ul class='gallery-container-1' data-bind='foreach: imagesList'>
             <li class='slides'>
                 <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
@@ -95,11 +87,12 @@ $('ul.gallery-container-1').owlgallery({
 &nbsp;&nbsp;child: 'li.slides',
 &nbsp;&nbsp;galleryWidth: 1000,
 &nbsp;&nbsp;galleryHeight: 563,
-&nbsp;&nbsp;enableTweener: true
 });
 	    </pre>
 
 	    <hr>
+
+        -->
 
 	    <h4>Example #2</h4>
 		<p>Div container with a list of divs containing an img tags. Set to fading instead of sliding.</p>
@@ -147,6 +140,7 @@ $('div.gallery-container-2').owlgallery({
 
 	    <hr>
 
+        <!--
 	    <h4>Example #3</h4>
 	    <p>Div container with a list of img tags. Pagination and nav controls.</p>
 	    <div class='gallery-container-3'>
@@ -199,9 +193,61 @@ $('div.gallery-container-3').owlgallery({
 });
 	    </pre>
 
-    </div>
+        <h4>Example #4</h4>
+        <p>Div container with an unordered list with show thumbnails turned on.</p>
+        <div class='gallery-container-4'>
+            <ul data-bind='foreach: imagesList'>
+                <li class='slides'>
+                    <img class='image-slide' width='1000' height='563' data-bind='attr:{src:$data}'>
+                </li>
+            </ul>
+        </div>
 
-    -->
+        <h4>HTML</h4>
+
+        <pre>
+&ltdiv class='gallery-container-4'&gt
+&nbsp;&nbsp;&ltul&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='slides'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/1.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&lt/li&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='slides'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/2.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&lt/li&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='slides'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/3.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&lt/li&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='slides'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/4.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&lt/li&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='slides'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/5.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&lt/li&gt
+&nbsp;&nbsp;&lt/ul&gt
+&lt/div&gt
+	    </pre>
+
+        <h4>JS</h4>
+
+	    <pre>
+$('div.gallery-container-4').owlgallery({
+&nbsp;&nbsp;child: 'li.slides',
+&nbsp;&nbsp;cycleTime: 1500,
+&nbsp;&nbsp;animationTime: 1000,
+&nbsp;&nbsp;galleryWidth: 1000,
+&nbsp;&nbsp;galleryHeight: 563,
+&nbsp;&nbsp;enableTweener: true,
+&nbsp;&nbsp;autoLoadTweener: true,
+&nbsp;&nbsp;autoPlay: true,
+&nbsp;&nbsp;animationType: Owl.animationTypes.SLIDE,
+&nbsp;&nbsp;responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
+&nbsp;&nbsp;showThumbnails: true
+});
+	    </pre>
+
+	    -->
+
+    </div>
 
     <hr>
 

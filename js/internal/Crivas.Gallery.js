@@ -2,15 +2,10 @@ CS.initGallery = function () {
 
 	$('img').imagesLoaded(function() {
 
-        /*
 		$('.gallery-container-1').owlgallery({
 			child: 'li.slides',
 			galleryWidth: 1000,
-			galleryHeight: 563,
-			enableTweener: true,
-			autoLoadTweener: true,
-			animationType: Owl.animationTypes.SLIDE,
-			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
+			galleryHeight: 563
 		});
 
 		$('.gallery-container-2').owlgallery({
@@ -37,7 +32,6 @@ CS.initGallery = function () {
 			paginationElement: '.pagination',
 			navElement: '.nav'
 		});
-		*/
 
         $('.gallery-container-4').owlgallery({
             child: 'li.slides',

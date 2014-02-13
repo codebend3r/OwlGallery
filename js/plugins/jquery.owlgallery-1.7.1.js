@@ -36,6 +36,7 @@ $.fn.owlgallery = function (options) {
         animationTime: 350,
         galleryWidth: 640,
         galleryHeight: 480,
+        picturePosition: 'fill', // stretch, fill, fit
         //maxImagesPerSlide: 1, //TODO: implement customizable images per slide, currently only shows one
         showThumbnails: false, //TODO: implement thumbnails
         paginationElement: null,
@@ -44,9 +45,9 @@ $.fn.owlgallery = function (options) {
         direction: Owl.direction.FORWARD,
         child: null, //will automatically find img and li tags
         responsiveMode: Owl.responsiveMode.NEVERRESIZE,
-        enableTweener: false,
+        enableTweener: true,
         enableTouchEvents: false,
-        autoLoadTweener: false,
+        autoLoadTweener: true,
         autoLoadOwlSwipe: false,
         hideUntilReady: false,
         autoPlay: true
@@ -115,12 +116,12 @@ $.fn.owlgallery = function (options) {
         $this.addClass(containerClassName);
         $this.css({
             overflowX: 'hidden',
-            overflowY: 'visible',
+            overflowY: 'hidden',
             zIndex: 1,
             display: 'block',
             position: 'relative',
             width: settings.galleryWidth,
-            height: settings.showThumbnails ? settings.galleryHeight + 100 : settings.galleryHeight
+            height: settings.showThumbnails ? settings.galleryHeight + 50 : settings.galleryHeight
         });
 
         if (settings.hideUntilReady) {
@@ -137,6 +138,9 @@ $.fn.owlgallery = function (options) {
 
         settings.child !== null ? kids = $this.find(settings.child) : kids = $this.children('img');
 
+        console.log('kids', kids);
+        debugger;
+
         if (!settings.child || settings.child.length == 0) {
             throw Error("child is undefined, therefore plugin can not find slide elements. Make sure an img, li or child div exist.");
         }
@@ -147,17 +151,21 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.html(''); // clear the list items
 
         if (settings.showThumbnails) {
-            $this.append("<ul class='owl-thumnails'></ul>");
+            $this.append("<ul class='owl-thumbnails'></ul>");
             var imgList = [];
         }
 
-        if ($this.find('> ul').not('owl-thumbnails').length > 0) {
-            $this.find('> ul').not('owl-thumbnails').css({
+        if ($this.find('> ul').not('.owl-thumbnails').length > 0) {
+            $this.find('> ul').not('.owl-thumbnails').css({
                 height: settings.galleryHeight
             });
         }
+
+        $this.find('ul.owl-thumbnails').css({
+            height: 50
+        });
 		
-        kids.each(function (i) {
+        kids.each(function() {
 
             var child = $(this);
 
@@ -166,6 +174,8 @@ $.fn.owlgallery = function (options) {
 
             // if child is an img tag
             if (child.is('img')) {
+
+                console.log('1 img');
 
                 child.addClass(imageClassName).not('.not-gallery-image');
                 child.css({
@@ -177,6 +187,8 @@ $.fn.owlgallery = function (options) {
                 imgList.push(child);
 
             } else if (child.is('div')) {
+
+                console.log('2 div');
 
                 child.addClass(listClassName);
                 child.css({
@@ -192,6 +204,8 @@ $.fn.owlgallery = function (options) {
                 $galleryListItems = $this.find('.' + listClassName);
 
             } else if (child.is('li')) {
+
+                console.log('3 li');
 
                 child.addClass(listClassName);
                 child.css({
@@ -223,10 +237,12 @@ $.fn.owlgallery = function (options) {
 
         $galleryImages = $('.' + imageClassName);
 
-        $.each(imgList, function(key, value){
-            var imgSrc = $(imgList[key]).attr('src');
-            $('.owl-thumnails').append("<li><img class='thumbnail' " + buttonIDPropertyName + "='" + id + "' width='auto' height='50' src='" + imgSrc + "'></li>");
-        });
+        if (settings.showThumbnails) {
+            $.each(imgList, function(key, value){
+                var imgSrc = $(imgList[key]).attr('src');
+                $('.owl-thumbnails').append("<li><img class='thumbnail' " + buttonIDPropertyName + "='" + id + "' width='auto' height='50' src='" + imgSrc + "'></li>");
+            });
+        }
 
         $this.setupNavigationListeners();
 
@@ -271,11 +287,11 @@ $.fn.owlgallery = function (options) {
 
         // if responsive mode doesn't equal to neverresize then add event listener for window resize
         if (settings.responsiveMode !== Owl.responsiveMode.NEVERRESIZE) {
-            $(window).on('resize', $this.onWindowResize);
             $galleryImages.css({
                 minWidth: '100%',
                 minHeight: '100%'
             });
+            $(window).on('resize', $this.onWindowResize);
             $this.onWindowResize();
         }
 
@@ -376,20 +392,20 @@ $.fn.owlgallery = function (options) {
         if (settings.responsiveMode == Owl.responsiveMode.ALWAYSRESIZE) {
             $this.css({
                 width: $(window).width() - $this.calculateParentPadding(),
-                height: $(window).width() * aspectRatio
+                height: settings.showThumbnails ? $(window).width() * aspectRatio + 50 : $(window).width() * aspectRatio
             });
             currentImageWidth = $(window).width() - $this.calculateParentPadding();
         } else if (settings.responsiveMode == Owl.responsiveMode.ONLYRESIZEWHENSMALLER) {
             if ($(window).width() <= settings.galleryWidth ) {
                 $this.css({
                     width: $(window).width() - $this.calculateParentPadding(),
-                    height: $(window).width() * aspectRatio
+                    height: settings.showThumbnails ? $(window).width() * aspectRatio + 50 : $(window).width() * aspectRatio
                 });
                 currentImageWidth = $(window).width() - $this.calculateParentPadding();
             } else {
                 $this.css({
                     width: settings.galleryWidth,
-                    height: settings.galleryHeight
+                    height: settings.showThumbnails ? settings.galleryHeight + 50 : settings.galleryHeight
                 });
                 currentImageWidth = settings.galleryWidth;
             }
