@@ -10,6 +10,8 @@ html {
 body {
   padding: 0 0 50px 0;
   margin: 0;
+  background-color: $white;
+  color: #333333;
 }
 
 h1 {
@@ -224,7 +226,7 @@ ul.slides {
   display: block;
   li {
     list-style: none;
-    color: #7f7f7f;
+    //color: #7f7f7f;
     margin: 20px 0;
     @media #{$retinaBreakpoint} {
       font-size: #{$retinaFontSize - 2};

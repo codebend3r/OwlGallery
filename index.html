@@ -48,8 +48,6 @@
 
     <div class='container'>
 
-        <!--
-
         <h4>Example #1</h4>
 	    <p>Unordered list container with list items containing img tags with default settings.</p>
         <ul class='gallery-container-1' data-bind='foreach: imagesList'>
@@ -92,8 +90,6 @@ $('ul.gallery-container-1').owlgallery({
 
 	    <hr>
 
-        -->
-
 	    <h4>Example #2</h4>
 		<p>Div container with a list of divs containing an img tags. Set to fading instead of sliding.</p>
 	    <div class='gallery-container-2' data-bind='foreach: imagesList'>
@@ -107,13 +103,13 @@ $('ul.gallery-container-1').owlgallery({
 	    <pre>
 &ltdiv class='gallery-container-2'&gt
 &nbsp;&nbsp;&ltdiv class='slides'&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/1.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/1.jpg'/&gt
 &nbsp;&nbsp;&lt/div&gt
 &nbsp;&nbsp;&ltdiv class='slides'&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/2.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/2.jpg'/&gt
 &nbsp;&nbsp;&lt/div&gt
 &nbsp;&nbsp;&ltdiv class='slides'&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/3.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/3.jpg'/&gt
 &nbsp;&nbsp;&lt/div&gt
 &nbsp;&nbsp;&ltdiv class='slides'&gt
 &nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/4.jpg'/&gt
@@ -140,20 +136,19 @@ $('div.gallery-container-2').owlgallery({
 
 	    <hr>
 
-        <!--
 	    <h4>Example #3</h4>
 	    <p>Div container with a list of img tags. Pagination and nav controls.</p>
 	    <div class='gallery-container-3'>
 		    <div class='image-container' data-bind='foreach: imagesList'>
 			    <img class='image-slide' data-bind='attr:{src:$data}'>
 		    </div>
-		    <div class='nav'>
-			    <div class='sprite arrow-left'></div>
-			    <div class='sprite arrow-right'></div>
-		    </div>
-		    <div class='pagination'>
-			    <div class='sprite dot-empty'></div>
-		    </div>
+		    <ul class='nav'>
+			    <li class='sprite arrow-left'></li>
+			    <li class='sprite arrow-right'></li>
+		    </ul>
+		    <ul class='pagination'>
+			    <li class='sprite dot-empty'></li>
+		    </ul>
 	    </div>
 
 	    <h4>HTML</h4>
@@ -238,14 +233,12 @@ $('div.gallery-container-4').owlgallery({
 &nbsp;&nbsp;galleryHeight: 563,
 &nbsp;&nbsp;enableTweener: true,
 &nbsp;&nbsp;autoLoadTweener: true,
-&nbsp;&nbsp;autoPlay: true,
+&nbsp;&nbsp;autoPlay: false,
 &nbsp;&nbsp;animationType: Owl.animationTypes.SLIDE,
 &nbsp;&nbsp;responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
 &nbsp;&nbsp;showThumbnails: true
 });
 	    </pre>
-
-	    -->
 
     </div>
 
@@ -268,15 +261,18 @@ $('div.gallery-container-4').owlgallery({
 	    <h3 data-bind='visible: eventsList().length > 0'>Events</h3>
 
 	    <ul class='small-doc' data-bind='foreach: eventsList, visible: eventsList().length > 0'>
-		    <li>
-                <p><span class='key' data-bind='html: eventName'></span> -- <span class='key' data-bind='html: constant'></span></p>
+            <li>
+                <p><span class='key' data-bind='html: eventName'></span> = <span class='key' data-bind='html: constant'></span></p>
                 <p class='description' data-bind='html: description'></p>
-                <p>params</p>
-                <p data-bind='foreach: params'>
-                    <span class='type' data-bind='html: name'></span>: <span class='type' data-bind='html: value'></span>
+                <p data-bind='visible: eventParams().length > 0'>
+                    <span class='val'>event params: [</span>
+		                <span data-bind='foreach: eventParams'>
+                            <span class='param-name' data-bind='html: name'></span>: <span class='param-description' data-bind='html: value'></span>
+						</span>
+                    <span class='val'>]</span>
                 </p>
-		    </li>
-		    <hr>
+            </li>
+            <hr>
 	    </ul>
 
     </div>

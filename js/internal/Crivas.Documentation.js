@@ -136,7 +136,7 @@ CS.documentation = {
 			eventName: 'slidechanged',
             constant: 'Owl.event.SLIDECHANGED',
 			description: 'Dispatched when the slide is changed in any way. In other words if the slide changes via swipe, navigation, pagination or timer.',
-            params: [{
+            eventParams: [{
                 name: 'currentSlideNum',
                 value: 'current slide number'
             }]
@@ -145,7 +145,7 @@ CS.documentation = {
 			eventName: 'slidenextclicked',
             constant: 'Owl.event.SLIDENEXTCLICKED',
 			description: 'Dispatched when the next button is clicked or a swipe action occurs.',
-            params: [{
+            eventParams: [{
                 name: 'currentSlideNum',
                 value: 'current slide number'
             }]
@@ -154,7 +154,7 @@ CS.documentation = {
 			eventName: 'slideprevclicked',
             constant: 'Owl.event.SLIDEPREVCLICKED',
 			description: 'Dispatched when the previous button is clicked or swipe action occurs.',
-            params: [{
+            eventParams: [{
                 name: 'currentSlideNum',
                 value: 'current slide number'
             }]
@@ -163,7 +163,7 @@ CS.documentation = {
 			eventName: 'paginationclicked',
             constant: 'Owl.event.SLIDENEXTCLICKED',
 			description: 'Dispatched when one of the pagination elements are clicked.',
-            params: [{
+            eventParams: [{
                 name: 'currentSlideNum',
                 value: 'current slide number'
             }]

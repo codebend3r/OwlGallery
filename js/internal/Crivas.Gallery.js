@@ -41,7 +41,7 @@ CS.initGallery = function () {
             galleryHeight: 563,
             enableTweener: true,
             autoLoadTweener: true,
-            autoPlay: true,
+            autoPlay: false,
             animationType: Owl.animationTypes.SLIDE,
             responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
             showThumbnails: true

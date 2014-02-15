@@ -31,14 +31,14 @@ Owl.responsiveMode.NEVERRESIZE = "neverresize";
 $.fn.owlgallery = function (options) {
 
     var settings = $.extend({
-        // These are the defaults.
         cycleTime: 3000,
         animationTime: 350,
         galleryWidth: 640,
         galleryHeight: 480,
-        picturePosition: 'fill', // stretch, fill, fit
+        //picturePosition: 'fill', // stretch, fill, fit, autoresize
         //maxImagesPerSlide: 1, //TODO: implement customizable images per slide, currently only shows one
         showThumbnails: false, //TODO: implement thumbnails
+        thumbnailsHeight: 50,
         paginationElement: null,
         navElement: null,
         animationType: Owl.animationTypes.SLIDE,
@@ -57,6 +57,7 @@ $.fn.owlgallery = function (options) {
         $galleryListItems = [],
         $galleryImages = [],
         $paginationButtonList = [],
+        $ulSelector,
         imgWidth = null,
         imgHeight = null,
         loopBack = false,
@@ -75,6 +76,7 @@ $.fn.owlgallery = function (options) {
         currentID,
         prevID,
         currentSlideNum,
+        thumbailsList = [],
         aspectRatio,
         animating = false,
         originalDirection = settings.direction,
@@ -87,8 +89,10 @@ $.fn.owlgallery = function (options) {
         navClassName = 'owl-nav',
         navClassNameLeft = 'owl-nav-left',
         navClassNameRight = 'owl-nav-right',
+        thumbnailsContainerClassName = 'owl-thumbnail-container',
+        thumbnailsClassName = 'owl-thumbnail',
         currentClassName = 'current',
-        buttonIDPropertyName = 'buttonID';
+        buttonIDPropertyName = 'buttonid';
 
     /**
      Get a new list of images and starts cycle again
@@ -121,7 +125,7 @@ $.fn.owlgallery = function (options) {
             display: 'block',
             position: 'relative',
             width: settings.galleryWidth,
-            height: settings.showThumbnails ? settings.galleryHeight + 50 : settings.galleryHeight
+            height: settings.showThumbnails ? settings.galleryHeight + settings.thumbnailsHeight : settings.galleryHeight
         });
 
         if (settings.hideUntilReady) {
@@ -138,9 +142,6 @@ $.fn.owlgallery = function (options) {
 
         settings.child !== null ? kids = $this.find(settings.child) : kids = $this.children('img');
 
-        console.log('kids', kids);
-        debugger;
-
         if (!settings.child || settings.child.length == 0) {
             throw Error("child is undefined, therefore plugin can not find slide elements. Make sure an img, li or child div exist.");
         }
@@ -149,21 +150,6 @@ $.fn.owlgallery = function (options) {
         $paginationContainer.addClass(paginationContainerClassName);
         $paginationButtonItem = $paginationContainer.children(); //saved pagination element
         $paginationContainer.html(''); // clear the list items
-
-        if (settings.showThumbnails) {
-            $this.append("<ul class='owl-thumbnails'></ul>");
-            var imgList = [];
-        }
-
-        if ($this.find('> ul').not('.owl-thumbnails').length > 0) {
-            $this.find('> ul').not('.owl-thumbnails').css({
-                height: settings.galleryHeight
-            });
-        }
-
-        $this.find('ul.owl-thumbnails').css({
-            height: 50
-        });
 		
         kids.each(function() {
 
@@ -175,8 +161,6 @@ $.fn.owlgallery = function (options) {
             // if child is an img tag
             if (child.is('img')) {
 
-                console.log('1 img');
-
                 child.addClass(imageClassName).not('.not-gallery-image');
                 child.css({
                     position: 'absolute',
@@ -184,11 +168,9 @@ $.fn.owlgallery = function (options) {
                 });
 
                 $galleryListItems = $this.find('.' + imageClassName).not('.not-gallery-image');
-                imgList.push(child);
+                if (settings.showThumbnails) thumbailsList.push(child);
 
             } else if (child.is('div')) {
-
-                console.log('2 div');
 
                 child.addClass(listClassName);
                 child.css({
@@ -199,14 +181,12 @@ $.fn.owlgallery = function (options) {
 
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
-                imgList.push(deeperChild);
+                if (settings.showThumbnails) thumbailsList.push(deeperChild);
 
                 $galleryListItems = $this.find('.' + listClassName);
 
             } else if (child.is('li')) {
 
-                console.log('3 li');
-
                 child.addClass(listClassName);
                 child.css({
                     position: 'absolute',
@@ -216,14 +196,12 @@ $.fn.owlgallery = function (options) {
 
                 var deeperChild = child.find('img').not('.not-gallery-image');
                 deeperChild.addClass(imageClassName);
-                imgList.push(deeperChild);
+                if (settings.showThumbnails) thumbailsList.push(deeperChild);
 
                 $galleryListItems = $this.find('.' + listClassName).not('.not-gallery-image');
 
             } else {
-
                 throw Error("Can not find img tags please use the child property to pass in a valid img selector.");
-
             }
 
             $paginationCopy = $paginationButtonItem.clone();
@@ -238,10 +216,26 @@ $.fn.owlgallery = function (options) {
         $galleryImages = $('.' + imageClassName);
 
         if (settings.showThumbnails) {
-            $.each(imgList, function(key, value){
-                var imgSrc = $(imgList[key]).attr('src');
-                $('.owl-thumbnails').append("<li><img class='thumbnail' " + buttonIDPropertyName + "='" + id + "' width='auto' height='50' src='" + imgSrc + "'></li>");
+            // create thumbnails container with class name
+            $this.append("<ul class='" + thumbnailsContainerClassName + "'></ul>");
+            // inline style thumbnails container, setting height
+            $this.find('ul.' + thumbnailsContainerClassName).css({
+                top: settings.galleryHeight,
+                height: settings.thumbnailsHeight
             });
+            $.each(thumbailsList, function(key, value){
+                var imgSrc = $(thumbailsList[key]).attr('src');
+                $('ul.' + thumbnailsContainerClassName).append(
+                    "<li><img class='" + thumbnailsClassName + "' " + buttonIDPropertyName + "='" + key + "' width='auto' height='" + settings.thumbnailsHeight + "' src='" + imgSrc + "'></li>"
+                );
+            });
+            $('.' + thumbnailsContainerClassName).find('li').find('img').on('click', $this.paginationClick);
+            $ulSelector = $this.find('> ul').not('.' + thumbnailsContainerClassName);
+            if ($ulSelector.length > 0) {
+                $ulSelector.css({
+                    height: settings.galleryHeight
+                });
+            }
         }
 
         $this.setupNavigationListeners();
@@ -376,6 +370,11 @@ $.fn.owlgallery = function (options) {
 
     };
 
+    /**
+     Calculating all the padding of the parents and is used to set width
+
+     @method calculateParentPadding
+     **/
     $this.calculateParentPadding = function() {
         var totalPadding = 0;
         $.each($this.parents(), function() {
@@ -387,26 +386,47 @@ $.fn.owlgallery = function (options) {
         return totalPadding;
     }
 
+    /**
+     On window resize, resize gallery elements
+
+     @method onWindowResize
+     **/
     $this.onWindowResize = function() {
 
         if (settings.responsiveMode == Owl.responsiveMode.ALWAYSRESIZE) {
             $this.css({
                 width: $(window).width() - $this.calculateParentPadding(),
-                height: settings.showThumbnails ? $(window).width() * aspectRatio + 50 : $(window).width() * aspectRatio
+                height: settings.showThumbnails ? $(window).width() * aspectRatio + settings.thumbnailsHeight : $(window).width() * aspectRatio
             });
             currentImageWidth = $(window).width() - $this.calculateParentPadding();
         } else if (settings.responsiveMode == Owl.responsiveMode.ONLYRESIZEWHENSMALLER) {
             if ($(window).width() <= settings.galleryWidth ) {
                 $this.css({
                     width: $(window).width() - $this.calculateParentPadding(),
-                    height: settings.showThumbnails ? $(window).width() * aspectRatio + 50 : $(window).width() * aspectRatio
+                    height: settings.showThumbnails ? ( $(window).width() * aspectRatio ) + settings.thumbnailsHeight : $(window).width() * aspectRatio
                 });
+                if (settings.showThumbnails) {
+                    $ulSelector.css({
+                        height: $(window).width() * aspectRatio
+                    });
+                    $this.find('ul.' + thumbnailsContainerClassName).css({
+                        top: $ulSelector.height()
+                    });
+                }
                 currentImageWidth = $(window).width() - $this.calculateParentPadding();
             } else {
                 $this.css({
                     width: settings.galleryWidth,
-                    height: settings.showThumbnails ? settings.galleryHeight + 50 : settings.galleryHeight
+                    height: settings.showThumbnails ? settings.galleryHeight + settings.thumbnailsHeight : settings.galleryHeight
                 });
+                if (settings.showThumbnails) {
+                    $ulSelector.css({
+                        height: settings.galleryHeight
+                    });
+                    $this.find('ul.' + thumbnailsContainerClassName).css({
+                        top: settings.galleryHeight
+                    });
+                }
                 currentImageWidth = settings.galleryWidth;
             }
         }
@@ -902,7 +922,7 @@ $.fn.owlgallery = function (options) {
 
         var $currentTarget = $(e.currentTarget);
         prevID = currentID || 0;
-        currentID = Number($currentTarget.attr('buttonID'));
+        currentID = Number($currentTarget.attr(buttonIDPropertyName));
 
         if ( prevID > currentID ) {
             settings.direction = Owl.direction.FORWARD;

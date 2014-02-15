@@ -1,6 +1,5 @@
 @import "variables";
 
-
 .owl-slide-container {
   overflow-x: hidden;
   overflow-y: visible;
@@ -66,16 +65,21 @@
   .owl-image {
 
   }
-  .owl-thumbnails {
+  .owl-thumbnail-container {
     display: block;
     position: absolute;
     top: 563px;
-    width: 100%;
+    //width: 100%;
     height: 50px;
-    background-color: #e0e0e0;
+    //background-color: #e0e0e0;
+    left: 50%;
     li {
+      position: relative;
+      left: -50%;
+      float: left;
       list-style: none;
       display: inline-block;
+      cursor: pointer;
     }
   }
   .sprite {
