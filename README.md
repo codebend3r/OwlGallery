@@ -2,6 +2,15 @@ OwlSlider
 ============
 v 1.7.2
 
-JQuery Plugin - slider/carousel/gallery with built in responsive design and swipe detection for mobile devices.
+JQuery Plugin for easily creating a gallery with responsiveness and swipe detection for touch devices built in.
 
-Documentation: http://crivas.net/git/owlgallery/
+<a href='http://crivas.net/git/owlgallery/'>Owl Gallery Documentation</a> 
+
+Basic Usage:
+
+<code>
+$('ul.gallery-list').owlgallery({
+  child: 'li.slides'
+});
+</code>
+
