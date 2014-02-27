@@ -7,9 +7,9 @@ JQuery Plugin for easily creating a gallery with responsiveness and swipe detect
 
 Basic Usage:
 
-<code>
+<pre>
 $('ul.gallery-list').owlgallery({
   child: 'li.slides'
 });
-</code>
+</pre>
 
