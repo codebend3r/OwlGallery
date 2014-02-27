@@ -1,6 +1,6 @@
 OwlSlider
 ============
-v 1.7.2
+v 1.7.3
 
 JQuery Plugin for easily creating a gallery with responsiveness and swipe detection for touch devices built in.
 
