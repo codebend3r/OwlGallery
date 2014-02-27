@@ -39,11 +39,7 @@
 <div class='main-container'>
 
     <div class='download'>
-        <a href='js/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js'>Download (Uncompressed)</a>
-    </div>
-
-    <div class='download'>
-        <a href='js/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.min.js'>Download (Minified)</a>
+        <a href='<!-- @echo packageFileName -->'>Download Package</a>
     </div>
 
     <div class='container'>
@@ -282,11 +278,10 @@ $('div.gallery-container-4').owlgallery({
 </div>
 
 <!-- @if NODE_ENV == 'DEV' -->
-<script src="js/plugins/jquery-1.9.1.js" type="text/javascript"></script>
-<script src="js/plugins/jquery.imagesloaded.js" type="text/javascript"></script>
-<script src="js/plugins/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js" type="text/javascript"></script>
+<script src="js/vendor/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="js/vendor/jquery.imagesloaded.js" type="text/javascript"></script>
+<script src="js/vendor/<!-- @echo pluginName -->-<!-- @echo pluginVersion -->.js" type="text/javascript"></script>
 <script src="js/vendor/knockout-2.2.1.js" type="text/javascript"></script>
-<!-- <script src="js/vendor/TweenMax.min.js" type="text/javascript"></script> -->
 <script src="js/internal/Crivas.Main.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Gallery.js" type="text/javascript"></script>
 <script src="js/internal/Crivas.Documentation.js" type="text/javascript"></script>

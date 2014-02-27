@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 	    watch: {
 		    dev: {
-			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['dev'],
 			    options: {
 				    livereload: '<%= pkg.port %>',
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			    }
 		    },
 		    prod: {
-			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['prod'],
 			    options: {
 				    livereload: '<%= pkg.port %>',
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 			    }
 		    },
 		    release: {
-			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'js/plugins/**/*.js', 'index.html' ],
+			    files: [ 'sass/**/*.scss', 'js/internal/**/*.js', 'js/vendor/**/*.js', 'index.html' ],
 			    tasks: ['release'],
 			    options: {
 				    livereload: '<%= pkg.port %>',
@@ -29,7 +29,10 @@ module.exports = function(grunt) {
 			    }
 		    }
 	    },
-	    clean: [ '<%= pkg.outputFolder %>', 'js/compiled', 'css/compiled' ],
+	    clean: {
+            normal: [ '<%= pkg.outputFolder %>', '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/', 'download', 'js/compiled', 'css/compiled' ],
+            cleanup: [ '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip', '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>' ]
+        },
 	    copy: {
 		    dev: {
 			    files: [
@@ -51,7 +54,7 @@ module.exports = function(grunt) {
 				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.js'},
                     {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'},
                     {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
-				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css'}
+				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css'},
 			    ]
 		    },
 		    release: {
@@ -65,7 +68,23 @@ module.exports = function(grunt) {
                     {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
                     {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css'}
                 ]
-		    }
+		    },
+		    zipup: {
+		    	files: [
+					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
+					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
+					{ expand: true, flatten: true, src: [ 'js/vendor/jquery.owlswipe-1.0.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
+					{ expand: true, flatten: true, src: [ 'js/vendor/TweenMax.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
+					{ expand: true, flatten: true, src: [ 'sass/owlgallery.scss' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/sass' },
+					{ expand: true, flatten: true, src: [ 'css/owlgallery.css' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/css' },
+					{ expand: false, flatten: false, src: [ 'images/controls/**' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/' }
+		    	]
+		    },
+            movezip: {
+                files: [
+                    { expand: true, flatten: true, src: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip', dest: '<%= pkg.outputFolder %>/download/' }
+                ]
+            }
 	    },
         sass: {
             dist: {
@@ -86,11 +105,11 @@ module.exports = function(grunt) {
 		    },
 		    jsconcat: {
 			    src: [
-				    'js/plugins/jquery-1.9.1.js',
-				    'js/plugins/jquery.imagesloaded.js',
-                    'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
-				    'js/plugins/jquery.owlswipe-0.1.js',
-				    'js/vendor/TweenMax.min.js',
+				    'js/vendor/jquery-1.9.1.js',
+				    'js/vendor/jquery.imagesloaded.js',
+                    'js/vendor/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
+				    //'js/vendor/jquery.owlswipe-1.0.js',
+				    //'js/vendor/TweenMax.min.js',
 				    'js/vendor/knockout-2.2.1.js',
 				    'js/internal/Crivas.Main.js',
 				    'js/internal/Crivas.Gallery.js',
@@ -198,6 +217,7 @@ module.exports = function(grunt) {
                     version: '<%= pkg.version %>',
                     pluginName: '<%= pkg.pluginName %>',
                     pluginVersion: '<%= pkg.pluginVersion %>',
+                    packageFileName: '/download/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip',
                     port: '<%= pkg.port %>'
                 }
             },
@@ -228,17 +248,13 @@ module.exports = function(grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'package.zip'
+                    archive: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip'
                 },
                 files: [
                     {
-                        src: [
-                            'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js',
-                            'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js',
-                            'js/vendor/TweenMax.min.js',
-                            'sass/<%= pkg.name %>.scss',
-                            'css/<%= pkg.name %>.css'
-                        ]
+                        expand: false,
+                        flatten: false,
+                        src: [ '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/**' ]
                     }
                 ]
             }
@@ -262,9 +278,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('watchdev', [ 'connect:dev', 'env:watching', 'watch:dev' ]);
 	grunt.registerTask('watchprod', [ 'connect:prod', 'env:watching', 'watch:prod' ]);
 	grunt.registerTask('watchrelease', [ 'connect:release', 'env:watching', 'watch:release' ]);
-	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean', 'copy:dev', 'preprocess:dev' ]);
-	grunt.registerTask('prod', [ 'env:prod', 'sass', 'clean', 'concat','copy:prod', 'preprocess:prod' ]);
-    grunt.registerTask('release', [ 'env:release', 'sass', 'clean', 'concat', 'uglify', 'cssmin', 'copy:release', 'preprocess:release' ]);
+	grunt.registerTask('dev', [ 'env:dev', 'sass', 'clean:normal', 'copy:dev', 'preprocess:dev' ]);
+	grunt.registerTask('prod', [ 'env:prod', 'sass', 'clean:normal', 'concat','copy:prod', 'preprocess:prod' ]);
+    grunt.registerTask('release', [ 'env:release', 'sass', 'clean:normal', 'concat', 'uglify', 'cssmin', 'copy:release', 'copy:zipup', 'compress', 'copy:movezip', 'clean:cleanup', 'preprocess:release' ]);
     grunt.registerTask('deploy', [ 'ftp-deploy' ]);
     grunt.registerTask('launch', [ 'release', 'deploy' ]);
     grunt.registerTask('default', ['dev']);

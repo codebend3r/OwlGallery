@@ -195,10 +195,12 @@ ul.slides {
 
 .download {
   font-weight: bold;
-  padding: 10px 0;
+  padding: 30px 0;
   a {
-    font-size: 14px;
-    color: $secondaryColour;
+    font-size: 18px;
+    color: #3e74ff;
+    background-color: lightcyan;
+    padding: 10px;
     &:hover, &:selected {
       color: $tertiaryColour;
     }
