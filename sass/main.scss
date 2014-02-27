@@ -65,8 +65,19 @@ p, a {
     margin: 50px 0;
     text-align: center;
     @media #{$retinaBreakpoint} {
-      font-size: #{$retinaFontSize - 6};
+      font-size: #{$retinaFontSize - 10};
     }
+  }
+}
+
+.code {
+  font-family: Consolas, 'monaco', monospace;
+  background-color: #dbdbdb;
+  border: 1px solid #ddd;
+  color: #515450;
+  margin: 0 0 20px 0;
+  @media #{$retinaBreakpoint} {
+    font-size: #{$retinaFontSize - 6};
   }
 }
 
@@ -77,8 +88,9 @@ pre {
   color: #30332f;
   padding: 10px;
   margin: 0 0 20px 0;
+  overflow: hidden;
   @media #{$retinaBreakpoint} {
-    font-size: #{$retinaFontSize - 2};
+    font-size: #{$retinaFontSize - 10};
   }
 }
 
@@ -89,8 +101,9 @@ code {
   white-space: pre-wrap;
   color: #30332f;
   padding: 10px;
+  overflow: hidden;
   @media #{$retinaBreakpoint} {
-    font-size: #{$retinaFontSize - 2};
+    font-size: #{$retinaFontSize - 10};
   }
 }
 
@@ -100,8 +113,9 @@ var {
   font-weight: normal;
   color: #30332f;
   padding: 0;
+  overflow: hidden;
   @media #{$retinaBreakpoint} {
-    font-size: #{$retinaFontSize - 2};
+    font-size: #{$retinaFontSize - 10};
   }
 }
 

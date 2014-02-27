@@ -6,7 +6,8 @@ CS.initGallery = function () {
 			child: 'li.slides',
 			galleryWidth: 1000,
 			galleryHeight: 563,
-            relativeAutoLoadPath: '/js/vendor/'
+            responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
+            relativeAutoLoadPath: 'js/vendor/'
 		});
 
 		$('.gallery-container-2').owlgallery({
@@ -19,7 +20,7 @@ CS.initGallery = function () {
             autoLoadTweener: true,
 			animationType: Owl.animationTypes.FADE,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
-            relativeAutoLoadPath: '/js/vendor/'
+            relativeAutoLoadPath: 'js/vendor/'
 		});
 
 		$('.gallery-container-3').owlgallery({
@@ -33,7 +34,7 @@ CS.initGallery = function () {
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
 			paginationElement: '.pagination',
 			navElement: '.nav',
-            relativeAutoLoadPath: '/js/vendor/'
+            relativeAutoLoadPath: 'js/vendor/'
 		});
 
         $('.gallery-container-4').owlgallery({
@@ -48,7 +49,7 @@ CS.initGallery = function () {
             animationType: Owl.animationTypes.SLIDE,
             responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
             showThumbnails: true,
-            relativeAutoLoadPath: '/js/vendor/'
+            relativeAutoLoadPath: 'js/vendor/'
         });
 
 	});

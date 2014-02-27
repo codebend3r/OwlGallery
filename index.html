@@ -250,6 +250,12 @@ $('div.gallery-container-4').owlgallery({
 	            <p><span class='val'>default value: </span><span class='default-value' data-bind='html: defaultValue'></span></p>
 	            <p><span class='val'>type: </span><span class='type' data-bind='html: type'></span></p>
                 <p class='description' data-bind='html: description'></p>
+                <ul data-bind='foreach: params, visible: params.length > 0' class='functions-list'>
+                    <li>
+                        <p><span class='code' data-bind='html: functionExample'></span></p>
+                        <p><span class='type' data-bind='html: name'></span> - <span class='paramdescription' data-bind='html: description'></span></p>
+                    </li>
+                </ul>
             </li>
             <hr>
         </ul>
@@ -260,20 +266,19 @@ $('div.gallery-container-4').owlgallery({
             <li>
                 <p><span class='key' data-bind='html: eventName'></span> = <span class='key' data-bind='html: constant'></span></p>
                 <p class='description' data-bind='html: description'></p>
-                <p data-bind='visible: eventParams().length > 0'>
-                    <span class='val'>event params: [</span>
-		                <span data-bind='foreach: eventParams'>
-                            <span class='param-name' data-bind='html: name'></span>: <span class='param-description' data-bind='html: value'></span>
-						</span>
-                    <span class='val'>]</span>
-                </p>
+                <ul data-bind='foreach: eventParams' class='params-list'>
+                    <li>
+                        <p><span class='code' data-bind='html: functionExample'></span></p>
+                        <p><span class='type' data-bind='html: name'></span> - <span class='paramdescription' data-bind='html: value'></span></p>
+                    </li>
+                </ul>
             </li>
             <hr>
 	    </ul>
 
     </div>
 
-    <p class='legal'>© 2014 Crivas Inc. All rights reserved.</p>
+    <p class='legal'>&#169 2014 Crivas Inc. All rights reserved.</p>
 
 </div>
 

@@ -49,7 +49,7 @@ $.fn.owlgallery = function (options) {
         autoLoadTweener: true,
         enableTouchEvents: true,
         autoLoadOwlSwipe: true,
-        relativeAutoLoadPath: '/js/',
+        relativeAutoLoadPath: 'js/',
         hideUntilReady: false,
         autoPlay: true
     }, options);
@@ -468,9 +468,9 @@ $.fn.owlgallery = function (options) {
             $navRight = $(navigationButtons[1]);
 
 	    $navigationElement.addClass(navClassName);
-        $navLeft.on('click', $this.navigationDecrementClick);
+        $navLeft.on('click', $this.goToPrevSlide);
         $navLeft.addClass(navClassNameLeft);
-        $navRight.on('click', $this.navigationIncrementClick);
+        $navRight.on('click', $this.goToNextSlide);
         $navRight.addClass(navClassNameRight);
 
         if (settings.enableTouchEvents) {
@@ -479,20 +479,20 @@ $.fn.owlgallery = function (options) {
                 $.getScript( settings.relativeAutoLoadPath + 'jquery.owlswipe-1.0.js', function() {
                     $this.owlswipe({
                         swipeLeft: function(d) {
-                            $this.navigationIncrementClick(e);
+                            $this.goToNextSlide(e);
                         },
                         swipeRight: function(d) {
-                            $this.navigationDecrementClick(e);
+                            $this.goToPrevSlide(e);
                         }
                     });
                 });
             } else {
                 $this.owlswipe({
                     swipeLeft: function(d) {
-                        $this.navigationIncrementClick(e);
+                        $this.goToNextSlide(e);
                     },
                     swipeRight: function(d) {
-                        $this.navigationDecrementClick(e);
+                        $this.goToPrevSlide(e);
                     }
                 });
             }
@@ -941,9 +941,9 @@ $.fn.owlgallery = function (options) {
      Click event for navigation button click.
      Decrments currentSlideNum
 
-     @method navigationDecrementClick
+     @method goToPrevSlide
      **/
-    $this.navigationDecrementClick = function (e) {
+    $this.goToPrevSlide = function (e) {
 
         if (!animating) {
             $this.trigger(Owl.event.SLIDEPREVCLICKED, currentSlideNum);
@@ -958,9 +958,9 @@ $.fn.owlgallery = function (options) {
      Click event for navigation button click.
      Increments currentSlideNum
 
-     @method navigationIncrementClick
+     @method goToNextSlide
      **/
-    $this.navigationIncrementClick = function (e) {
+    $this.goToNextSlide = function (e) {
 
         if (!animating) {
             $this.trigger(Owl.event.SLIDENEXTCLICKED, currentSlideNum);

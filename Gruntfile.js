@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 		    }
 	    },
 	    clean: {
-            normal: [ '<%= pkg.outputFolder %>', '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/', 'download', 'js/compiled', 'css/compiled' ],
+            normal: [ '<%= pkg.outputFolder %>', '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/', 'js/compiled', 'css/compiled' ],
             cleanup: [ '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip', '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>' ]
         },
 	    copy: {
@@ -219,7 +219,7 @@ module.exports = function(grunt) {
                     version: '<%= pkg.version %>',
                     pluginName: '<%= pkg.pluginName %>',
                     pluginVersion: '<%= pkg.pluginVersion %>',
-                    packageFileName: '/download/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip',
+                    packageFileName: 'download/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.zip',
                     port: '<%= pkg.port %>'
                 }
             },

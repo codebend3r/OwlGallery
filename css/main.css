@@ -76,6 +76,19 @@ p.legal, a.legal {
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   p.legal, a.legal {
+    font-size: 22px;
+  }
+}
+
+.code {
+  font-family: Consolas, 'monaco', monospace;
+  background-color: #dbdbdb;
+  border: 1px solid #ddd;
+  color: #515450;
+  margin: 0 0 20px 0;
+}
+@media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
+  .code {
     font-size: 26px;
   }
 }
@@ -87,10 +100,11 @@ pre {
   color: #30332f;
   padding: 10px;
   margin: 0 0 20px 0;
+  overflow: hidden;
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   pre {
-    font-size: 30px;
+    font-size: 22px;
   }
 }
 
@@ -101,10 +115,11 @@ code {
   white-space: pre-wrap;
   color: #30332f;
   padding: 10px;
+  overflow: hidden;
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   code {
-    font-size: 30px;
+    font-size: 22px;
   }
 }
 
@@ -114,10 +129,11 @@ var {
   font-weight: normal;
   color: #30332f;
   padding: 0;
+  overflow: hidden;
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dppx), (min-resolution: 1.5dppx) {
   var {
-    font-size: 30px;
+    font-size: 22px;
   }
 }
 
