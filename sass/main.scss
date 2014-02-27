@@ -203,6 +203,7 @@ ul.slides {
     padding: 10px;
     &:hover, &:selected {
       color: $tertiaryColour;
+      background-color: #bcffa1;
     }
     @media #{$retinaBreakpoint} {
       font-size: $retinaFontSize;

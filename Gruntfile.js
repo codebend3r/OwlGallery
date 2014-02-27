@@ -36,45 +36,47 @@ module.exports = function(grunt) {
 	    copy: {
 		    dev: {
 			    files: [
-				    {src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html'},
-				    {src: ['images/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['css/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['js/internal/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['js/plugins/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['js/vendor/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['js/compiled/**'], dest: '<%= pkg.outputFolder %>/'}
+				    { src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html' },
+				    { src: ['images/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['css/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['js/internal/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['js/plugins/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['js/vendor/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['js/compiled/**'], dest: '<%= pkg.outputFolder %>/'}
 			    ]
-		    },
+		     },
 		    prod: {
 			    files: [
-				    {src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html'},
-				    {src: ['images/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['css/'], dest: '<%= pkg.outputFolder %>/css'},
-				    {src: ['js/'], dest: '<%= pkg.outputFolder %>/js'},
-				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.js'},
-                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'},
-                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
-				    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css'},
+				    { src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html' },
+				    { src: ['images/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['css/'], dest: '<%= pkg.outputFolder %>/css' },
+				    { src: ['js/'], dest: '<%= pkg.outputFolder %>/js' },
+				    { src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.js' },
+                    { src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js' },
+                    { src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js' },
+				    { src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.css' }
 			    ]
-		    },
+            },
 		    release: {
 			    files: [
-				    {src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html'},
-				    {src: ['images/**'], dest: '<%= pkg.outputFolder %>/'},
-				    {src: ['css/'], dest: '<%= pkg.outputFolder %>/css'},
-				    {src: ['js/'], dest: '<%= pkg.outputFolder %>/js'},
-				    {src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.min.js'},
-                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'},
-                    {src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'},
-                    {src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css'}
+				    { src: ['index.html'], dest: '<%= pkg.outputFolder %>/index.html' },
+				    { src: ['images/**'], dest: '<%= pkg.outputFolder %>/' },
+				    { src: ['css/'], dest: '<%= pkg.outputFolder %>/css' },
+				    { src: ['js/'], dest: '<%= pkg.outputFolder %>/js' },
+				    { src: ['js/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.outputName %>-<%= pkg.version %>.min.js' },
+                    { src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js' },
+                    { src: ['js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js'], dest: '<%= pkg.outputFolder %>/js/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js' },
+                    { src: ['css/compiled/<%= pkg.outputName %>-<%= pkg.version %>.min.css'], dest: '<%= pkg.outputFolder %>/css/<%= pkg.outputName %>-<%= pkg.version %>.min.css' },
+                    { expand: true, flatten: true, src: [ 'js/vendor/TweenMax.min.js' ], dest: '<%= pkg.outputFolder %>/js/vendor' },
+                    { expand: true, flatten: true, src: [ 'js/vendor/jquery.owlswipe-1.0.js' ], dest: '<%= pkg.outputFolder %>/js/vendor' }
                 ]
-		    },
+		     },
 		    zipup: {
 		    	files: [
-					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
-					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
-					{ expand: true, flatten: true, src: [ 'js/vendor/jquery.owlswipe-1.0.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
-					{ expand: true, flatten: true, src: [ 'js/vendor/TweenMax.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js' },
+					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js'  },
+					{ expand: true, flatten: true, src: [ 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js'  },
+					{ expand: true, flatten: true, src: [ 'js/vendor/jquery.owlswipe-1.0.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js'  },
+                    { expand: true, flatten: true, src: [ 'js/vendor/TweenMax.min.js' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/js'  },
 					{ expand: true, flatten: true, src: [ 'sass/owlgallery.scss' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/sass' },
 					{ expand: true, flatten: true, src: [ 'css/owlgallery.css' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/css' },
 					{ expand: false, flatten: false, src: [ 'images/controls/**' ], dest: '<%= pkg.pluginName %>-<%= pkg.pluginVersion %>/' }

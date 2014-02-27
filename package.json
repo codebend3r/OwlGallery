@@ -5,7 +5,7 @@
     "outputFolder": "www",
     "outputName": "owlgallery-website",
     "pluginName": "jquery.owlgallery",
-    "pluginVersion": "1.7.2",
+    "pluginVersion": "1.7.3",
     "port": "8000",
     "devDependencies": {
         "grunt": "~0.4.2",

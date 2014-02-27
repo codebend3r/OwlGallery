@@ -87,30 +87,30 @@ CS.documentation = {
         },
         {
             key: 'enableTweener',
-            defaultValue: 'false',
+            defaultValue: 'true',
             type: 'Boolean',
             description: 'Allows animations to use TweenMax/TweenLite animations for improved performance. Must be loaded externally. <a href="http://www.greensock.com/get-started-js/">DOWNLOAD</a>',
             required: false
         },
         {
             key: 'autoLoadTweener',
-            defaultValue: 'false',
+            defaultValue: 'true',
             type: 'Boolean',
-            description: 'COMING SOON: if you want you automatically load the TweenMax/TweenLite library rather than including the script in your HTML page.',
+            description: 'Whether to automatically load the TweenMax/TweenLite library rather than including the script in your HTML page. This option is only availble if <var>enableTweener</var> is set to true.',
             required: false
         },
         {
             key: 'enableTouchEvents',
-            defaultValue: 'false',
+            defaultValue: 'true',
             type: 'Boolean',
             description: 'Enables touch events for swipe left and swipe right. External <a href="http://crivas.net/git/owlswipe/">OwlSwipe Plugin required.</a>',
             required: false
         },
         {
             key: 'autoLoadOwlSwipe',
-            defaultValue: 'false',
+            defaultValue: 'true',
             type: 'Boolean',
-            description: 'COMING SOON: if you want you automatically load the OwlSwipe plugin rather than including the script in your HTML page. This option is only availble if <var>enableTouchEvents</var> is set to true.',
+            description: 'Whether to automatically load the OwlSwipe plugin rather than including the script in your HTML page. This option is only availble if <var>enableTouchEvents</var> is set to true.',
             required: false
         },
         {
@@ -118,6 +118,13 @@ CS.documentation = {
             defaultValue: 'false',
             type: 'Boolean',
             description: 'Whether to automatically start the gallery cycle based on <var>cycleTime</var>.',
+            required: false
+        },
+        {
+            key: 'relativeAutoLoadPath',
+            defaultValue: '/js/',
+            type: 'String',
+            description: 'String value with the relative path to autoload OwlSwipe and TweenMax. By default it will look at the same folder as the OwlGallery js file.',
             required: false
         },
         {

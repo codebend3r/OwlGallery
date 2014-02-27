@@ -3,7 +3,7 @@
  * author: Chester Rivas
  * website: crivas.net
  * description: image gallery jquery plugin, supports responsive design
- * version: 1.7.2
+ * version: 1.7.3
  * Copyright (c) 2014 Crivas Inc.
  */
 
@@ -46,9 +46,10 @@ $.fn.owlgallery = function (options) {
         child: null, //will automatically find img and li tags
         responsiveMode: Owl.responsiveMode.NEVERRESIZE,
         enableTweener: true,
-        enableTouchEvents: false,
         autoLoadTweener: true,
-        autoLoadOwlSwipe: false,
+        enableTouchEvents: true,
+        autoLoadOwlSwipe: true,
+        relativeAutoLoadPath: '/js/',
         hideUntilReady: false,
         autoPlay: true
     }, options);
@@ -265,7 +266,7 @@ $.fn.owlgallery = function (options) {
 
         if (settings.enableTweener) {
             if (settings.autoLoadTweener) {
-                $.getScript( "TweenMax.min.js", function() {
+                $.getScript( settings.relativeAutoLoadPath + 'TweenMax.min.js', function() {
                     if (settings.hideUntilReady) {
                         TweenLite.to($this, 1, {
                             autoAlpha: 1, ease: easeType
@@ -475,7 +476,7 @@ $.fn.owlgallery = function (options) {
         if (settings.enableTouchEvents) {
 
             if (settings.autoLoadOwlSwipe) {
-                $.getScript( 'jquery.owlswipe-1.0.js', function() {
+                $.getScript( settings.relativeAutoLoadPath + 'jquery.owlswipe-1.0.js', function() {
                     $this.owlswipe({
                         swipeLeft: function(d) {
                             $this.navigationIncrementClick(e);

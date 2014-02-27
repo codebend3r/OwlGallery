@@ -5,7 +5,8 @@ CS.initGallery = function () {
 		$('.gallery-container-1').owlgallery({
 			child: 'li.slides',
 			galleryWidth: 1000,
-			galleryHeight: 563
+			galleryHeight: 563,
+            relativeAutoLoadPath: '/js/vendor/'
 		});
 
 		$('.gallery-container-2').owlgallery({
@@ -17,7 +18,8 @@ CS.initGallery = function () {
 			enableTweener: true,
             autoLoadTweener: true,
 			animationType: Owl.animationTypes.FADE,
-			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER
+			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
+            relativeAutoLoadPath: '/js/vendor/'
 		});
 
 		$('.gallery-container-3').owlgallery({
@@ -30,7 +32,8 @@ CS.initGallery = function () {
 			autoPlay: false,
 			responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
 			paginationElement: '.pagination',
-			navElement: '.nav'
+			navElement: '.nav',
+            relativeAutoLoadPath: '/js/vendor/'
 		});
 
         $('.gallery-container-4').owlgallery({
@@ -44,7 +47,8 @@ CS.initGallery = function () {
             autoPlay: false,
             animationType: Owl.animationTypes.SLIDE,
             responsiveMode: Owl.responsiveMode.ONLYRESIZEWHENSMALLER,
-            showThumbnails: true
+            showThumbnails: true,
+            relativeAutoLoadPath: '/js/vendor/'
         });
 
 	});
