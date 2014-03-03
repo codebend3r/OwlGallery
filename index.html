@@ -87,7 +87,7 @@ $('ul.gallery-container-1').owlgallery({
 	    <hr>
 
 	    <h4>Example #2</h4>
-		<p>Div container with a list of divs containing an img tags. Set to fading instead of sliding.</p>
+		<p>Div container with a list of divs containing an img tags. Animation type set to fading.</p>
 	    <div class='gallery-container-2' data-bind='foreach: imagesList'>
 		    <div class='slides'>
 			    <img class='image-slide' data-bind='attr:{src:$data}'>
@@ -152,19 +152,19 @@ $('div.gallery-container-2').owlgallery({
 	    <pre>
 &ltdiv class='gallery-container-3'&gt
 &nbsp;&nbsp;&ltdiv class='image-container' &gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/1.jpg'/&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/2.jpg/'&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/3.jpg'/&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/4.jpg'/&gt
-&nbsp;&nbsp;&ltimg class='image-slide' src='images/5.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/1.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/2.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/3.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/4.jpg'/&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltimg class='image-slide' src='images/5.jpg'/&gt
 &nbsp;&nbsp;&lt/div&gt
-&nbsp;&nbsp;&ltdiv class='nav'&gt
-&nbsp;&nbsp;&nbsp;&nbsp;&ltdiv class='sprite arrow-left'&gt&lt/div&gt
-&nbsp;&nbsp;&nbsp;&nbsp;&ltdiv class='sprite arrow-right'&gt&lt/div&gt
-&nbsp;&nbsp;&lt/div&gt
-&nbsp;&nbsp;&ltdiv class='pagination'&gt
-&nbsp;&nbsp;&nbsp;&nbsp;&ltdiv class='sprite dot-empty'&gt&lt/div&gt
-&nbsp;&nbsp;&lt/div&gt
+&nbsp;&nbsp;&ltul class='nav'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='sprite arrow-left'&gt&lt/li&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='sprite arrow-right'&gt&lt/li&gt
+&nbsp;&nbsp;&lt/ul&gt
+&nbsp;&nbsp;&ltul class='pagination'&gt
+&nbsp;&nbsp;&nbsp;&nbsp;&ltli class='sprite dot-empty'&gt&lt/li&gt
+&nbsp;&nbsp;&lt/ul&gt
 &lt/div&gt
 	    </pre>
 

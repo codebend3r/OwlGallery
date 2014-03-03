@@ -3,7 +3,7 @@
  * author: Chester Rivas
  * website: crivas.net
  * description: image gallery jquery plugin, supports responsive design
- * version: 1.7.3
+ * version: 1.7.4
  * Copyright (c) 2014 Crivas Inc.
  */
 
@@ -37,7 +37,8 @@ $.fn.owlgallery = function (options) {
         galleryHeight: 480,
         //picturePosition: 'fill', // stretch, fill, fit, autoresize
         //maxImagesPerSlide: 1, //TODO: implement customizable images per slide, currently only shows one
-        showThumbnails: false, //TODO: implement thumbnails
+        //variableHeight, false, //TODO implement variable heights, auto resizing of height only
+        showThumbnails: false,
         thumbnailsHeight: 50,
         paginationElement: null,
         navElement: null,

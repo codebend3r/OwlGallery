@@ -1,4 +1,4 @@
-OwlGallery - v 1.7.3
+OwlGallery - v1.7.4
 ============
 
 JQuery Plugin for easily creating a gallery with responsiveness and swipe detection for touch devices built in.

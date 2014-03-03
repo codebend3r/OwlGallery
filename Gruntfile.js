@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 		    },
             pluginconcat: {
                 src: [
-                    'js/plugins/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
+                    'js/vendor/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
                 ],
                 dest: 'js/compiled/<%= pkg.pluginName %>-<%= pkg.pluginVersion %>.js'
             },

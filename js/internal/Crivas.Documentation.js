@@ -185,7 +185,7 @@ CS.documentation = {
 		},
 		{
 			eventName: 'paginationclicked',
-            constant: 'Owl.event.SLIDENEXTCLICKED',
+            constant: 'Owl.event.PAGINATIONCLICKED',
 			description: 'Dispatched when one of the pagination elements are clicked.',
             eventParams: [{
                 name: 'currentSlideNum',
