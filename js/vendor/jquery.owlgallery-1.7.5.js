@@ -3,7 +3,7 @@
  * author: Chester Rivas
  * website: crivas.net
  * description: image gallery jquery plugin, supports responsive design
- * version: 1.7.4
+ * version: 1.7.5
  * Copyright (c) 2014 Crivas Inc.
  */
 
@@ -477,7 +477,7 @@ $.fn.owlgallery = function (options) {
         if (settings.enableTouchEvents) {
 
             if (settings.autoLoadOwlSwipe) {
-                $.getScript( settings.relativeAutoLoadPath + 'jquery.owlswipe-1.0.js', function() {
+                $.getScript( settings.relativeAutoLoadPath + 'jquery.owlswipe-1.0.min.js', function() {
                     $this.owlswipe({
                         swipeLeft: function(d) {
                             $this.goToNextSlide(e);
